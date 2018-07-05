@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="login">
+    <view class="login-accredit">
+      <image class="login-accredit-img" src="../../imgs/无权限_3.png" mode="scaleToFill"></image>
+      <text class="login-accredit-text">需要您的授权才能使用哦~</text>
+    </view>
+    <button class="login-accredit-btn" bindtap='accredit'>立即授权</button>
+  </view>
+</view>
