@@ -1,0 +1,51 @@
+<!--pages/calendar/calendar.wxml-->
+<view class="container">
+  <view class="calendar">
+    <view class="nav">
+      <button class="nav-add-left" bindtap='addClassTable'>新建课程表</button>
+      <view class="nav-add-right">
+        <text>新建课程表 </text>
+        <text>新建课程表</text>
+      </view>
+    </view>
+
+    <view class="classBody">
+      <scroll-view scroll-x="true" class="weui-navbar">
+        <block wx:for-items="{{tabs}}">
+          <view id="{{index}}" class="{{activeIndex == index ?'item_on':''}} default-item" bindtap="tabClick" style="width:{{tabW}}px">
+            {{item}}
+          </view>
+        </block>
+        <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
+      </scroll-view>
+      <view class="rec" />
+      <swiper current="{{activeIndex}}" class="swiper-box" duration="100" bindchange="bindChange">
+        <swiper-item class="swiper-item">
+          <view class="slide-view">tab0</view>
+        </swiper-item>
+        <swiper-item class="swiper-item">
+          <view class="slide-view">tab1</view>
+        </swiper-item>
+        <swiper-item class="swiper-item">
+          <view class="slide-view">tab2</view>
+        </swiper-item>
+        <swiper-item class="swiper-item">
+          <view class="slide-view">tab3</view>
+        </swiper-item>
+        <swiper-item class="swiper-item">
+          <view class="slide-view">tab4</view>
+        </swiper-item>
+        <swiper-item class="swiper-item">
+          <view class="slide-view">tab5</view>
+        </swiper-item>
+        <swiper-item class="swiper-item">
+          <view class="slide-view">tab6</view>
+        </swiper-item>
+      </swiper>
+    </view>
+
+
+
+
+  </view>
+</view>

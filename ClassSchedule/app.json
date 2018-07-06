@@ -1,11 +1,28 @@
 {
   "pages": [
-    "pages/login/login"
+    
+    "pages/calendar/calendar",
+    "pages/login/login",
+    "pages/settings/settings"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#54cbf0",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "borderStyle": "white",
+    "selectedColor":"#54cbf0",
+    "list": [
+      {
+        "pagePath": "pages/calendar/calendar",
+        "text": "课程表"
+      },
+      {
+        "pagePath": "pages/settings/settings",
+        "text": "设置"
+      }
+    ]
   }
 }
