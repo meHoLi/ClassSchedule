@@ -1,0 +1,56 @@
+<!--pages/addNewClass/addNewClass.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        <view class="headLeft" bindtap="setPhotoInfo">
+          <image class="userinfo-avatar" src="{{src}}" background-size="cover"></image>
+        </view>
+      </view>
+
+      <view class="infoMain">
+        <view class="info-items" bindtap="setName">
+          <text>姓名</text>
+          <view class="infotext">
+            <input class="info-motto" type='text' bindinput="setNameInput" placeholder="请输入姓名" focus/>
+          </view>
+        </view>
+
+        <view class="info-items" bindtap="getregion">
+          <text>生日</text>
+          <view class="infotext">
+            <picker class="info-motto" mode="date" value="{{date}}" start="1978-01-01" end="{{endDate}}" bindchange="bindDateChange">
+              <view class="picker">{{date}}</view>
+            </picker>
+          </view>
+        </view>
+
+        <view class="info-items">
+          <text>性别</text>
+          <view class="infotext">
+            <picker bindchange="bindPickerChange" value="{{genderValue}}" range="{{gender}}" class="info-motto">
+              <view class="picker">
+                {{gender[genderValue]}}
+              </view>
+            </picker>
+          </view>
+        </view>
+
+        <view class="info-items-radio">
+          <text>请选择课程表背景：</text>
+          <view class="checkBgColor">
+            <view wx:for="{{radio}}" wx:key="{{*this}}" class="checkbox '{{'checkbox'+index}}' '{{item.checked?'checkedActive':''}}'" style="width:{{radioW}}px" data-id="{{index}}" bindtap='getradio'>
+              <image src="../../imgs/head/right.png"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="btn">
+      <button bindtap="cancel" class="cancelBtn"> 取消 </button>
+      <button bindtap="save" class="saveBtn"> 保存 </button>
+    </view>
+  </view>
+</view>

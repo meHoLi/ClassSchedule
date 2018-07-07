@@ -1,9 +1,11 @@
 {
   "pages": [
-    
-    "pages/calendar/calendar",
+    "pages/settings/settings",
     "pages/login/login",
-    "pages/settings/settings"
+    "pages/calendar/calendar",
+    
+    "pages/addNewClass/addNewClass",
+    "pages/usingHelp/usingHelp"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -13,13 +15,15 @@
   },
   "tabBar": {
     "borderStyle": "white",
-    "selectedColor":"#54cbf0",
+    "selectedColor": "#54cbf0",
     "list": [
       {
         "pagePath": "pages/calendar/calendar",
         "text": "课程表"
-      },
-      {
+      },{
+        "pagePath": "pages/usingHelp/usingHelp",
+        "text": "使用帮助"
+      },{
         "pagePath": "pages/settings/settings",
         "text": "设置"
       }

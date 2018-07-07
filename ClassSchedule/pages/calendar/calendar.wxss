@@ -20,11 +20,15 @@
   margin: 0;
   font-size: 24rpx;
 }
+.classBody{
+  display: flex;
+  flex-direction: column;
+}
 
 .weui-navbar{
    width: 100%;
-   position: fixed;
-   border-bottom: 2rpx solid #00bba1;
+   /* position: fixed; */
+   border-bottom: 2rpx solid #54cbf0;
    box-sizing: border-box;
    white-space: nowrap; 
    z-index: 100;
@@ -38,20 +42,24 @@
   /*width:25%;*/
   display: inline-block;
   text-align: center;
-  font-size: 32rpx;
+  font-size: 24rpx;
   box-sizing: border-box;
   height: 7%;
   padding-bottom: 20rpx;
+  /* border:1px solid #d1d1d1;
+  border-bottom: none;
+  border-radius: 10rpx; */
+  /* margin-right: 8rpx; */
 }
 .weui-navbar .item_on{
-   color: #00bba1;
+   color: #54cbf0;
 }
 .weui-navbar-slider{
     position: absolute;
     width: 160rpx;
     height: 2px;
     content:"";
-    background: #00bba1;
+    background: #54cbf0;
     bottom: 0px;
     left: 12.5rpx;
     transition: transform .3s;

@@ -1,4 +1,5 @@
 // pages/calendar/calendar.js
+var mtabW
 Page({
   data: {
     tabs: ["综合与绘画", "艺术喷漆", "泥塑", "纸面绘画", "布面绘画", "中国油画", "水墨画"],
@@ -7,15 +8,18 @@ Page({
     tabW: 0
   },
 
-  addClassTable: function() {
-    console.log('新建')
+  addClassTable: function () {
+    wx.navigateTo({
+      url: '../addNewClass/addNewClass'
+    })
   },
 
-  onLoad: function() {
+  onLoad: function () {
     var that = this;
     wx.getSystemInfo({
-      success: function(res) {
-        mtabW = res.windowWidth / 4; //设置tab的宽度
+      success: function (res) {
+        debugger
+        mtabW = (res.windowWidth - 20) / 3; //设置tab的宽度
         that.setData({
           tabW: mtabW
         })
@@ -23,7 +27,7 @@ Page({
     });
 
   },
-  tabClick: function(e) {
+  tabClick: function (e) {
     var that = this;
     var idIndex = e.currentTarget.id;
     var offsetW = e.currentTarget.offsetLeft; //2种方法获取距离文档左边有多少距离
@@ -32,7 +36,7 @@ Page({
       slideOffset: offsetW
     });
   },
-  bindChange: function(e) {
+  bindChange: function (e) {
     var current = e.detail.current;
     if ((current + 1) % 4 == 0) {
 
