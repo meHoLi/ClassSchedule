@@ -108,7 +108,7 @@ Page({
   //取消
   cancel: function(){
     wx.navigateBack({
-      url: "../settings/settings"
+      delta: 1
     })
   },
   //关闭
