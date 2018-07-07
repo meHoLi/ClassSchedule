@@ -16,9 +16,10 @@
 .nav .nav-add-left{
   width: 180rpx;
   color: #fff; 
-  background: #54cbf0;
-  margin: 0;
   font-size: 24rpx;
+  background: #54cbf0;
+  padding: 0;
+  margin: 0;
 }
 .classBody{
   display: flex;

@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/settings/settings",
+    
     "pages/login/login",
     "pages/calendar/calendar",
-    
+    "pages/settings/settings",
     "pages/addNewClass/addNewClass",
     "pages/usingHelp/usingHelp"
   ],

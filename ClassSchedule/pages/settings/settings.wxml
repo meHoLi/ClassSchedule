@@ -2,19 +2,25 @@
 <view class="container">
   <view class="classList">
 
-    <view class='noClassTable'>
-      <image class="noClass-img" src="../../imgs/setting/nodata5.png" mode="scaleToFill"></image>
-      <text class="login-accredit-text">当前还没有课程表，请先添加课程表哦~</text>
+    <view class='noClassTable' style="display:{{noClassDis}}">
+      <view class='noClassTableBody'>
+        <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+        <text class="login-accredit-text">当前还没有课程表，请先添加课程表哦~</text>
+      </view>
     </view>
 
-    <view class="haveClassTable">
-      <view wx:for="{{list}}" wx:key="{{index}}" class="item">
-        <view bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.txtStyle}}" class="inner txt">
+    <view class="haveClassBody" style="display:{{haveClassDis}}">
+      <view class="haveClassTable">
+        <view wx:for="{{list}}" wx:key="{{index}}" class="item '{{'item'+index}}'">
 
-          <image class="item-icon" mode="widthFix" src="{{item.icon}}">
-          </image>{{item.txt}}
+          <view bindtap='editInfo' bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.txtStyle}}" class="inner txt">
+            <image data-index="{{index}}" class="item-icon" mode="widthFix" src="{{item.headUrl}}"></image>
+            <text class="item-text" data-index="{{index}}">{{item.txt}}</text>
+
+            <image data-index="{{index}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+          </view>
+          <view data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
         </view>
-        <view data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
       </view>
     </view>
 
@@ -22,6 +28,6 @@
       <image class="addNewClass-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
       <text>添加课程表</text>
     </button>
-
+    
   </view>
 </view>
