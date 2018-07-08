@@ -1,7 +1,1 @@
 *.txt
-# compiled files
-obj
-bin
-# user files
-.user
-.suo
