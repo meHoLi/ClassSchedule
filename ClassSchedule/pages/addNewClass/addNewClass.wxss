@@ -113,5 +113,4 @@
  
 .checkedActive image {
   display: inline-block;
-  /* background-image: url(../../imgs/head/right.png); */
 }

@@ -18,7 +18,6 @@ Page({
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
-        debugger
         mtabW = (res.windowWidth - 20) / 3; //设置tab的宽度
         that.setData({
           tabW: mtabW

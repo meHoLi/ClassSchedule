@@ -187,9 +187,9 @@ Page({
         txt: "一年一度的圣诞节即将到来,姑娘们也纷纷开始跑趴了吧!"
       }
     ];
-    // this.setData({
-    //   list: list
-    // });
+    this.setData({
+      list: list
+    });
   },
   
   editInfo: function () {

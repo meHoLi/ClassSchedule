@@ -1,0 +1,23 @@
+<!--pages/classDetails/classDetails.wxml-->
+<view class="container">
+  <view class="classDetails">
+
+    <view class='details-head'>
+      <view class="head">
+        {{date}} {{week}}
+      </view>
+    </view>
+
+    <view class='noClassTable' style="display:{{noClassDis}}">
+      <view class='noClassTableBody'>
+        <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+        <text class="login-accredit-text">当前还没有日程，请先添加日程哦~</text>
+      </view>
+    </view>
+
+    <button class="addSchedule" bindtap='addNewClass'>
+      <image class="addSchedule-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
+      <text>新增日程</text>
+    </button>
+  </view>
+</view>

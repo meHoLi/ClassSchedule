@@ -1,10 +1,12 @@
 {
   "pages": [
-    
     "pages/login/login",
-    "pages/calendar/calendar",
+    "pages/classDetails/classDetails",
+    
+    "pages/calendar/calendar",    
     "pages/settings/settings",
     "pages/addNewClass/addNewClass",
+    "pages/setAgenda/setAgenda",
     "pages/usingHelp/usingHelp"
   ],
   "window": {
@@ -20,10 +22,12 @@
       {
         "pagePath": "pages/calendar/calendar",
         "text": "课程表"
-      },{
+      },
+      {
         "pagePath": "pages/usingHelp/usingHelp",
         "text": "使用帮助"
-      },{
+      },
+      {
         "pagePath": "pages/settings/settings",
         "text": "设置"
       }

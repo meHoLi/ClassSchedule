@@ -1,0 +1,96 @@
+<!--pages/setAgenda/setAgenda.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        {{date}} 日程表
+      </view>
+
+      <view class="infoMain">
+        <view class="info-items">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>课程名称</text>
+          </view>
+          <view class="infotext">
+            <input class="info-motto" type='text' bindinput="setClassNameInput" placeholder="请输入课程名称" focus/>
+          </view>
+        </view>
+
+        <view class="info-items">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>学校名称</text>
+          </view>
+          <view class="infotext">
+            <input class="info-motto" type='text' bindinput="setSchoolNameInput" placeholder="请输入学校名称" focus/>
+          </view>
+        </view>
+
+        <view class="info-items">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>选择时间</text>
+          </view>
+          <view class="infotext">
+            <view class="info-motto timePicker">
+              <picker mode="time" value="{{startTime}}" start="07:00" end="23:59" bindchange="bindStartTimeChange">
+                <view class="picker">
+                  {{startTime}}
+                </view>
+              </picker>
+              —
+              <picker mode="time" value="{{endTime}}" start="07:00" end="23:59" bindchange="bindEndTimeChange">
+                <view class="picker">
+                  {{endTime}}
+                </view>
+              </picker>
+            </view>
+          </view>
+        </view>
+
+        <view class="info-items">
+          <text>地址</text>
+          <view class="infotext">
+            <input class="info-motto" type='text' bindinput="setAddressInput" placeholder="请输入地址" focus/>
+          </view>
+        </view>
+
+        <view class="info-items">
+          <text>老师</text>
+          <view class="infotext">
+            <input class="info-motto" type='text' bindinput="setTeacherInput" placeholder="请输入老师姓名" focus/>
+          </view>
+        </view>
+
+        <view class="info-items">
+          <text>联系方式</text>
+          <view class="infotext">
+            <input class="info-motto" type='number' maxlength='11' bindinput="setRemarkInput" placeholder="请输入联系方式" focus/>
+          </view>
+        </view>
+
+        <view class="info-items">
+          <text>提醒</text>
+          <view class="infotext">
+            <picker bindchange="bindPickerChange" value="{{remindValue}}" range="{{remind}}" class="info-motto">
+              <view class="picker">
+                {{remind[remindValue]}}
+              </view>
+            </picker>
+          </view>
+        </view>
+
+        <view class="remark">
+          <textarea class="remarkInput" type='text' bindinput="setRemarkInput" maxlength='200' placeholder="备注" focus/>
+        </view>
+      </view>
+    </view>
+
+    <view class="btn">
+      <button bindtap="cancel" class="cancelBtn"> 取消 </button>
+      <button bindtap="save" class="saveBtn"> 保存 </button>
+    </view>
+  </view>
+</view>

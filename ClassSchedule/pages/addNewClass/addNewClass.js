@@ -43,7 +43,6 @@ Page({
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
-        debugger
         mradioW = (res.windowWidth - 20 -30) / 3; //设置tab的宽度
         that.setData({
           radioW: mradioW
@@ -85,7 +84,7 @@ Page({
     })
   },
   //选择单选
-  getradio: function (e) {debugger
+  getradio: function (e) {
     let index = e.currentTarget.dataset.id;
     let radio = this.data.radio;
     for (let i = 0; i < radio.length; i++) {
