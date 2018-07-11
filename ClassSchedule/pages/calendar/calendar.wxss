@@ -47,7 +47,7 @@
   box-sizing: border-box;
   height: 7%;
   padding-bottom: 20rpx;
-  /* border:1px solid #d1d1d1;
+  /* border:2rpx solid #d1d1d1;
   border-bottom: none;
   border-radius: 10rpx; */
   /* margin-right: 8rpx; */
@@ -58,15 +58,15 @@
 .weui-navbar-slider{
     position: absolute;
     width: 160rpx;
-    height: 2px;
+    height: 4rpx;
     content:"";
     background: #54cbf0;
-    bottom: 0px;
+    bottom: 0;
     left: 12.5rpx;
     transition: transform .3s;
 }
 .swiper-box{
-  border-bottom: 1px solid #d1d1d1;
+  border-bottom: 2rpx solid #d1d1d1;
 }
 .swiper-box .swiper-item{
    text-align: center;

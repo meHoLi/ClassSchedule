@@ -22,10 +22,10 @@
   justify-content: space-between;
   align-items: center;
   padding:0 40rpx;
-  border-top:1px solid #f0f0f0;
+  border-top:2rpx solid #f0f0f0;
 }
-.info-items:last-child{
-  border-bottom:1px solid #f0f0f0;
+.info-items:nth-last-child(2){
+  border-bottom:2rpx solid #f0f0f0;
 }
 .title{
   display: flex;
@@ -65,7 +65,7 @@
   padding: 28rpx;
   margin: 0 auto;
   margin-top: 20rpx;
-  border:1px solid #e4e4e4;
+  border:2rpx solid #e4e4e4;
   border-radius: 10rpx;
   overflow: hidden;   
 }
@@ -80,5 +80,7 @@
   margin-right: 16rpx;
 }
 .btn .saveBtn{
+  color: #fff;
+  background: #54cbf0;
   margin-right: 2rpx;
 }

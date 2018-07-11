@@ -8,14 +8,40 @@
       </view>
     </view>
 
-    <view class='noClassTable' style="display:{{noClassDis}}">
-      <view class='noClassTableBody'>
-        <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
-        <text class="login-accredit-text">当前还没有日程，请先添加日程哦~</text>
-      </view>
-    </view>
+    <scroll-view scroll-y="true" enable-back-to-top="true" class="details">
+      <view class="details-body">
+        <view class='timeLine'>
+          <view wx:for="{{timeList}}" wx:key="{{index}}" bindtap='addNewAgenda' class="timeItem '{{'timeItem'+index}}'">
+            <text class="timeItem-text" data-index="{{index}}">{{item.time}}</text>
+          </view>
 
-    <button class="addSchedule" bindtap='addNewClass'>
+        </view>
+
+
+        <view class='noClassTable' style="display:{{noClassDis}}">
+          <view class='noClassTableBody'>
+            <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+            <text class="login-accredit-text">当前还没有日程，请先添加日程哦~</text>
+          </view>
+        </view>
+
+        <view class='haveClassTable' style="display:{{haveClassDis}}">
+          <view wx:for="{{tableList}}" wx:key="id" class="class-item" bindtap="addNewAgenda" data-index="{{index}}" data-item="{{item}}" style="margin-top:{{item.marginTop}}rpx;height:{{item.height}}rpx;">
+            <view class="class-item-inner" style="height:{{item.sections*50-5}}px;">
+              <text class="class-item-inner-time">{{item.startTime}} - {{item.endTime}}</text>
+              <text class="class-item-inner-school">
+                <text class='schoolName'>{{item.schoolName}} </text>
+                <text class='className'>{{item.className}}</text>
+              </text>
+              <text class='class-item-inner-isRemind'>{{item.isRemind == 0?'未提醒':(item.isRemind == 1?'已提醒':'未设提醒')}}</text>
+              <image class="class-item-inner-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <button class="addSchedule" bindtap='addNewAgenda'>
       <image class="addSchedule-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
       <text>新增日程</text>
     </button>
