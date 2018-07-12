@@ -1,75 +1,125 @@
 /* pages/calendar/calendar.wxss */
-.calendar{
+
+.calendar {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-.nav{
+
+.nav {
+  height: 60rpx;
+  margin-bottom: 20rpx;
+}
+
+.nav .nav-body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   height: 60rpx;
-  padding-bottom: 20rpx; 
+  overflow: hidden;
 }
-.nav .nav-add-left{
-  width: 180rpx;
-  color: #fff; 
+
+.nav-img {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.nav-btn {
+  display: flex;
+  flex: 1;
+}
+
+.nav-btn-body {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.nav-add-left, .nav-add-right-btn {
+  display: flex;
+  color: #fff;
   font-size: 24rpx;
   background: #54cbf0;
-  padding: 0;
+  padding: 0 16rpx;
   margin: 0;
+  margin-left: 16rpx;
 }
-.classBody{
+
+.nav-add-left {
+  background: #fff;
+  border-color: none;
+}
+
+.nav-add-left:after, .nav-add-right button:after {
+  border: none;
+}
+
+.nav-add-right {
+  display: flex;
+}
+
+.classBody {
   display: flex;
   flex-direction: column;
 }
 
-.weui-navbar{
-   width: 100%;
-   /* position: fixed; */
-   border-bottom: 2rpx solid #54cbf0;
-   box-sizing: border-box;
-   white-space: nowrap; 
-   z-index: 100;
-   background: white;
+.weui-navbar {
+  width: 100%;
+  border-bottom: 2rpx solid #d1d1d1;
+  box-sizing: border-box;
+  white-space: nowrap;
+  z-index: 100;
+  background: white;
 }
-.rec{
+
+/* .rec {
   width: 100%;
   height: 7%;
-}
-.weui-navbar .default-item{
-  /*width:25%;*/
+} */
+
+.weui-navbar .default-item {
   display: inline-block;
   text-align: center;
   font-size: 24rpx;
   box-sizing: border-box;
   height: 7%;
-  padding-bottom: 20rpx;
-  /* border:2rpx solid #d1d1d1;
+  padding: 10rpx;
+  border: 2rpx solid #d1d1d1;
   border-bottom: none;
-  border-radius: 10rpx; */
-  /* margin-right: 8rpx; */
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  margin-right: 8rpx;
 }
-.weui-navbar .item_on{
-   color: #54cbf0;
+
+.weui-navbar .default-item:nth-last-child(2) {
+  margin-right: 0;
 }
-.weui-navbar-slider{
-    position: absolute;
-    width: 160rpx;
-    height: 4rpx;
-    content:"";
-    background: #54cbf0;
-    bottom: 0;
-    left: 12.5rpx;
-    transition: transform .3s;
+
+.weui-navbar .item_on {
+  color: #fff;
+  background: #54cbf0;
 }
-.swiper-box{
+
+.weui-navbar-slider {
+  position: absolute;
+  width: 160rpx;
+  height: 4rpx;
+  content: "";
+  background: #54cbf0;
+  bottom: 0;
+  left: 12.5rpx;
+  transition: transform 0.3s;
+}
+
+.swiper-box {
   border-bottom: 2rpx solid #d1d1d1;
 }
-.swiper-box .swiper-item{
-   text-align: center;
-   padding-top: 200rpx;
-   height: 100%;
+
+.swiper-box .swiper-item {
+  text-align: center;
+  /* padding-top: 200rpx; */
+  height: 100%;
 }

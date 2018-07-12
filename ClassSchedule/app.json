@@ -1,13 +1,14 @@
 {
   "pages": [
-    "pages/login/login",
-    "pages/classDetails/classDetails",
     
-    "pages/calendar/calendar",    
+    "pages/login/login",
+    "pages/calendar/calendar",
+    "pages/usingHelp/usingHelp",
     "pages/settings/settings",
     "pages/addNewClass/addNewClass",
     "pages/setAgenda/setAgenda",
-    "pages/usingHelp/usingHelp"
+    "pages/classDetails/classDetails"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -21,14 +22,20 @@
     "list": [
       {
         "pagePath": "pages/calendar/calendar",
+        "iconPath": "/imgs/tabBar/classGray.png",
+        "selectedIconPath": "/imgs/tabBar/classBlue.png",
         "text": "课程表"
       },
       {
         "pagePath": "pages/usingHelp/usingHelp",
+        "iconPath": "/imgs/tabBar/helpGray.png",
+        "selectedIconPath": "/imgs/tabBar/helpBlue.png",
         "text": "使用帮助"
       },
       {
         "pagePath": "pages/settings/settings",
+        "iconPath": "/imgs/tabBar/settingGray.png",
+        "selectedIconPath": "/imgs/tabBar/settingBlue.png",
         "text": "设置"
       }
     ]

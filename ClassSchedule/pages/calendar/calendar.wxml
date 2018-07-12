@@ -2,49 +2,40 @@
 <view class="container">
   <view class="calendar">
     <view class="nav">
-      <button class="nav-add-left" bindtap='addClassTable'>新建课程表</button>
-      <view class="nav-add-right">
-        <text>新建课程表 </text>
-        <text>新建课程表</text>
+      <view class="nav-body">
+        <image class="nav-img" src="{{!isUnfoldType?'../../imgs/accredit/unfold1.png':'../../imgs/accredit/fold1.png'}}" bindtap='isUnfold' background-size="cover"></image>
+        <view class='nav-btn'>
+          <view class='nav-btn-body' style="display:{{!isUnfoldType?'none':'flex'}}">
+            <button class="nav-add-left" bindtap='addClassTable'>
+              <image class="nav-img" src="../../imgs/accredit/plus1.png" bindtap='isUnfold' background-size="cover"></image>
+            </button> 
+            
+            <view class="nav-add-right">
+              <button class="nav-add-right-btn" bindtap='addClassTable'>与上周课程一样</button>
+              <button class="nav-add-right-btn" bindtap='addClassTable'>当周新建课程</button>
+            </view>
+          </view>
+        </view>
       </view>
     </view>
 
     <view class="classBody">
       <scroll-view scroll-x="true" class="weui-navbar">
-        <block wx:for-items="{{tabs}}">
+        <block wx:for-items="{{list}}">
           <view id="{{index}}" class="{{activeIndex == index ?'item_on':''}} default-item" bindtap="tabClick" style="width:{{tabW}}px">
-            {{item}}
+            {{item.tab}}
           </view>
         </block>
         <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
       </scroll-view>
-      <view class="rec" />
+      <!-- <view class="rec" /> -->
       <swiper current="{{activeIndex}}" class="swiper-box" duration="100" bindchange="bindChange">
-        <swiper-item class="swiper-item">
-          <view class="slide-view">tab0</view>
+        <swiper-item class="swiper-item" wx:for="{{list}}">
+          <view class="slide-view">{{item.tab}}</view>
         </swiper-item>
-        <swiper-item class="swiper-item">
-          <view class="slide-view">tab1</view>
-        </swiper-item>
-        <swiper-item class="swiper-item">
-          <view class="slide-view">tab2</view>
-        </swiper-item>
-        <swiper-item class="swiper-item">
-          <view class="slide-view">tab3</view>
-        </swiper-item>
-        <swiper-item class="swiper-item">
-          <view class="slide-view">tab4</view>
-        </swiper-item>
-        <swiper-item class="swiper-item">
-          <view class="slide-view">tab5</view>
-        </swiper-item>
-        <swiper-item class="swiper-item">
-          <view class="slide-view">tab6</view>
-        </swiper-item>
+
       </swiper>
     </view>
-
-
 
 
   </view>
