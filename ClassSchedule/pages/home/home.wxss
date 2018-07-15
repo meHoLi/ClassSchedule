@@ -1,0 +1,39 @@
+/* pages/home/home.wxss */
+.modal{
+  height: 200rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+}
+.modal image{
+  width: 40rpx;
+  height: 40rpx;
+}
+.modal image:first-child{
+  margin-right: 10rpx;
+}
+.modal image:last-child{
+  margin-left: 10rpx;
+}
+.modal input{
+  width: 80rpx;
+  background-color: rgba(84, 203, 240, 0.2);
+  border-radius: 10rpx;
+  margin: 0 10rpx;
+  text-align: center;
+}
+
+.modal2 view{
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #000;
+  border-top: 2rpx solid #d1d1d1;
+}
+.modal2 view:nth-last-child(1){
+  border-bottom: 2rpx solid #d1d1d1;
+}

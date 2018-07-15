@@ -1,14 +1,13 @@
 {
   "pages": [
-    
     "pages/login/login",
+    "pages/home/home",
     "pages/calendar/calendar",
     "pages/usingHelp/usingHelp",
     "pages/settings/settings",
     "pages/addNewClass/addNewClass",
     "pages/setAgenda/setAgenda",
     "pages/classDetails/classDetails"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,15 +1,65 @@
 <!--pages/calendar/calendar.wxml-->
 <view class="container">
   <view class="calendar">
+
+    <view class="classBody">
+      <scroll-view scroll-x="true" class="weui-navbar">
+        <block wx:for-items="{{nameList}}">
+          <view id="{{index}}" class="{{activeIndex == index ?'item_on':''}} default-item" data-id="{{item.ID}}" bindtap="tabClick" style="width:{{tabW}}px">
+            {{item.Name}}
+          </view>
+        </block>
+        <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
+      </scroll-view>
+      <!-- <view class="rec" /> -->
+      <swiper current="{{activeIndex}}" class="swiper-box" duration="100" bindchange="bindChange">
+        <swiper-item class="swiper-item" wx:for="{{nameList}}">
+          <view class="slide-view">
+            <view class="nail">
+              <text wx:for-items="{{[1,2,3,4]}}"></text>
+            </view>
+
+            <view class="calendar-date">
+              <view class="week-list">
+                <view wx:for="{{dateList}}" class="week-item" style="width:{{dateW}}px;height:{{dateH}}px;background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}}" bindtap='editAgenda' data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}">
+
+                  <view class="week-item-body">
+                    <text style="display:{{!!item.IsToday?'block':'none'}};">今</text>
+                    <text>{{item.StartTime}}</text>
+                    <text>{{item.DayOfWeek}}</text>
+                  </view>
+
+                </view>
+              </view>
+
+            </view>
+
+            <view class="week-selector">
+              <view class="img-button pre-week-btn" bindtap="prevWeekHandler">
+                <image src="../../imgs/accredit/prev.png"></image>
+                <text>上一周</text>
+              </view>
+              <view class="img-button next-week-btn" bindtap="nextWeekHandler">
+                <text>下一周</text>
+                <image src="../../imgs/accredit/next.png"></image>
+              </view>
+            </view>
+
+          </view>
+        </swiper-item>
+
+      </swiper>
+    </view>
+
     <view class="nav">
       <view class="nav-body">
         <image class="nav-img" src="{{!isUnfoldType?'../../imgs/accredit/unfold1.png':'../../imgs/accredit/fold1.png'}}" bindtap='isUnfold' background-size="cover"></image>
         <view class='nav-btn'>
           <view class='nav-btn-body' style="display:{{!isUnfoldType?'none':'flex'}}">
             <button class="nav-add-left" bindtap='addClassTable'>
-              <image class="nav-img" src="../../imgs/accredit/plus1.png" bindtap='isUnfold' background-size="cover"></image>
-            </button> 
-            
+              <image class="nav-img" src="../../imgs/accredit/plus.png" bindtap='isUnfold' background-size="cover"></image>
+            </button>
+
             <view class="nav-add-right">
               <button class="nav-add-right-btn" bindtap='addClassTable'>与上周课程一样</button>
               <button class="nav-add-right-btn" bindtap='addClassTable'>当周新建课程</button>
@@ -18,25 +68,5 @@
         </view>
       </view>
     </view>
-
-    <view class="classBody">
-      <scroll-view scroll-x="true" class="weui-navbar">
-        <block wx:for-items="{{list}}">
-          <view id="{{index}}" class="{{activeIndex == index ?'item_on':''}} default-item" bindtap="tabClick" style="width:{{tabW}}px">
-            {{item.tab}}
-          </view>
-        </block>
-        <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
-      </scroll-view>
-      <!-- <view class="rec" /> -->
-      <swiper current="{{activeIndex}}" class="swiper-box" duration="100" bindchange="bindChange">
-        <swiper-item class="swiper-item" wx:for="{{list}}">
-          <view class="slide-view">{{item.tab}}</view>
-        </swiper-item>
-
-      </swiper>
-    </view>
-
-
   </view>
 </view>

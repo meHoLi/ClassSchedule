@@ -35,8 +35,8 @@ Page({
 
     remark:''//备注
   },
-  onLoad: function () {
-    
+  onLoad: function (options) {
+    console.log(options)
   },
 
   //录入课程

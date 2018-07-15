@@ -30,10 +30,10 @@
             <view class="class-item-inner" style="height:{{item.sections*50-5}}px;">
               <text class="class-item-inner-time">{{item.startTime}} - {{item.endTime}}</text>
               <text class="class-item-inner-school">
-                <text class='schoolName'>{{item.schoolName}} </text>
-                <text class='className'>{{item.className}}</text>
+                <text class='schoolName'>{{item.SchoolName}} </text>
+                <text class='className'>{{item.CourseName}}</text>
               </text>
-              <text class='class-item-inner-isRemind'>{{item.isRemind == 0?'未提醒':(item.isRemind == 1?'已提醒':'未设提醒')}}</text>
+              <text class='class-item-inner-isRemind'>{{item.RemindDes}}</text>
               <image class="class-item-inner-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
             </view>
           </view>
