@@ -7,19 +7,11 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     this.initEleWidth();
     this.tempData();
-    if (!!this.data.list && this.data.list[0]){
-      this.setData({
-        noClassDis: 'none',
-        haveClassDis: 'block'
-      });
-    }else{
-      this.setData({
-        noClassDis: 'block',
-        haveClassDis: 'none'
-      });
-    }
   },
-  touchS: function(e) {
+  onShow() { //返回显示页面状态函数
+    this.onLoad()//再次加载，实现返回上一页页面刷新
+  },
+  touchS: function(e) {debugger
     if (e.touches.length == 1) {
       this.setData({
         //设置触摸起始点水平方向位置
@@ -28,7 +20,7 @@ Page({
     }
   },
 
-  touchM: function(e) {
+  touchM: function(e) {debugger
     if (e.touches.length == 1) {
       //手指移动时水平方向位置
       var moveX = e.touches[0].clientX;
@@ -62,7 +54,7 @@ Page({
     }
   },
 
-  touchE: function(e) {
+  touchE: function(e) {debugger
     if (e.changedTouches.length == 1) {
       //手指移动结束后水平位置
       var endX = e.changedTouches[0].clientX;
@@ -113,88 +105,66 @@ Page({
 
   //点击删除按钮事件
   delItem: function(e) {
+    let item = e.target.dataset.item,
+      that = this;
 
-    //获取列表中要删除项的下标
-
-    var index = e.target.dataset.index;
-    var list = this.data.list;
-
-    //移除列表中下标为index的项
-    list.splice(index, 1);
-
-    //更新列表的状态
-    this.setData({
-      list: list
-    });
+    wx.request({
+      url: 'http://192.168.0.3:61242/Children/Delete', //仅为示例，并非真实的接口地址
+      data: {
+        id: item.ID
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        that.tempData();
+      }
+    })
   },
 
   //测试临时数据
   tempData: function() {
-    var list = [
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/boy.png",
-        txt: "向左滑动可以删除"
+    // var list = [{txtStyle: "",headUrl: "/imgs/head/head.png",txt: "向左滑动可以删除"}];
+    let that = this;
+
+    wx.request({
+      url: 'http://192.168.0.3:61242/Children/Index', //仅为示例，并非真实的接口地址
+      data: {
+        openID: '111111'
       },
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/girl.png",
-        txt: "微信小程序|联盟（wxapp-union.com）"
+      header: {
+        'content-type': 'application/json' // 默认值
       },
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/girl1.png",
-        txt: "圣诞老人是爸爸，顺着烟囱往下爬，礼物塞满圣诞袜，平安糖果一大把"
-      },
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/head.png",
-        txt: "圣诞到来，元旦还会远吗？在圣诞这个日子里"
-      },
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/head1.png",
-        txt: "圣诞节(Christmas或Cristo Messa ),译名为“基督弥撒”。"
-      },
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/head2.png",
-        txt: "一年一度的圣诞节即将到来,姑娘们也纷纷开始跑趴了吧!"
-      },
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/head3.png",
-        txt: "圣诞节(Christmas或Cristo Messa ),译名为“基督弥撒”。"
-      },
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/boy.png",
-        txt: "你的圣诞节礼物准备好了吗?"
-      },
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/girl.png",
-        txt: "一年一度的圣诞节即将到来,姑娘们也纷纷开始跑趴了吧!"
-      },
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/girl1.png",
-        txt: "一年一度的圣诞节即将到来,姑娘们也纷纷开始跑趴了吧!"
-      },
-      {
-        txtStyle: "",
-        headUrl: "/imgs/head/head.png",
-        txt: "一年一度的圣诞节即将到来,姑娘们也纷纷开始跑趴了吧!"
+      success: function (res) {
+        debugger
+        console.log(res)
+        let list = res.data.Data
+
+        if (!!list[0]) {
+          that.setData({
+            noClassDis: 'none',
+            haveClassDis: 'block',
+            list: list
+          });
+        } else {
+          that.setData({
+            noClassDis: 'block',
+            haveClassDis: 'none',
+            list: list
+          });
+        }
+        that.setData({
+          list: list
+        })
       }
-    ];
-    this.setData({
-      list: list
-    });
+    })
   },
   
-  editInfo: function () {
+  editInfo: function (e) {
+    let item = e.target.dataset.item;
+      
     wx.navigateTo({
-      url: '../addNewClass/addNewClass'
+      url: '../addNewClass/addNewClass?id=' + item.ID
     })
   },
 

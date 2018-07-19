@@ -9,7 +9,7 @@ Page({
   },
   accredit: function() {
     wx.request({
-      url: 'http://192.168.0.5:61242/Children/Index', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.0.3:61242/Children/Index', //仅为示例，并非真实的接口地址
       data: {
         openID: '111111'
       },

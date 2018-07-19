@@ -10,19 +10,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    src:"../../imgs/head/head.png",
+    HeadPortrait:"../../imgs/head/head.png",
 
-    name:'',
+    Name:'',
 
-    date: currentDate,
-    endDate: currentDate,
+    Birthday: currentDate.split('/').join('-'),
+    endDate: currentDate.split('/').join('-'),
 
     gender: ['男', '女'],
     genderList: [
       { id: 0, name: '男' },
       { id: 1, name: '女' }
     ],
-    genderValue: 0,
+    Sex: 0,
 
     radio: [
       { 'value': '#54cbf0', checked:true },
@@ -36,20 +36,17 @@ Page({
       { 'value': '#656565' },
       { 'value': '#3c3c3c' }
     ],
-    curRadio: '#54cbf0',
+    Background: '#54cbf0',
     radioW: 0
   },
-  onLoad: function () {
+  onLoad: function (options) {debugger
     var that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        mradioW = (res.windowWidth - 20 -30) / 3; //设置tab的宽度
-        that.setData({
-          radioW: mradioW
-        })
-      }
-    });
 
+    if (!!options.id){
+      that.setPesonData(options.id)
+    }else{
+      that.setTabW()
+    }
   },
 
   setPhotoInfo: function(){
@@ -68,19 +65,19 @@ Page({
   //录入姓名
   setNameInput: function (e) {
     this.setData({
-      name: e.detail.value
+      Name: e.detail.value
     })
   },
   //选择生日
   bindDateChange: function (e) {
     this.setData({
-      date: e.detail.value
+      Birthday: e.detail.value
     })
   },
   //选择性别
   bindPickerChange: function (e) {
     this.setData({
-      genderValue: e.detail.value
+      Sex: e.detail.value
     })
   },
   //选择单选
@@ -94,14 +91,14 @@ Page({
       this.data.radio[index].checked = false;
     } else {
       this.data.radio[index].checked = true;
-      this.data.curRadio = this.data.radio[index].value
+      this.data.Background = this.data.radio[index].value
     }
     let userRadio = radio.filter((item, index) => {
       return item.checked == true;
     })
     this.setData({ 
       radio: this.data.radio,
-      curRadio: this.data.curRadio
+      Background: this.data.Background
     })
   },
   //取消
@@ -113,8 +110,54 @@ Page({
   //关闭
   save: function(){
     console.log('保存')
+  },
+
+
+  setPesonData: function(id){
+    let that = this;
+
+    wx.request({
+      url: 'http://192.168.0.3:61242/Children/GetChildrenByID', //仅为示例，并非真实的接口地址
+      data: {
+        id: id
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        debugger
+        let data = res.data.Data
+
+        that.setTabW(data)
+      }
+    })
+  },
+
+  setTabW: function (formData){
+    let that = this;
+
+    wx.getSystemInfo({
+      success: function (res) {
+        mradioW = (res.windowWidth - 20 - 30) / 3; //设置tab的宽度
+
+        if (!!formData){
+          that.setData({
+            ID: formData.ID,
+            HeadPortrait: !!formData.HeadPortrait ? formData.HeadPortrait : that.data.HeadPortrait,
+            Name: !!formData.Name ? formData.Name : '',
+            Birthday: !!formData.Birthday ? formData.Birthday : that.data.Birthday,
+            Sex: formData.Sex === null ? that.data.Sex : formData.Sex,
+            Background: formData.Background,
+            radioW: mradioW
+          })
+        }else{
+          that.setData({
+            radioW: mradioW
+          })
+        }
+      }
+    });
   }
- 
 })
 
 function upload(page, path) {

@@ -70,11 +70,12 @@
   height: 120rpx;
 }
 .item-icon {
-  width: 64rpx;
+  width: 100rpx;
   margin-right: 16rpx;
 }
 .item-text{
   width: 550rpx; 
+  font-size: 36rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

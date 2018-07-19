@@ -17,6 +17,9 @@ Page({
     var that = this;
     this.setTabData();
   },
+  onShow() { //返回显示页面状态函数
+    this.onLoad()//再次加载，实现返回上一页页面刷新
+  },
 
   //点击左上角折叠展开按钮
   isUnfold: function(){
@@ -92,7 +95,7 @@ Page({
   setTabData: function(){
     let that = this
     wx.request({
-      url: 'http://192.168.0.5:61242/Children/Index', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.0.3:61242/Children/Index', //仅为示例，并非真实的接口地址
       data: {
         openID: '111111'
       },
@@ -121,7 +124,7 @@ Page({
     let that = this
 
     wx.request({
-      url: 'http://192.168.0.5:61242/Course/Index', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.0.3:61242/Course/Index', //仅为示例，并非真实的接口地址
       data: query,
       header: {
         'content-type': 'application/json' // 默认值

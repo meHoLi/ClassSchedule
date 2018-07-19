@@ -12,8 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    date: currentDate,
-    week: currentWeek
+    date: '',//currentDate,
+    week: '',//currentWeek
   },
   onLoad: function(options) {
     console.log(options)
@@ -26,12 +26,30 @@ Page({
     this.getTimeData(); //时间轴数据
     this.getTabData(options); //课程数据
   },
+  onShow() {
+  debugger
+    let options = {
+      time: this.data.date,
+      week: this.data.week,
+      childrenID: this.data.childrenID
+    }
+    this.onLoad(options)
+  },
 
   /* 课程详情 */
-  addNewAgenda: function(event) {
-    wx.navigateTo({
-      url: '../setAgenda/setAgenda',
-    })
+  addNewAgenda: function(e) {
+    let childrenID = this.data.childrenID,
+      date = this.data.date
+
+    if (!e.currentTarget.dataset.item){
+      wx.navigateTo({
+        url: '../setAgenda/setAgenda?childrenID=' + childrenID + '&date=' + date,
+      })
+    }else{
+      wx.navigateTo({
+        url: '../setAgenda/setAgenda?childrenID=' + childrenID + '&date=' + date,
+      })
+    }
   },
 
 
@@ -103,13 +121,10 @@ Page({
     },
       that = this
     // var list = [
-    //   { id: 0, startTime: '07:00', endTime: '08:00', schoolName: '学而思', className: '数学课', isRemind: 0},
-    //   { id: 1, startTime: '08:30', endTime: '9:25', schoolName: '新东方', className: '英语课', isRemind: 1},
-    //   { id: 2, startTime: '22:45', endTime: '23:59', schoolName: '艺欣艺术学校', className: '钢琴课', isRemind: 2}
-    // ];
+    //   { id: 0, startTime: '07:00', endTime: '08:00', schoolName: '学而思', className: '数学课', isRemind: 0];
 
     wx.request({
-      url: 'http://192.168.0.5:61242/Course/GetChildrenCourseByDate', //仅为示例，并非真实的接口地址
+      url: 'http://192.168.0.3:61242/Course/GetChildrenCourseByDate', //仅为示例，并非真实的接口地址
       data: query,
       header: {
         'content-type': 'application/json' // 默认值
@@ -137,42 +152,46 @@ Page({
 })
 
 function setDataLocation(list) {debugger
-  for (let i = 0; i < list.length; i++) {
-    let item = list[i],
-      startTime = item.StartTime.split(' ')[1],
-      endTime = item.EndTime.split(' ')[1],
-      startHour = Number(startTime.split(':')[0]),
-      startMinute = Number(startTime.split(':')[1]),
-      endHour = Number(endTime.split(':')[0]),
-      endMinute = Number(endTime.split(':')[1]),
-      height = 3,
-      marginTop = 0
+  if (!!list){
+    for (let i = 0; i < list.length; i++) {
+      let item = list[i],
+        startTime = item.StartTime.split(' ')[1],
+        endTime = item.EndTime.split(' ')[1],
+        startHour = Number(startTime.split(':')[0]),
+        startMinute = Number(startTime.split(':')[1]),
+        endHour = Number(endTime.split(':')[0]),
+        endMinute = Number(endTime.split(':')[1]),
+        height = 3,
+        marginTop = 0
 
-    if (endHour - startHour == 1) {
-      height = height + 56
+      if (endHour - startHour == 1) {
+        height = height + 56
 
-      if (!!endMinute) { //后期加精度去掉
-        height = height + 59
+        if (!!endMinute) { //后期加精度去掉
+          height = height + 59
+        }
+      } else if (endHour - startHour > 1) {
+        height = height + 56 + 59 * (endHour - startHour - 1)
       }
-    } else if (endHour - startHour > 1) {
-      height = height + 56 + 59 * (endHour - startHour - 1)
-    }
-    // height = height + (endMinute - startMinute)
+      // height = height + (endMinute - startMinute)
 
-    if (startHour - 7 > 0) {
-      if (startHour - 7 == 1) {
-        marginTop = 60
-      } else if (startHour - 7 > 1) {
-        marginTop = 60 * (startHour - 7)
+      if (startHour - 7 > 0) {
+        if (startHour - 7 == 1) {
+          marginTop = 60
+        } else if (startHour - 7 > 1) {
+          marginTop = 60 * (startHour - 7)
+        }
       }
-    }
-    // marginTop = marginTop + startMinute
+      // marginTop = marginTop + startMinute
 
-    item.startTime = startTime
-    item.endTime = endTime
-    item.height = height * 2
-    item.marginTop = marginTop * 2
+      item.startTime = startTime
+      item.endTime = endTime
+      item.height = height * 2
+      item.marginTop = marginTop * 2
+    }
+
+    return list
+  }else{
+    return []
   }
-
-  return list
 }

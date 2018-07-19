@@ -100,7 +100,7 @@
   background-color: #3c3c3c;
 }
 .checkbox image{
-  display: none; 
+  /* display: none;  */
   position: absolute; 
   right: 0;
   bottom: 0;
@@ -112,5 +112,5 @@
 }
  
 .checkedActive image {
-  display: inline-block;
+  /* display: inline-block; */
 }
