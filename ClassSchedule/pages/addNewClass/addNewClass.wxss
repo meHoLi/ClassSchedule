@@ -54,7 +54,8 @@
   margin-right: 16rpx;
 }
 .btn .saveBtn{
-  margin-right: 2rpx;
+  color: #fff;
+  background: #54cbf0;
 }
 
 .info-items-radio{

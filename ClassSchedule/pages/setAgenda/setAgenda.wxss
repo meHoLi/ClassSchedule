@@ -73,14 +73,13 @@
   display: flex;
   flex-direction: row;
 }
-.btn button{
+ .btn>button,.btn .saveBtn{
   flex-grow: 1;
-}
-.btn .cancelBtn{
+} 
+.btn .cancelBtn,.btn .delBtn{
   margin-right: 16rpx;
 }
-.btn .saveBtn{
+.btn .saveBtn button{
   color: #fff;
   background: #54cbf0;
-  margin-right: 2rpx;
 }

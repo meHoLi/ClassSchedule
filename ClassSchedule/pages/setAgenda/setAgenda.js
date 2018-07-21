@@ -185,8 +185,9 @@ Page({
     })
   },
   //保存
-  save: function() {
-    let data = this.data,
+  save: function(e) {debugger
+    let that = this,
+      data = this.data,
       query = {
         ID: data.ID,
         ChildrenID: data.childrenID,
@@ -244,10 +245,8 @@ Page({
             })
             return
           }
-          
-          wx.navigateBack({
-            delta: 1
-          })
+
+          that.setInfoTemplate(e.detail.formId)
         }
       })
     } else {
@@ -276,12 +275,57 @@ Page({
             return
           }
 
-          wx.navigateBack({
-            delta: 1
-          })
+          that.setInfoTemplate(e.detail.formId)
         }
       })
     }
+  },
+
+  //设置消息提醒模板
+  setInfoTemplate:function(formId){
+    var openId = app.globalData.openID;
+    var messageDemo = {
+      touser: openId,//openId
+      template_id: 'PjtLeqq-UeF49r5jr88s27HBzBDobijr6QfiwJwIkPg',//模板消息id，  
+      page: 'pages/setAgenda/setAgenda?childrenID=' + this.data.childrenID + '&date=' + this.data.date + '&ID=' + this.data.ID,//点击详情时跳转的主页
+      form_id: formId,//formId
+      data: {//下面的keyword*是设置的模板消息的关键词变量  
+        "keyword1": {
+          "value": "keyword1",
+          "color": "#4a4a4a"
+        },
+        "keyword2": {
+          "value": "keyword2",
+          "color": "#9b9b9b"
+        },
+        "keyword3": {
+          "value": "keyword3",
+          "color": "red"
+        }
+      },
+      color: 'red',//颜色
+      emphasis_keyword: 'keyword3.DATA'//需要着重显示的关键词
+    }
+
+    wx.request({
+      url: app.globalData.url + '/Course/GetCourseByID',
+      data: { value: messageDemo},
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        wx.navigateBack({
+          delta: 1
+        })
+      },
+      fail: function (err) {
+        console.log("push err")
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    });
   },
 
   //初始化查询数据

@@ -91,7 +91,10 @@
     <view class="btn">
       <button bindtap="cancel" class="cancelBtn"> 取消 </button>
       <button bindtap="del" class='delBtn' style="display:{{!!ID?'block':'none'}};"> 删除 </button>
-      <button bindtap="save" class="saveBtn"> 保存 </button>
+      <form bindsubmit='save' report-submit="true" class="saveBtn">
+        <button formType="submit">保存</button>
+      </form>
+      <!-- <button bindtap="save" class="saveBtn"> 保存 </button> -->
     </view>
   </view>
 </view>
