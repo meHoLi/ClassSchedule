@@ -149,7 +149,18 @@ debugger
         }
       }
     })
-  }
+  },
+
+  onShareAppMessage: function () {
+    let data = this.data
+
+    return {
+      title: '',
+      desc: '',
+      path: '/page/calendar/calendar?childrenID=' + data.childrenID + '&date=' + data.date + '&week=' + data.week + '&openID=' + app.globalData.openID,
+    }
+  },
+
 })
 
 function setDataLocation(list) {debugger

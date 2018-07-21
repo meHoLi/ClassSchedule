@@ -61,8 +61,9 @@ Page({
     remark: '' //备注
   },
   onLoad: function(options) {debugger
-    console.log(options)
     let that = this;
+
+    wx.hideShareMenu()
 
     if (!!options.ID) {
       that.setAgendaData(options)

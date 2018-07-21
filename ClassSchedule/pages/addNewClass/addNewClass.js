@@ -42,6 +42,8 @@ Page({
   },
   onLoad: function (options) {debugger
     var that = this;
+    
+    wx.hideShareMenu()
 
     if (!!options.id){
       that.setPesonData(options)

@@ -15,9 +15,12 @@ Page({
     pageSize: 7
   },
 
-  onLoad: function () {
-    var that = this;
-    this.setTabData();
+  onLoad: function (options) {
+    if (options.openID){
+      this.setTabData(options.openID);
+    }else{
+      this.setTabData();
+    }
   },
   onShow() { //返回显示页面状态函数
     let query = this.data.query
@@ -158,12 +161,12 @@ Page({
   },
 
   //设置tab数据
-  setTabData: function(){
+  setTabData: function (openID){
     let that = this
     wx.request({
       url: app.globalData.url + '/Children/Index', //仅为示例，并非真实的接口地址
       data: {
-        openID: app.globalData.openID
+        openID: !!openID ? openID : app.globalData.openID
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -239,6 +242,17 @@ Page({
     query.page = page
 
     this.setClassData(query)
-  }
+  },
+  onShareAppMessage: function () {
+    let data = this.data,
+      query = data.query
+
+    return {
+      title: '',
+      desc: '',
+      path: '/page/calendar/calendar?activeIndex=' + data.activeIndex + '&childrenID=' + query.childrenID + '&page=' + query.page + '&pageSize=' + query.pageSize + '&openID=' + app.globalData.openID,
+    }
+  },
+
 
 })

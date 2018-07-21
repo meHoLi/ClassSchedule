@@ -7,6 +7,7 @@ Page({
   onLoad: function() {
     let that = this;
 
+    wx.hideShareMenu()
     wx.login({
       success: function (res) {
         debugger
@@ -52,13 +53,5 @@ Page({
         }
       }
     })
-  },
-  // onShareAppMessage: function () {
-  //   return {
-  //     title: '微信小程序联盟',
-  //     desc: '最具人气的小程序开发联盟!',
-  //     path: '/page/login/login',
-  //   }
-  // },
-
+  }
 })
