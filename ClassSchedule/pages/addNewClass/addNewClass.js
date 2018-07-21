@@ -1,4 +1,5 @@
 // pages/addNewClass/addNewClass.js
+const app = getApp()
 var util = require('../../utils/util.js');
 var myDate = new Date();//获取系统当前时间
 var currentDate = myDate.toLocaleDateString(); //获取当前日期
@@ -43,9 +44,9 @@ Page({
     var that = this;
 
     if (!!options.id){
-      that.setPesonData(options.id)
+      that.setPesonData(options)
     }else{
-      that.setTabW()
+      that.setTabW(undefined, options.openID)
     }
   },
 
@@ -107,19 +108,66 @@ Page({
       delta: 1
     })
   },
-  //关闭
+  //保存
   save: function(){
-    console.log('保存')
+    let data = this.data,
+      query = {
+        ID: data.ID,
+        openID: data.openID,
+        HeadPortrait: data.HeadPortrait == '../../imgs/head/head.png' ? '' : data.HeadPortrait,
+        Name: data.Name,
+        Birthday: data.Birthday,
+        Sex: data.Sex,
+        Background: data.Background,
+      }
+
+    if (!query.Name) {
+      wx.showToast({
+        title: '请填写姓名',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      })
+      return
+    }
+
+    if (!!data.ID) {
+      wx.request({
+        url: app.globalData.url + '/Children/Update',
+        data: query,
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function (res) {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    } else {
+      wx.request({
+        url: app.globalData.url + '/Children/Add', //仅为示例，并非真实的接口地址
+        data: query,
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function (res) {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    }
   },
 
 
-  setPesonData: function(id){
+  setPesonData: function (options){
     let that = this;
 
     wx.request({
-      url: 'http://192.168.0.3:61242/Children/GetChildrenByID', //仅为示例，并非真实的接口地址
+      url: app.globalData.url + '/Children/GetChildrenByID', //仅为示例，并非真实的接口地址
       data: {
-        id: id
+        id: options.id
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -128,12 +176,12 @@ Page({
         debugger
         let data = res.data.Data
 
-        that.setTabW(data)
+        that.setTabW(data, options.openID)
       }
     })
   },
 
-  setTabW: function (formData){
+  setTabW: function (formData,openID){
     let that = this;
 
     wx.getSystemInfo({
@@ -143,17 +191,25 @@ Page({
         if (!!formData){
           that.setData({
             ID: formData.ID,
+            openID: openID,
             HeadPortrait: !!formData.HeadPortrait ? formData.HeadPortrait : that.data.HeadPortrait,
             Name: !!formData.Name ? formData.Name : '',
             Birthday: !!formData.Birthday ? formData.Birthday : that.data.Birthday,
             Sex: formData.Sex === null ? that.data.Sex : formData.Sex,
-            Background: formData.Background,
+            Background: !!formData.Background ? formData.Background : '#54cbf0',
             radioW: mradioW
           })
         }else{
-          that.setData({
-            radioW: mradioW
-          })
+          if (!!openID){
+            that.setData({
+              openID: openID,
+              radioW: mradioW
+            })
+          }else{
+            that.setData({
+              radioW: mradioW
+            })
+          }
         }
       }
     });
@@ -165,39 +221,40 @@ function upload(page, path) {
     icon: "loading",
     title: "正在上传"
   }),
-    wx.uploadFile({
-      url: constant.SERVER_URL + "/FileUploadServlet",
-      filePath: path[0],
-      name: 'file',
-      header: { "Content-Type": "multipart/form-data" },
-      formData: {
-        //和服务器约定的token, 一般也可以放在header中
-        'session_token': wx.getStorageSync('session_token')
-      },
-      success: function (res) {
-        if (res.statusCode != 200) {
-          wx.showModal({
-            title: '提示',
-            content: '上传失败',
-            showCancel: false
-          })
-          return;
-        }
-        var data = res.data
-        page.setData({  //上传成功修改显示头像
-          src: path[0]
-        })
-      },
-      fail: function (e) {
-        console.log(e);
+  wx.uploadFile({
+    url: app.globalData.url + '/FileUpload/HandleFileSave',
+    filePath: path[0],
+    name: 'file',
+    header: { "Content-Type": "multipart/form-data" },
+    formData: {
+      //和服务器约定的token, 一般也可以放在header中
+      'session_token': wx.getStorageSync('session_token')
+    },
+    success: function (res) {
+      if (res.statusCode != 200) {
         wx.showModal({
           title: '提示',
           content: '上传失败',
           showCancel: false
         })
-      },
-      complete: function () {
-        wx.hideToast();  //隐藏Toast
+        return;
       }
-    })
+      var data = res.data
+
+      page.setData({  //上传成功修改显示头像
+        HeadPortrait: path[0]
+      })
+    },
+    fail: function (e) {
+      console.log(e);
+      wx.showModal({
+        title: '提示',
+        content: '上传失败',
+        showCancel: false
+      })
+    },
+    complete: function () {
+      wx.hideToast();  //隐藏Toast
+    }
+  })
 }

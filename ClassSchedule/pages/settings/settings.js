@@ -1,4 +1,6 @@
 // pages/settings/settings.js
+const app = getApp()
+
 Page({
   data: {
     delBtnWidth: 180
@@ -109,7 +111,7 @@ Page({
       that = this;
 
     wx.request({
-      url: 'http://192.168.0.3:61242/Children/Delete', //仅为示例，并非真实的接口地址
+      url: app.globalData.url + '/Children/Delete', //仅为示例，并非真实的接口地址
       data: {
         id: item.ID
       },
@@ -128,9 +130,9 @@ Page({
     let that = this;
 
     wx.request({
-      url: 'http://192.168.0.3:61242/Children/Index', //仅为示例，并非真实的接口地址
+      url: app.globalData.url + '/Children/Index', //仅为示例，并非真实的接口地址
       data: {
-        openID: '111111'
+        openID: app.globalData.openID
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -164,13 +166,13 @@ Page({
     let item = e.target.dataset.item;
       
     wx.navigateTo({
-      url: '../addNewClass/addNewClass?id=' + item.ID
+      url: '../addNewClass/addNewClass?id=' + item.ID + '&openID=' + app.globalData.openID
     })
   },
 
   addNewClass: function() {
     wx.navigateTo({
-      url: '../addNewClass/addNewClass'
+      url: '../addNewClass/addNewClass?openID=' + app.globalData.openID
     })
   }
 })

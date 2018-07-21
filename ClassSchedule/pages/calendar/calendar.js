@@ -1,5 +1,7 @@
 // pages/calendar/calendar.js
+const app = getApp()
 var mtabW, mdateW, mdateH
+
 Page({
   data: {
     list:[],
@@ -18,7 +20,9 @@ Page({
     this.setTabData();
   },
   onShow() { //返回显示页面状态函数
-    this.onLoad()//再次加载，实现返回上一页页面刷新
+    let query = that.data.query
+
+    this.setClassData(query)//再次加载，实现返回上一页页面刷新
   },
 
   //点击左上角折叠展开按钮
@@ -34,10 +38,71 @@ Page({
     }
   },
 
-  //点击新增和具体的日期项
+  //点击新增孩子
   addClassTable: function () {
     wx.navigateTo({
-      url: '../addNewClass/addNewClass'
+      url: '../addNewClass/addNewClass?openID=' + app.globalData.openID
+    })
+  },
+
+  //点击与上周课程一样
+  likePrev: function () {debugger
+    let that = this,
+      dateList = this.data.dateList,
+      query={
+        childrenID: this.data.childrenID,
+        startTime: dateList[0].StartTime,
+        endTime: dateList[dateList.length - 1].StartTime + ' 23:59',
+        interval: 7
+      }
+    wx.request({
+      url: app.globalData.url + '/Course/AddCourseList', //仅为示例，并非真实的接口地址
+      data: query,
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {debugger
+        let query = that.data.query
+
+        if (!!res.data.Data.isExistence){
+          let message = res.data.Msg + '已经存在课程，请手动修改'
+
+          wx.showModal({
+            title: '提示',
+            content: message,
+            showCancel: false
+          })
+        }
+
+        that.setClassData(query)
+      },
+      complete: function () {
+        wx.hideToast();  //隐藏Toast
+      }
+    })
+  },
+
+  //点击当周新建课程
+  curNewAdd: function () {
+    let that = this,
+      dateList = this.data.dateList,
+      query = {
+        childrenID: this.data.childrenID,
+        startTime: dateList[0].StartTime,
+        endTime: dateList[dateList.length - 1].StartTime + ' 23:59'
+      }
+
+    wx.request({
+      url: app.globalData.url + '/Course/Deletes', //仅为示例，并非真实的接口地址
+      data: query,
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {debugger
+        let query = that.data.query
+
+        that.setClassData(query)
+      }
     })
   },
 
@@ -53,6 +118,7 @@ Page({
       "pageSize": that.data.pageSize
     }
     this.setData({
+      childrenID: childrenID,
       activeIndex: idIndex,
       slideOffset: offsetW
     });
@@ -95,9 +161,9 @@ Page({
   setTabData: function(){
     let that = this
     wx.request({
-      url: 'http://192.168.0.3:61242/Children/Index', //仅为示例，并非真实的接口地址
+      url: app.globalData.url + '/Children/Index', //仅为示例，并非真实的接口地址
       data: {
-        openID: '111111'
+        openID: app.globalData.openID
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -124,7 +190,7 @@ Page({
     let that = this
 
     wx.request({
-      url: 'http://192.168.0.3:61242/Course/Index', //仅为示例，并非真实的接口地址
+      url: app.globalData.url + '/Course/Index', //仅为示例，并非真实的接口地址
       data: query,
       header: {
         'content-type': 'application/json' // 默认值
@@ -145,6 +211,7 @@ Page({
               dateList: dateList,
               page: query.page,
               query: query,
+              childrenID: query.childrenID,
               tabW: mtabW,
               dateW: mdateW,
               dateH: mdateH

@@ -1,4 +1,5 @@
 // pages/classDetails/classDetails.js
+const app = getApp()
 var util = require('../../utils/util.js');
 var myDate = new Date(); //获取系统当前时间
 var currentDate = myDate.toLocaleDateString(); //获取当前日期
@@ -40,14 +41,14 @@ Page({
   addNewAgenda: function(e) {
     let childrenID = this.data.childrenID,
       date = this.data.date
-
+debugger
     if (!e.currentTarget.dataset.item){
       wx.navigateTo({
         url: '../setAgenda/setAgenda?childrenID=' + childrenID + '&date=' + date,
       })
     }else{
       wx.navigateTo({
-        url: '../setAgenda/setAgenda?childrenID=' + childrenID + '&date=' + date,
+        url: '../setAgenda/setAgenda?childrenID=' + childrenID + '&date=' + date + '&ID=' + e.currentTarget.dataset.item.ID,
       })
     }
   },
@@ -124,7 +125,7 @@ Page({
     //   { id: 0, startTime: '07:00', endTime: '08:00', schoolName: '学而思', className: '数学课', isRemind: 0];
 
     wx.request({
-      url: 'http://192.168.0.3:61242/Course/GetChildrenCourseByDate', //仅为示例，并非真实的接口地址
+      url: app.globalData.url + '/Course/GetChildrenCourseByDate', //仅为示例，并非真实的接口地址
       data: query,
       header: {
         'content-type': 'application/json' // 默认值

@@ -1,4 +1,6 @@
 // pages/home/home.js
+const app = getApp()
+
 Page({
 
   /** 页面的初始数据 */
@@ -23,7 +25,6 @@ Page({
 
   //确认  
   confirm: function() {
-    debugger
     let childNum = this.data.initChildNum
 
     if (!childNum) {
@@ -79,7 +80,7 @@ Page({
     let childNum = this.data.initChildNum,
       childNameList = !!this.data.childNameList ? this.data.childNameList : []
 
-    childNameList[e.currentTarget.dataset.index] = { "OpenID": 111111,"name":e.detail.value}
+    childNameList[e.currentTarget.dataset.index] = { "OpenID": app.globalData.openID,"name":e.detail.value}
 
     this.setData({
       childNameList: childNameList
@@ -88,7 +89,6 @@ Page({
 
   //确认  
   confirm2: function() {
-    debugger
     let childNameList = this.data.childNameList,
       childNum = this.data.initChildNum
 
@@ -101,7 +101,7 @@ Page({
       })
     } else {
       wx.request({
-        url: 'http://192.168.0.3:61242/Children/Add', //仅为示例，并非真实的接口地址
+        url: app.globalData.url + '/Children/AddList', //仅为示例，并非真实的接口地址
         data: {
           modelList: JSON.stringify(childNameList)
         },
@@ -109,7 +109,7 @@ Page({
         header: {
           'content-type': 'application/x-www-form-urlencoded' // 默认值
         },
-        success: function (res) {debugger
+        success: function (res) {
 
           if (!!res.data.Status){
             wx.switchTab({ //跳转到tabBar页面，并关闭其他所有tabBar页面

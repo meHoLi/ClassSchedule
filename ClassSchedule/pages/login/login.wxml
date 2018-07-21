@@ -2,8 +2,8 @@
   <view class="login">
     <view class="login-accredit">
       <image class="login-accredit-img" src="../../imgs/accredit/haveNoRight.png" mode="scaleToFill"></image>
-      <text class="login-accredit-text">需要您的授权才能使用哦~</text>
+      <text class="login-accredit-text">请稍等片刻~</text>
     </view>
-    <button class="login-accredit-btn" bindtap='accredit'>立即授权</button>
+    <!-- <button class="login-accredit-btn" bindtap='accredit'>立即授权</button> -->
   </view>
 </view>
