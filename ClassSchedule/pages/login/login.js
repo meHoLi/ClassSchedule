@@ -23,7 +23,9 @@ Page({
             app.globalData.openID = data.openid,
             app.globalData.session_key = data.session_key
 
-            that.accredit()
+            if (!!data.openid){
+              that.accredit()
+            }
           }
         })
       }

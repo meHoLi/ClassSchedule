@@ -20,7 +20,7 @@ Page({
     this.setTabData();
   },
   onShow() { //返回显示页面状态函数
-    let query = that.data.query
+    let query = this.data.query
 
     this.setClassData(query)//再次加载，实现返回上一页页面刷新
   },
