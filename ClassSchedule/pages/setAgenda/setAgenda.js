@@ -246,7 +246,22 @@ Page({
             return
           }
 
-          that.setInfoTemplate(e.detail.formId)
+          wx.request({
+            url: app.globalData.url + '/WeChatAppAuthorize/GetToken',
+            data: {},
+            success: function (res) {
+              debugger
+              let data = JSON.parse(res.data.Data)
+
+              if (that.data.RemindTime != '-9999') {
+                that.setInfoTemplate(e.detail.formId, data.access_token)
+              } else {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+            }
+          })
         }
       })
     } else {
@@ -275,14 +290,30 @@ Page({
             return
           }
 
-          that.setInfoTemplate(e.detail.formId)
+          wx.request({
+            url: app.globalData.url + '/WeChatAppAuthorize/GetToken',
+            data: {},
+            success: function (res) {
+              debugger
+              let data = JSON.parse(res.data.Data)
+              
+              if (that.data.RemindTime != '-9999'){
+                that.setInfoTemplate(e.detail.formId, data.access_token)
+              }else{
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+            }
+          })
         }
       })
     }
   },
 
   //设置消息提醒模板
-  setInfoTemplate:function(formId){
+  setInfoTemplate: function (formId, access_token){
+    var that = this;
     var openId = app.globalData.openID;
     var messageDemo = {
       touser: openId,//openId
@@ -291,28 +322,30 @@ Page({
       form_id: formId,//formId
       data: {//下面的keyword*是设置的模板消息的关键词变量  
         "keyword1": {
-          "value": "keyword1",
-          "color": "#4a4a4a"
+          "value": this.data.date + ' ' + this.data.startTime
         },
         "keyword2": {
-          "value": "keyword2",
-          "color": "#9b9b9b"
+          "value": this.data.className
         },
         "keyword3": {
-          "value": "keyword3",
-          "color": "red"
+          "value": this.data.teacher
+        },
+        "keyword4": {
+          "value": this.data.address
         }
-      },
-      color: 'red',//颜色
-      emphasis_keyword: 'keyword3.DATA'//需要着重显示的关键词
+      }
     }
 
     wx.request({
-      url: app.globalData.url + '/Course/GetCourseByID',
-      data: { value: messageDemo},
-      method: 'POST',
+      url: app.globalData.url + '/WeChatAppAuthorize/SendTemplateMsg',
+      data: {
+        accessToken: access_token,
+        data: messageDemo,
+        StartTime: that.data.date + ' ' + that.data.startTime + ':00',
+        RemindTime: that.data.RemindTime
+      },
       header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
+        'content-type': 'application/json' // 默认值
       },
       success: function (res) {
         wx.navigateBack({
