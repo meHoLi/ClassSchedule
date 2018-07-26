@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
     date: '',//currentDate,
 
     className: '', //课程名称
@@ -91,7 +92,7 @@ Page({
   bindStartTimeChange: function(e) {
     let startTime = e.detail.value,
       strtHour = Number(startTime.split(':')[0]) + 1,
-      endTime = strtHour < 10 ? '0' + strtHour + ':00' : strtHour + ':00'
+      endTime = strtHour < 10 ? '0' + strtHour + ':00' : (strtHour == 24 ? '23:59' : strtHour + ':00')
 
     this.setData({
       startTime: e.detail.value,
@@ -150,7 +151,7 @@ Page({
       that = this;
 
     wx.request({
-      url: app.globalData.url + '/Course/Delete', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/Course/Delete', //仅为示例，并非真实的接口地址
       data: {
         id: ID
       },
@@ -222,7 +223,7 @@ Page({
 
     if (!!data.ID) {
       wx.request({
-        url: app.globalData.url + '/Course/Update',
+        url: that.data.url + '/Course/Update',
         data: query,
         header: {
           'content-type': 'application/json' // 默认值
@@ -246,27 +247,31 @@ Page({
             return
           }
 
-          wx.request({
-            url: app.globalData.url + '/WeChatAppAuthorize/GetToken',
-            data: {},
-            success: function (res) {
-              debugger
-              let data = JSON.parse(res.data.Data)
-
-              if (that.data.RemindTime != '-9999') {
-                that.setInfoTemplate(e.detail.formId, data.access_token)
-              } else {
-                wx.navigateBack({
-                  delta: 1
-                })
-              }
-            }
+          wx.navigateBack({
+            delta: 1
           })
+
+          // wx.request({
+          //   url: that.data.url + '/WeChatAppAuthorize/GetToken',
+          //   data: {},
+          //   success: function (res) {
+          //     debugger
+          //     let data = JSON.parse(res.data.Data)
+
+          //     if (that.data.RemindTime != '-9999') {
+          //       that.setInfoTemplate(e.detail.formId, data.access_token)
+          //     } else {
+          //       wx.navigateBack({
+          //         delta: 1
+          //       })
+          //     }
+          //   }
+          // })
         }
       })
     } else {
       wx.request({
-        url: app.globalData.url + '/Course/Add', //仅为示例，并非真实的接口地址
+        url: that.data.url + '/Course/Add', //仅为示例，并非真实的接口地址
         data: query,
         header: {
           'content-type': 'application/json' // 默认值
@@ -291,7 +296,7 @@ Page({
           }
 
           wx.request({
-            url: app.globalData.url + '/WeChatAppAuthorize/GetToken',
+            url: that.data.url + '/WeChatAppAuthorize/GetToken',
             data: {},
             success: function (res) {
               debugger
@@ -316,8 +321,8 @@ Page({
     var that = this;
     var openId = app.globalData.openID;
     var messageDemo = {
-      touser: openId,//openId
-      template_id: 'PjtLeqq-UeF49r5jr88s27HBzBDobijr6QfiwJwIkPg',//模板消息id，  
+      touser: openId,//openId   
+      template_id: '1fubB0p5PAMlP_o5P1R93yd68OaRyl67W8jgM6mQgTY',//模板消息id，  
       page: 'pages/setAgenda/setAgenda?childrenID=' + this.data.childrenID + '&date=' + this.data.date + '&ID=' + this.data.ID,//点击详情时跳转的主页
       form_id: formId,//formId
       data: {//下面的keyword*是设置的模板消息的关键词变量  
@@ -337,7 +342,7 @@ Page({
     }
 
     wx.request({
-      url: app.globalData.url + '/WeChatAppAuthorize/SendTemplateMsg',
+      url: that.data.url + '/WeChatAppAuthorize/SendTemplateMsg',
       data: {
         accessToken: access_token,
         data: messageDemo,
@@ -366,7 +371,7 @@ Page({
     let that = this;
 
     wx.request({
-      url: app.globalData.url + '/Course/GetCourseByID', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/Course/GetCourseByID', //仅为示例，并非真实的接口地址
       data: {
         id: options.ID
       },

@@ -6,6 +6,7 @@ var currentDate = myDate.toLocaleDateString(); //获取当前日期
 var currentDay = myDate.getDay(); //获取当前周日期
 var chnNumChar = ["日", "一", "二", "三", "四", "五", "六"];
 var currentWeek = '星期' + chnNumChar[currentDay];
+var bodyH
 
 Page({
 
@@ -13,8 +14,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
     date: '',//currentDate,
     week: '',//currentWeek
+    bodyHeight: 0
   },
   onLoad: function(options) {
     console.log(options)
@@ -125,7 +128,7 @@ debugger
     //   { id: 0, startTime: '07:00', endTime: '08:00', schoolName: '学而思', className: '数学课', isRemind: 0];
 
     wx.request({
-      url: app.globalData.url + '/Course/GetChildrenCourseByDate', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/Course/GetChildrenCourseByDate', //仅为示例，并非真实的接口地址
       data: query,
       header: {
         'content-type': 'application/json' // 默认值
@@ -134,19 +137,27 @@ debugger
         debugger
         let list = setDataLocation(res.data.Data);
 
-        if (!!list[0]) {
-          that.setData({
-            noClassDis: 'none',
-            haveClassDis: 'block',
-            tableList: list
-          });
-        } else {
-          that.setData({
-            noClassDis: 'block',
-            haveClassDis: 'none',
-            tableList: list
-          });
-        }
+        wx.getSystemInfo({
+          success: function (res) {
+            bodyH = res.windowHeight - 44 - 70 - 4
+
+            if (!!list[0]) {
+              that.setData({
+                noClassDis: 'none',
+                haveClassDis: 'block',
+                tableList: list,
+                bodyHeight: bodyH
+              });
+            } else {
+              that.setData({
+                noClassDis: 'block',
+                haveClassDis: 'none',
+                tableList: list,
+                bodyHeight: bodyH
+              });
+            }
+          }
+        });
       }
     })
   },
@@ -157,7 +168,7 @@ debugger
     return {
       title: '',
       desc: '',
-      path: '/page/calendar/calendar?childrenID=' + data.childrenID + '&date=' + data.date + '&week=' + data.week + '&openID=' + app.globalData.openID,
+      path: '/pages/classDetails/classDetails?childrenID=' + data.childrenID + '&time=' + data.date + '&week=' + data.week + '&openID=' + app.globalData.openID
     }
   },
 

@@ -1,31 +1,37 @@
 // pages/calendar/calendar.js
 const app = getApp()
-var mtabW, mdateW, mdateH
+var mtabW, mdateW, mdateH, hSwiper
 
 Page({
   data: {
+    url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
     list:[],
     activeIndex: 0,
     slideOffset: 0,
     tabW: 0,
     dateW: 0,
     dateH: 0,
+    swiperHeight: 0,
     isUnfoldType: false,
     page: 1,
     pageSize: 7
   },
 
   onLoad: function (options) {
-    if (options.openID){
+    if (!!options && options.openID){
       this.setTabData(options.openID);
     }else{
       this.setTabData();
     }
   },
   onShow() { //返回显示页面状态函数
-    let query = this.data.query
+    // let query = this.data.query
 
-    this.setClassData(query)//再次加载，实现返回上一页页面刷新
+    // this.setClassData(query)//再次加载，实现返回上一页页面刷新
+    this.setData({
+      activeIndex: 0,
+    });
+    this.onLoad()
   },
 
   //点击左上角折叠展开按钮
@@ -59,7 +65,7 @@ Page({
         interval: 7
       }
     wx.request({
-      url: app.globalData.url + '/Course/AddCourseList', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/Course/AddCourseList', //仅为示例，并非真实的接口地址
       data: query,
       header: {
         'content-type': 'application/json' // 默认值
@@ -96,7 +102,7 @@ Page({
       }
 
     wx.request({
-      url: app.globalData.url + '/Course/Deletes', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/Course/Deletes', //仅为示例，并非真实的接口地址
       data: query,
       header: {
         'content-type': 'application/json' // 默认值
@@ -164,7 +170,7 @@ Page({
   setTabData: function (openID){
     let that = this
     wx.request({
-      url: app.globalData.url + '/Children/Index', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/Children/Index', //仅为示例，并非真实的接口地址
       data: {
         openID: !!openID ? openID : app.globalData.openID
       },
@@ -193,7 +199,7 @@ Page({
     let that = this
 
     wx.request({
-      url: app.globalData.url + '/Course/Index', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/Course/Index', //仅为示例，并非真实的接口地址
       data: query,
       header: {
         'content-type': 'application/json' // 默认值
@@ -209,6 +215,7 @@ Page({
             mtabW = (res.windowWidth - 20 - 8) / 3; //设置tab的宽度
             mdateW = (res.windowWidth - 20 - 40 - 30 - 15) / 3;//设置日期的宽度
             mdateH = (res.windowHeight - 20 - 30 - 20 - 28 - 20 - 15 - 10 - 30 - 30 - 30) / 3;//设置日期高度
+            hSwiper = res.windowHeight - 20 - 40 - 10 - 28
 
             that.setData({
               dateList: dateList,
@@ -217,7 +224,8 @@ Page({
               childrenID: query.childrenID,
               tabW: mtabW,
               dateW: mdateW,
-              dateH: mdateH
+              dateH: mdateH,
+              swiperHeight: hSwiper
             })
           }
         });
@@ -250,9 +258,8 @@ Page({
     return {
       title: '',
       desc: '',
-      path: '/page/calendar/calendar?activeIndex=' + data.activeIndex + '&childrenID=' + query.childrenID + '&page=' + query.page + '&pageSize=' + query.pageSize + '&openID=' + app.globalData.openID,
+      path: '/pages/calendar/calendar?activeIndex=' + data.activeIndex + '&childrenID=' + query.childrenID + '&page=' + query.page + '&pageSize=' + query.pageSize + '&openID=' + app.globalData.openID
     }
   },
-
 
 })

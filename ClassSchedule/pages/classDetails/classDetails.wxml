@@ -8,7 +8,7 @@
       </view>
     </view>
 
-    <scroll-view scroll-y="true" enable-back-to-top="true" class="details">
+    <scroll-view scroll-y="true" enable-back-to-top="true" class="details" style='height:{{bodyHeight}}px'>
       <view class="details-body">
         <view class='timeLine'>
           <view wx:for="{{timeList}}" wx:key="{{index}}" bindtap='addNewAgenda' class="timeItem '{{'timeItem'+index}}'">

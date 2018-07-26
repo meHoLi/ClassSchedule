@@ -7,7 +7,7 @@ Page({
   onLoad: function() {
     let that = this;
 
-    // wx.hideShareMenu()
+    wx.hideShareMenu()
     wx.login({
       success: function(res) {
         debugger
@@ -22,11 +22,11 @@ Page({
             let data = JSON.parse(res.data.Data);
 
             app.globalData.openID = data.openid,
-              app.globalData.session_key = data.session_key
+            app.globalData.session_key = data.session_key
 
-            // if (!!data.openid) {
-            //   that.accredit()
-            // }
+            if (!!data.openid) {
+              that.accredit()
+            }
           }
         })
       }
@@ -171,17 +171,7 @@ Page({
 
       }
     });
-  },
-
-  onShareAppMessage: function() {
-    let data = this.data,
-      query = data.query
-
-    return {
-      title: '',
-      desc: '',
-      path: '/page/login/login'
-    }
   }
+
 
 })

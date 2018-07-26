@@ -72,6 +72,7 @@
 .item-icon {
   width: 100rpx;
   margin-right: 16rpx;
+  border-radius: 50%;
 }
 .item-text{
   width: 550rpx; 

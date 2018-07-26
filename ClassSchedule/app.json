@@ -4,15 +4,15 @@
     "pages/home/home",
     "pages/calendar/calendar",
     "pages/usingHelp/usingHelp",
+    "pages/setAgenda/setAgenda",
     "pages/settings/settings",
     "pages/addNewClass/addNewClass",
-    "pages/setAgenda/setAgenda",
     "pages/classDetails/classDetails"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#54cbf0",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "儿童课程表",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {

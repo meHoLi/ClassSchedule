@@ -110,6 +110,25 @@ Page({
       delta: 1
     })
   },
+  //删除
+  del: function(e) {
+    let that = this;
+
+    wx.request({
+      url: app.globalData.url + '/Children/Delete', //仅为示例，并非真实的接口地址
+      data: {
+        id: that.data.ID
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    })
+  },
   //保存
   save: function(){
     let data = this.data,

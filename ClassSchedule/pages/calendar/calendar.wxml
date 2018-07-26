@@ -12,7 +12,7 @@
         <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
       </scroll-view>
       <!-- <view class="rec" /> -->
-      <swiper current="{{activeIndex}}" class="swiper-box" duration="100" bindchange="bindChange">
+      <swiper current="{{activeIndex}}" class="swiper-box" duration="100" bindchange="bindChange" style='height:{{swiperHeight}}px'>
         <swiper-item class="swiper-item" wx:for="{{nameList}}">
           <view class="slide-view">
             <view class="nail">

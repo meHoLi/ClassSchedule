@@ -28,20 +28,20 @@
           </view>
         </view>
 
-        <view class="info-items">
+        <view class="info-items" style="background:{{!!ID?'#f0f0f0':'#fff'}};">
           <view class="title">
             <text class="asterisk">*</text>
             <text>选择时间</text>
           </view>
           <view class="infotext">
             <view class="info-motto timePicker">
-              <picker mode="time" value="{{startTime}}" start="07:00" end="23:59" bindchange="bindStartTimeChange">
+              <picker mode="time" disabled='{{!!ID?true:false}}' value="{{startTime}}" start="07:00" end="23:59" bindchange="bindStartTimeChange">
                 <view class="picker">
                   {{startTime}}
                 </view>
               </picker>
               —
-              <picker mode="time" value="{{endTime}}" start="07:00" end="23:59" bindchange="bindEndTimeChange">
+              <picker mode="time" disabled='{{!!ID?true:false}}' value="{{endTime}}" start="07:00" end="23:59" bindchange="bindEndTimeChange">
                 <view class="picker">
                   {{endTime}}
                 </view>
@@ -71,10 +71,10 @@
           </view>
         </view>
 
-        <view class="info-items">
+        <view class="info-items" style="background:{{!!ID?'#f0f0f0':'#fff'}};">
           <text>提醒</text>
           <view class="infotext">
-            <picker bindchange="bindPickerChange" value="{{remindValue}}" range="{{remind}}" class="info-motto">
+            <picker bindchange="bindPickerChange" disabled='{{!!ID?true:false}}' value="{{remindValue}}" range="{{remind}}" class="info-motto">
               <view class="picker">
                 {{remind[remindValue]}}
               </view>

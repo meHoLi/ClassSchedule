@@ -50,7 +50,7 @@
 .btn button{
   flex-grow: 1;
 }
-.btn .cancelBtn{
+.btn .cancelBtn,.btn .delBtn{
   margin-right: 16rpx;
 }
 .btn .saveBtn{
