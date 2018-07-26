@@ -2,7 +2,7 @@
   <view class="login">
     <view class="login-accredit">
       <image class="login-accredit-img" src="../../imgs/accredit/haveNoRight.png" mode="scaleToFill"></image>
-      <text class="login-accredit-text">请稍等片刻~</text>
+      <text class="login-accredit-text">正在进行安全监测~</text>
     </view>
     <!-- <form bindsubmit='save' report-submit="true" class="saveBtn">
       <button formType="submit">立即登陆</button>
