@@ -16,7 +16,7 @@
           <!-- <view bindtap='editInfo' bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt"> -->
           <view bindtap='editInfo' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
 
-            <image data-index="{{index}}" data-item="{{item}}" class="item-icon" mode="widthFix" src="{{!!item.HeadPortrait?item.HeadPortrait:'/imgs/head/head.png'}}"></image>
+            <image data-index="{{index}}" data-item="{{item}}" class="item-icon" src="{{!!item.HeadPortrait?item.HeadPortrait:'/imgs/head/head.png'}}"></image>
             <text class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.Name}}</text>
 
             <image data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>

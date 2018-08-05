@@ -29,7 +29,7 @@
 }
 .title{
   display: flex;
-  width: 140rpx;
+  width: 262rpx;
   height: 100%;
   flex-direction: row;
   align-items: center; 

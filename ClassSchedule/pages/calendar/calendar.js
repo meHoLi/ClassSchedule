@@ -5,7 +5,7 @@ var mtabW, mdateW, mdateH, hSwiper
 Page({
   data: {
     url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
-    list:[],
+    list: [],
     activeIndex: 0,
     slideOffset: 0,
     tabW: 0,
@@ -17,30 +17,35 @@ Page({
     pageSize: 7
   },
 
-  onLoad: function (options) {
-    if (!!options && options.openID){
+  onLoad: function(options) {
+    wx.hideShareMenu()
+
+    if (!!options && options.openID) {
       this.setTabData(options.openID);
-    }else{
+    } else {
       this.setTabData();
     }
   },
   onShow() { //返回显示页面状态函数
-    // let query = this.data.query
+    let query = this.data.query
+
+    wx.hideShareMenu()
 
     // this.setClassData(query)//再次加载，实现返回上一页页面刷新
-    this.setData({
-      activeIndex: 0,
-    });
-    this.onLoad()
+    // this.setData({
+    //   activeIndex: 0,
+    // });
+    // this.onLoad()
+    this.setTabData(undefined, query);
   },
 
   //点击左上角折叠展开按钮
-  isUnfold: function(){
-    if (!this.data.isUnfoldType){
+  isUnfold: function() {
+    if (!this.data.isUnfoldType) {
       this.setData({
         isUnfoldType: true
       })
-    }else{
+    } else {
       this.setData({
         isUnfoldType: false
       })
@@ -48,17 +53,18 @@ Page({
   },
 
   //点击新增孩子
-  addClassTable: function () {
+  addClassTable: function() {
     wx.navigateTo({
       url: '../addNewClass/addNewClass?openID=' + app.globalData.openID
     })
   },
 
   //点击与上周课程一样
-  likePrev: function () {debugger
+  likePrev: function() {
+    debugger
     let that = this,
       dateList = this.data.dateList,
-      query={
+      query = {
         childrenID: this.data.childrenID,
         startTime: dateList[0].StartTime,
         endTime: dateList[dateList.length - 1].StartTime + ' 23:59',
@@ -70,10 +76,11 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {debugger
+      success: function(res) {
+        debugger
         let query = that.data.query
 
-        if (!!res.data.Data.isExistence){
+        if (!!res.data.Data.isExistence) {
           let message = res.data.Msg + '已经存在课程，请手动修改'
 
           wx.showModal({
@@ -85,14 +92,14 @@ Page({
 
         that.setClassData(query)
       },
-      complete: function () {
-        wx.hideToast();  //隐藏Toast
+      complete: function() {
+        wx.hideToast(); //隐藏Toast
       }
     })
   },
 
   //点击当周新建课程
-  curNewAdd: function () {
+  curNewAdd: function() {
     let that = this,
       dateList = this.data.dateList,
       query = {
@@ -107,7 +114,8 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {debugger
+      success: function(res) {
+        debugger
         let query = that.data.query
 
         that.setClassData(query)
@@ -116,14 +124,15 @@ Page({
   },
 
   //页签切换
-  tabClick: function (e) {debugger
+  tabClick: function(e) {
+    debugger
     var that = this;
     var childrenID = e.currentTarget.dataset.id;
     var idIndex = e.currentTarget.id;
     var offsetW = e.currentTarget.offsetLeft; //2种方法获取距离文档左边有多少距离
     var query = {
       childrenID: childrenID,
-      page:1,
+      page: 1,
       "pageSize": that.data.pageSize
     }
     this.setData({
@@ -135,7 +144,8 @@ Page({
     that.setClassData(query)
   },
   //页签项滑动切换
-  bindChange: function (e) {debugger
+  bindChange: function(e) {
+    debugger
     var current = e.detail.current;
     var curNameList = this.data.nameList[current]
     var query = {
@@ -155,19 +165,20 @@ Page({
     this.setClassData(query)
   },
   //编辑课程信息
-  editAgenda: function(e){debugger
+  editAgenda: function(e) {
+    debugger
     let activeIndex = this.data.activeIndex,
       curNameList = this.data.nameList[activeIndex],
       time = e.currentTarget.dataset.time,
       week = e.currentTarget.dataset.week
-    
+
     wx.navigateTo({
       url: "/pages/classDetails/classDetails?childrenID=" + curNameList.ID + '&time=' + time + '&week=' + week
     })
   },
 
   //设置tab数据
-  setTabData: function (openID){
+  setTabData: function(openID, query) {
     let that = this
     wx.request({
       url: that.data.url + '/Children/Index', //仅为示例，并非真实的接口地址
@@ -177,17 +188,37 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {debugger
+      success: function(res) {
+        debugger
         console.log(res)
         let nameList = res.data.Data,
+          activeIndex = that.data.activeIndex
+        debugger
+        if (!!query) {
+          let item = nameList.filter(o => {
+            return o.ID == query.childrenID
+          })
+
+          if (!item[0]) {
+            query = {
+              "childrenID": nameList[0].ID,
+              "page": that.data.page,
+              "pageSize": that.data.pageSize
+            }
+            activeIndex = 0
+          }
+        } else {
           query = {
             "childrenID": nameList[0].ID,
             "page": that.data.page,
             "pageSize": that.data.pageSize
           }
+          activeIndex = 0
+        }
 
         that.setData({
-          nameList: nameList
+          nameList: nameList,
+          activeIndex: activeIndex
         })
 
         that.setClassData(query)
@@ -195,7 +226,7 @@ Page({
     })
   },
 
-  setClassData(query){
+  setClassData(query) {
     let that = this
 
     wx.request({
@@ -204,17 +235,17 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
+      success: function(res) {
         debugger
         let dateList = res.data.Data
 
         wx.getSystemInfo({
-          success: function (res) {
+          success: function(res) {
             debugger
 
             mtabW = (res.windowWidth - 20 - 8) / 3; //设置tab的宽度
-            mdateW = (res.windowWidth - 20 - 40 - 30 - 15) / 3;//设置日期的宽度
-            mdateH = (res.windowHeight - 20 - 30 - 20 - 28 - 20 - 15 - 10 - 30 - 30 - 30) / 3;//设置日期高度
+            mdateW = (res.windowWidth - 20 - 40 - 30 - 15) / 3; //设置日期的宽度
+            mdateH = (res.windowHeight - 20 - 30 - 20 - 28 - 20 - 15 - 10 - 30 - 30 - 30) / 3; //设置日期高度
             hSwiper = res.windowHeight - 20 - 40 - 10 - 28
 
             that.setData({
@@ -234,7 +265,7 @@ Page({
   },
 
   //上一周
-  prevWeekHandler: function(){
+  prevWeekHandler: function() {
     let query = this.data.query,
       page = this.data.page - 1
 
@@ -243,7 +274,7 @@ Page({
     this.setClassData(query)
   },
   //下一周
-  nextWeekHandler: function () {
+  nextWeekHandler: function() {
     let query = this.data.query,
       page = this.data.page + 1
 
@@ -251,7 +282,7 @@ Page({
 
     this.setClassData(query)
   },
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     let data = this.data,
       query = data.query
 

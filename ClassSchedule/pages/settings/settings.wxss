@@ -71,6 +71,7 @@
 }
 .item-icon {
   width: 100rpx;
+  height: 100rpx !important;
   margin-right: 16rpx;
   border-radius: 50%;
 }

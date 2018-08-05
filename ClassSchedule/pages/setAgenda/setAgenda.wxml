@@ -11,37 +11,37 @@
         <view class="info-items">
           <view class="title">
             <text class="asterisk">*</text>
-            <text>课程名称</text>
+            <text>课程（日程）名称</text>
           </view>
           <view class="infotext">
-            <input class="info-motto" value='{{className}}' type='text' bindinput="setClassNameInput" placeholder="请输入课程名称" focus/>
+            <input class="info-motto" value='{{className}}' type='text' bindinput="setClassNameInput" placeholder="如：英语课，或 逛公园" focus/>
           </view>
         </view>
 
         <view class="info-items">
           <view class="title">
             <text class="asterisk">*</text>
-            <text>学校名称</text>
+            <text>学校名称（或目的地）</text>
           </view>
           <view class="infotext">
-            <input class="info-motto" value='{{schoolName}}' type='text' bindinput="setSchoolNameInput" placeholder="请输入学校名称" focus/>
+            <input class="info-motto" value='{{schoolName}}' type='text' bindinput="setSchoolNameInput" placeholder="如：学而思 或 香山" focus/>
           </view>
         </view>
 
-        <view class="info-items" style="background:{{!!ID?'#f0f0f0':'#fff'}};">
+        <view class="info-items">
           <view class="title">
             <text class="asterisk">*</text>
             <text>选择时间</text>
           </view>
           <view class="infotext">
             <view class="info-motto timePicker">
-              <picker mode="time" disabled='{{!!ID?true:false}}' value="{{startTime}}" start="07:00" end="23:59" bindchange="bindStartTimeChange">
+              <picker mode="time" value="{{startTime}}" start="07:00" end="23:59" bindchange="bindStartTimeChange">
                 <view class="picker">
                   {{startTime}}
                 </view>
               </picker>
               —
-              <picker mode="time" disabled='{{!!ID?true:false}}' value="{{endTime}}" start="07:00" end="23:59" bindchange="bindEndTimeChange">
+              <picker mode="time" value="{{endTime}}" start="07:00" end="23:59" bindchange="bindEndTimeChange">
                 <view class="picker">
                   {{endTime}}
                 </view>
@@ -71,10 +71,10 @@
           </view>
         </view>
 
-        <view class="info-items" style="background:{{!!ID?'#f0f0f0':'#fff'}};">
+        <view class="info-items">
           <text>提醒</text>
           <view class="infotext">
-            <picker bindchange="bindPickerChange" disabled='{{!!ID?true:false}}' value="{{remindValue}}" range="{{remind}}" class="info-motto">
+            <picker bindchange="bindPickerChange" value="{{remindValue}}" range="{{remind}}" class="info-motto">
               <view class="picker">
                 {{remind[remindValue]}}
               </view>
@@ -90,8 +90,8 @@
 
     <view class="btn">
       <button bindtap="cancel" class="cancelBtn"> 取消 </button>
-      <button bindtap="del" class='delBtn' style="display:{{!!ID?'block':'none'}};"> 删除 </button>
-      <form bindsubmit='save' report-submit="true" class="saveBtn">
+      <button bindtap="del" class='delBtn'> 删除 </button>
+      <form bindsubmit='save' report-submit="true" class="saveBtn" style="display:{{!!isShowEditBtn?'block':'none'}}">
         <button formType="submit">保存</button>
       </form>
       <!-- <button bindtap="save" class="saveBtn"> 保存 </button> -->

@@ -3,6 +3,7 @@ const app = getApp()
 var util = require('../../utils/util.js');
 var myDate = new Date(); //获取系统当前时间
 var currentDate = myDate.toLocaleDateString(); //获取当前日期
+var timestamp = new Date().getTime();//当前日期时间戳
 
 Page({
 
@@ -59,7 +60,8 @@ Page({
     remindValue: 0,
     RemindTime: '-9999',
 
-    remark: '' //备注
+    remark: '', //备注
+    isShowEditBtn: true
   },
   onLoad: function(options) {debugger
     let that = this;
@@ -69,9 +71,14 @@ Page({
     if (!!options.ID) {
       that.setAgendaData(options)
     } else {
+      let classTime = options.date.split('-').join('/') + ' ' + this.data.StartTime,
+        classTimestamp = Date.parse(classTime) 
+
+      console.log(classTimestamp > timestamp || classTimestamp == timestamp ? true : false)
       that.setData({
         date: options.date,
         childrenID: options.childrenID,
+        isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
       })
     }
   },
@@ -92,11 +99,14 @@ Page({
   bindStartTimeChange: function(e) {
     let startTime = e.detail.value,
       strtHour = Number(startTime.split(':')[0]) + 1,
-      endTime = strtHour < 10 ? '0' + strtHour + ':00' : (strtHour == 24 ? '23:59' : strtHour + ':00')
+      endTime = strtHour < 10 ? '0' + strtHour + ':00' : (strtHour == 24 ? '23:59' : strtHour + ':00'),
+      classTime = this.data.date.split('-').join('/') + ' ' + startTime,
+      classTimestamp = Date.parse(classTime)
 
     this.setData({
       startTime: e.detail.value,
-      endTime: endTime
+      endTime: endTime,
+      isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
     })
   },
   //点击结束时间组件确定事件  
@@ -304,6 +314,10 @@ Page({
               
               if (that.data.RemindTime != '-9999'){
                 that.setInfoTemplate(e.detail.formId, data.access_token)
+
+                wx.navigateBack({
+                  delta: 1
+                })
               }else{
                 wx.navigateBack({
                   delta: 1
@@ -322,8 +336,8 @@ Page({
     var openId = app.globalData.openID;
     var messageDemo = {
       touser: openId,//openId   
-      template_id: '1fubB0p5PAMlP_o5P1R93yd68OaRyl67W8jgM6mQgTY',//模板消息id，  
-      page: 'pages/setAgenda/setAgenda?childrenID=' + this.data.childrenID + '&date=' + this.data.date + '&ID=' + this.data.ID,//点击详情时跳转的主页
+      template_id: '1fubB0p5PAMlP_o5P1R93-35W_TCa2plZTpPogGn87w',//模板消息id，  
+      // page: 'pages/setAgenda/setAgenda?childrenID=' + this.data.childrenID + '&date=' + this.data.date + '&ID=' + this.data.ID,//点击详情时跳转的主页
       form_id: formId,//formId
       data: {//下面的keyword*是设置的模板消息的关键词变量  
         "keyword1": {
@@ -342,7 +356,7 @@ Page({
     }
 
     wx.request({
-      url: that.data.url + '/WeChatAppAuthorize/SendTemplateMsg',
+      url: that.data.url + '/WeChatAppAuthorize/SendMsgAsync',
       data: {
         accessToken: access_token,
         data: messageDemo,
@@ -368,7 +382,7 @@ Page({
 
   //初始化查询数据
   setAgendaData: function (options) {
-    let that = this;
+    let that = this
 
     wx.request({
       url: that.data.url + '/Course/GetCourseByID', //仅为示例，并非真实的接口地址
@@ -378,11 +392,13 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
+      success: function (res) {debugger
         let data = res.data.Data,
           remindList = that.data.remindList,
-          remindItem = remindList.filter(o =>{return o.time == data.RemindTime})
-
+          remindItem = remindList.filter(o =>{return o.time == data.RemindTime}),
+          classTime = options.date.split('-').join('/') + ' ' + data.StartTime.split(' ')[1],
+          classTimestamp = Date.parse(classTime) 
+        
         that.setData({
           date: options.date,
           childrenID: options.childrenID,
@@ -396,7 +412,8 @@ Page({
           phone: data.Phone ? data.Phone : '', //联系方式
           remindValue: remindItem[0].id,//提醒
           RemindTime: data.RemindTime,//提醒
-          remark: !!data.Remarks ? data.Remarks : ''//备注
+          remark: !!data.Remarks ? data.Remarks : '',//备注
+          isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
         })
       }
     })

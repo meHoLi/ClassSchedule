@@ -20,18 +20,17 @@ Page({
     bodyHeight: 0
   },
   onLoad: function(options) {
-    console.log(options)
     this.setData({
       date: options.time,
       week: options.week,
       childrenID: options.childrenID
     })
+    wx.hideShareMenu()
     // 页面初始化 options为页面跳转所带来的参数
     this.getTimeData(); //时间轴数据
     this.getTabData(options); //课程数据
   },
   onShow() {
-  debugger
     let options = {
       time: this.data.date,
       week: this.data.week,
@@ -190,13 +189,13 @@ function setDataLocation(list) {debugger
       if (endHour - startHour == 1) {
         height = height + 56
 
-        if (!!endMinute) { //后期加精度去掉
-          height = height + 59
-        }
+        // if (!!endMinute) { //后期加精度去掉
+        //   height = height + 59
+        // }
       } else if (endHour - startHour > 1) {
         height = height + 56 + 59 * (endHour - startHour - 1)
       }
-      // height = height + (endMinute - startMinute)
+      height = height + (endMinute - startMinute)
 
       if (startHour - 7 > 0) {
         if (startHour - 7 == 1) {
@@ -205,7 +204,7 @@ function setDataLocation(list) {debugger
           marginTop = 60 * (startHour - 7)
         }
       }
-      // marginTop = marginTop + startMinute
+      marginTop = marginTop + startMinute
 
       item.startTime = startTime
       item.endTime = endTime
