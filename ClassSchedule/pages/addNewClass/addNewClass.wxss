@@ -79,10 +79,10 @@
 .checkbox1{
   background-color: #1daca9;
 }
-.checkbox2{
+/* .checkbox2{
   background-color: #f4b3b3;
-}
-.checkbox3{
+} */
+.checkbox2{
   background-color: #ff527f;
 }
 .checkbox4{

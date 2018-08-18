@@ -43,7 +43,7 @@ Page({
   addNewAgenda: function(e) {
     let childrenID = this.data.childrenID,
       date = this.data.date
-debugger
+
     if (!e.currentTarget.dataset.item){
       wx.navigateTo({
         url: '../setAgenda/setAgenda?childrenID=' + childrenID + '&date=' + date,
@@ -133,7 +133,7 @@ debugger
         'content-type': 'application/json' // 默认值
       },
       success: function(res) {
-        debugger
+        
         let list = setDataLocation(res.data.Data);
 
         wx.getSystemInfo({
@@ -173,7 +173,7 @@ debugger
 
 })
 
-function setDataLocation(list) {debugger
+function setDataLocation(list) {
   if (!!list){
     for (let i = 0; i < list.length; i++) {
       let item = list[i],

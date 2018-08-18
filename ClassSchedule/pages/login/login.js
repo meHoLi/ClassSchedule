@@ -10,7 +10,6 @@ Page({
     wx.hideShareMenu()
     wx.login({
       success: function(res) {
-        debugger
         wx.request({
           //获取openid接口
           url: app.globalData.url + '/WeChatAppAuthorize/GetOpenIdAndSessionKeyString',
@@ -18,7 +17,7 @@ Page({
             code: res.code,
           },
           success: function(res) {
-            debugger
+  
             let data = JSON.parse(res.data.Data);
 
             app.globalData.openID = data.openid,
@@ -62,7 +61,6 @@ Page({
       url: app.globalData.url + '/WeChatAppAuthorize/GetToken',
       data: {},
       success: function(res) {
-        debugger
         let data = JSON.parse(res.data.Data)
 
         that.setInfoTemplate(e.detail.formId, data.access_token)
@@ -120,7 +118,6 @@ Page({
       url: app.globalData.url + '/WeChatAppAuthorize/GetToken',
       data: {},
       success: function (res) {
-        debugger
         let data = JSON.parse(res.data.Data)
 
         that.setInfoTemplate2(e.detail.formId, data.access_token)

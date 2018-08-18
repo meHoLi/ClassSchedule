@@ -20,7 +20,7 @@
         <view class="info-items">
           <text>生日</text>
           <view class="infotext">
-            <picker class="info-motto" mode="date" value="{{Birthday}}" start="1978-01-01" end="{{endDate}}" bindchange="bindDateChange">
+            <picker class="info-motto" mode="date" value="{{Birthday}}" start="1900-01-01" end="{{endDate}}" bindchange="bindDateChange">
               <view class="picker">{{Birthday}}</view>
             </picker>
           </view>

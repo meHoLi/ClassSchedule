@@ -1,9 +1,15 @@
 // pages/calendar/calendar.js
 const app = getApp()
+var util = require('../../utils/util.js');
+var myDate = new Date(); //获取系统当前时间
+var currentDate = myDate.toLocaleDateString(); //获取当前日期
+// var timestamp = Date.parse(currentDate+ " 00:00:00")//当前日期时间戳
+var timestamp = new Date().getTime();//当前日期时间戳
 var mtabW, mdateW, mdateH, hSwiper
 
 Page({
   data: {
+    timestamp: timestamp,
     url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
     list: [],
     activeIndex: 0,
@@ -61,7 +67,6 @@ Page({
 
   //点击与上周课程一样
   likePrev: function() {
-    debugger
     let that = this,
       dateList = this.data.dateList,
       query = {
@@ -77,7 +82,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function(res) {
-        debugger
+  
         let query = that.data.query
 
         if (!!res.data.Data.isExistence) {
@@ -115,7 +120,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function(res) {
-        debugger
+  
         let query = that.data.query
 
         that.setClassData(query)
@@ -125,7 +130,6 @@ Page({
 
   //页签切换
   tabClick: function(e) {
-    debugger
     var that = this;
     var childrenID = e.currentTarget.dataset.id;
     var idIndex = e.currentTarget.id;
@@ -145,7 +149,6 @@ Page({
   },
   //页签项滑动切换
   bindChange: function(e) {
-    debugger
     var current = e.detail.current;
     var curNameList = this.data.nameList[current]
     var query = {
@@ -166,7 +169,6 @@ Page({
   },
   //编辑课程信息
   editAgenda: function(e) {
-    debugger
     let activeIndex = this.data.activeIndex,
       curNameList = this.data.nameList[activeIndex],
       time = e.currentTarget.dataset.time,
@@ -189,11 +191,10 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function(res) {
-        debugger
         console.log(res)
         let nameList = res.data.Data,
           activeIndex = that.data.activeIndex
-        debugger
+
         if (!!query) {
           let item = nameList.filter(o => {
             return o.ID == query.childrenID
@@ -236,17 +237,18 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function(res) {
-        debugger
         let dateList = res.data.Data
 
         wx.getSystemInfo({
           success: function(res) {
-            debugger
+      
 
             mtabW = (res.windowWidth - 20 - 8) / 3; //设置tab的宽度
             mdateW = (res.windowWidth - 20 - 40 - 30 - 15) / 3; //设置日期的宽度
             mdateH = (res.windowHeight - 20 - 30 - 20 - 28 - 20 - 15 - 10 - 30 - 30 - 30) / 3; //设置日期高度
             hSwiper = res.windowHeight - 20 - 40 - 10 - 28
+
+            dateList = that.setDateList(dateList)
 
             that.setData({
               dateList: dateList,
@@ -262,6 +264,25 @@ Page({
         });
       }
     })
+  },
+
+  //设置时间戳
+  setDateList: function (dateList){
+    dateList.map((o,index)=>{
+      let startTimeStamp = Date.parse(o.StartTime.split('-').join('/') + " 00:00:00")//当前日期时间戳
+
+      console.log(startTimeStamp,'////日历')
+      console.log(startTimeStamp<timestamp)
+      console.log(timestamp, '////今天')
+
+      dateList[index].className = startTimeStamp < timestamp ? 'lastDate' : (startTimeStamp > timestamp ? 'nextDate' : '')
+
+      if (!!o.IsToday){
+        dateList[index].className = 'isToday'
+      }
+    })
+
+    return dateList
   },
 
   //上一周
