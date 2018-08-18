@@ -63,7 +63,7 @@ Page({
     remark: '', //备注
     isShowEditBtn: true
   },
-  onLoad: function(options) {debugger
+  onLoad: function(options) {
     let that = this;
 
     wx.hideShareMenu()
@@ -71,7 +71,7 @@ Page({
     if (!!options.ID) {
       that.setAgendaData(options)
     } else {
-      let classTime = options.date.split('-').join('/') + ' ' + this.data.StartTime,
+      let classTime = options.date.split('-').join('/') + ' ' + this.data.startTime,
         classTimestamp = Date.parse(classTime) 
 
       console.log(classTimestamp > timestamp || classTimestamp == timestamp ? true : false)
@@ -169,7 +169,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        debugger
+        
         let data = res.data.Data
 
         that.setData({
@@ -196,7 +196,7 @@ Page({
     })
   },
   //保存
-  save: function(e) {debugger
+  save: function(e) {
     let that = this,
       data = this.data,
       query = {
@@ -265,7 +265,7 @@ Page({
           //   url: that.data.url + '/WeChatAppAuthorize/GetToken',
           //   data: {},
           //   success: function (res) {
-          //     debugger
+          //     
           //     let data = JSON.parse(res.data.Data)
 
           //     if (that.data.RemindTime != '-9999') {
@@ -309,7 +309,7 @@ Page({
             url: that.data.url + '/WeChatAppAuthorize/GetToken',
             data: {},
             success: function (res) {
-              debugger
+              
               let data = JSON.parse(res.data.Data)
               
               if (that.data.RemindTime != '-9999'){
@@ -392,7 +392,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {debugger
+      success: function (res) {
         let data = res.data.Data,
           remindList = that.data.remindList,
           remindItem = remindList.filter(o =>{return o.time == data.RemindTime}),

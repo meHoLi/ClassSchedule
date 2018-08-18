@@ -15,7 +15,7 @@ Page({
   onShow() { //返回显示页面状态函数
     this.onLoad()//再次加载，实现返回上一页页面刷新
   },
-  // touchS: function(e) {debugger
+  // touchS: function(e) {
   //   if (e.touches.length == 1) {
   //     this.setData({
   //       //设置触摸起始点水平方向位置
@@ -24,7 +24,7 @@ Page({
   //   }
   // },
 
-  // touchM: function(e) {debugger
+  // touchM: function(e) {
   //   if (e.touches.length == 1) {
   //     //手指移动时水平方向位置
   //     var moveX = e.touches[0].clientX;
@@ -58,7 +58,7 @@ Page({
   //   }
   // },
 
-  // touchE: function(e) {debugger
+  // touchE: function(e) {
   //   if (e.changedTouches.length == 1) {
   //     //手指移动结束后水平位置
   //     var endX = e.changedTouches[0].clientX;
@@ -140,7 +140,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        debugger
+        
         console.log(res)
         let list = res.data.Data
 

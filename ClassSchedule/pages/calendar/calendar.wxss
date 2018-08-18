@@ -180,6 +180,15 @@
   border-bottom: 2rpx solid #d1d1d1;
 }
 
+.lastDate{
+  color: #000 !important;
+  background: #f5f5f5 !important;
+}
+.isToday{
+  color: #fff !important;
+  background: #782878 !important;
+}
+
 .week-list .week-item .week-item-body {
   display: flex;
   flex: 1;

@@ -21,14 +21,15 @@
 
             <view class="calendar-date">
               <view class="week-list">
-                <view wx:for="{{dateList}}" class="week-item" style="width:{{dateW}}px;height:{{dateH}}px;background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}}" bindtap='editAgenda' data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}">
+                <view wx:for="{{dateList}}" class="week-item '{{item.className}}'" style="width:{{dateW}}px;height:{{dateH}}px;background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}}" bindtap='editAgenda' data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}">
 
                   <view class="week-item-body">
-                    <text class='today' style="display:{{!!item.IsToday?'block':'none'}};background:{{!!item.BackgroundColor?item.BackgroundColor:'#54cbf0'}};">今</text>
+                    <text class='today' style="display:{{!!item.IsToday?'block':'none'}};">今</text>
                     <text>{{item.StartTime}}</text>
                     <text>{{item.DayOfWeek}}</text>
                   </view>
-
+<!-- background:{{!!item.BackgroundColor?item.BackgroundColor:'#54cbf0'}}; -->
+<!-- item.startTimeStamp<currentDate?'lastDate':(!!item.IsToday?'today':'nextDate') -->
                 </view>
               </view>
 

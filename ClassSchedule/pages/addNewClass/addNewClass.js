@@ -28,19 +28,21 @@ Page({
     radio: [
       { 'value': '#54cbf0', checked:true },
       { 'value': '#1daca9' },
-      { 'value': '#f4b3b3' },
+      
+      // { 'value': '#f4b3b3' },
+      
       { 'value': '#ff527f' },
-      { 'value': '#f9b72b' },
-      { 'value': '#ffda44' },
+      // { 'value': '#f9b72b' },
+      // { 'value': '#ffda44' },
 
-      { 'value': '#939393' },
-      { 'value': '#656565' },
-      { 'value': '#3c3c3c' }
+      // { 'value': '#939393' },
+      // { 'value': '#656565' },
+      // { 'value': '#3c3c3c' }
     ],
     Background: '#54cbf0',
     radioW: 0
   },
-  onLoad: function (options) {debugger
+  onLoad: function (options) {
     var that = this;
     
     wx.hideShareMenu()
@@ -58,7 +60,7 @@ Page({
       count: 1, // 默认9
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {debugger
+      success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths;
 
@@ -195,7 +197,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        debugger
+        
         let data = res.data.Data
 
         that.setTabW(data, options.openID)
@@ -208,7 +210,7 @@ Page({
 
     wx.getSystemInfo({
       success: function (res) {
-        mradioW = (res.windowWidth - 20 - 30) / 3; //设置tab的宽度
+        mradioW = (res.windowWidth - 20 - 30) / 3 - 2; //设置tab的宽度
 
         if (!!formData){
           that.setData({
