@@ -1,0 +1,39 @@
+<!--pages/commonClassList/commonClassList.wxml-->
+<view class="container">
+  <view class="classList">
+
+    <view class="haveClassBody">
+      <view class="haveClassTable">
+
+        <view class="item">
+          <view bindtap='editInfo' data-type="-1" style="{{item.txtStyle}}" class="inner txt">
+            <text class="item-text" data-type="-1" >家庭课程表</text>
+            <image class="item-edit" data-type="-1"  mode="widthFix" src="../../imgs/setting/next.png"></image>
+          </view>
+        </view>
+
+        <view class="item">
+          <view bindtap='editInfo' data-type="-2"  style="{{item.txtStyle}}" class="inner txt">
+            <text class="item-text" data-type="-2" >班级课程表</text>
+            <image class="item-edit" data-type="-2"  mode="widthFix" src="../../imgs/setting/next.png"></image>
+          </view>
+        </view>
+
+        <view wx:for="{{list}}" wx:key="{{index}}" class="item '{{'item'+index}}'">
+
+          <view bindtap='editInfo' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
+            <text class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.Name}}</text>
+
+            <image data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/next.png"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <button class="addNewClass" bindtap='addNewClass'>
+      <image class="addNewClass-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
+      <text>新建公共课程表</text>
+    </button>
+
+  </view>
+</view>

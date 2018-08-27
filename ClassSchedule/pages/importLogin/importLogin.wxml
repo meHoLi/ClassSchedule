@@ -1,0 +1,39 @@
+<!--pages/importLogin/importLogin.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        课程表登陆
+      </view>
+
+      <view class="infoMain">
+        <view class="info-items">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>用户名</text>
+          </view>
+          <view class="infotext">
+            <input class="info-motto" value='{{comClassUserName}}' type='text' bindinput="setClassUserNameInput" placeholder="请输入用户名" focus/>
+          </view>
+        </view>
+
+        <view class="info-items">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>密码</text>
+          </view>
+          <view class="infotext">
+            <input class="info-motto" value='{{passWord}}' type='text' bindinput="setPassWord" placeholder="请输入密码" focus/>
+          </view>
+        </view>
+
+      </view>
+    </view>
+
+    <view class="btn">
+      <button bindtap="login" class="loginlBtn"> 登陆 </button>
+    </view>
+
+  </view>
+</view>

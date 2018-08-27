@@ -1,0 +1,89 @@
+<!--pages/curWeekClass/curWeekClass.wxml-->
+<view class="container">
+  <view class="calendar">
+
+    <view class="classBody">
+      <view class='weui-navbar-body'>
+        <scroll-view scroll-x="true" class="weui-navbar">
+          <block wx:for-items="{{nameList}}">
+            <view id="{{index}}" class="{{activeIndex == index ?'item_on':''}} default-item" data-id="{{item.ID}}" bindtap="tabClick" style="width:{{tabW}}px">
+              {{item.Name}}
+            </view>
+          </block>
+          <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
+        </scroll-view>
+      </view>
+
+      <!-- <view class="rec" /> -->
+      <swiper current="{{activeIndex}}" class="swiper-box" duration="100" bindchange="bindChange" style='height:{{swiperHeight}}px'>
+        <swiper-item class="swiper-item" wx:for="{{nameList}}">
+          <view class="slide-view">
+
+            <view class="week-selector">
+              <view>{{currentDate}}</view>
+              <view class='paging'>
+                <view class="img-button pre-week-btn" bindtap="prevWeekHandler">
+                  <image src="../../imgs/accredit/prev.png"></image>
+                  <text>上一周</text>
+                </view>
+                <view class="img-button next-week-btn" bindtap="nextWeekHandler">
+                  <text>下一周</text>
+                  <image src="../../imgs/accredit/next.png"></image>
+                </view>
+              </view>
+            </view>
+
+            <view class="calendar-week">
+              <view class='month'></view>
+              <view class="week-list">
+                <view wx:for="{{dateList}}" class="week-item '{{item.className}}'" style="background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}}" data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}">
+                  <!-- bindtap='editAgenda'  -->
+
+                  <view class="week-item-body">
+                    <!-- <text class='today' style="display:{{!!item.IsToday?'block':'none'}};">今</text> -->
+                    <text>{{item.curWeek}}</text>
+                    <text>{{item.curDay}}</text>
+                  </view>
+                </view>
+              </view>
+
+            </view>
+
+            <scroll-view scroll-y="true" class="tab-scroll" enable-back-to-top="true" style='height:{{bodyHeight}}px'>
+              <view class="tab-container">
+                <!--分节-->
+                <view class="tab-divide">
+                  <view wx:for="{{['上午', '下午', '晚上']}}" wx:key="*this" class="tab-divide-item">
+                    <text>{{item}}</text>
+                  </view>
+                </view>
+
+                <view class='tab-body'>
+                  <!-- 竖线条 -->
+                  <view wx:for="{{[1,2,3,4,5,6,7]}}" wx:key="*this" class="tab-line-column"></view>
+
+                  <!--横线条-->
+                  <view wx:for="{{[1,2]}}" wx:key="*this" class="tab-line" style="top:{{item*200}}px;"></view>
+
+                  <!--课程-->
+                  <view wx:for="{{tasklist}}" wx:key="id" class="course-item" style="margin-left:{{item.day*100+2}}rpx;margin-top:{{(item.start-1)*35+1}}px;height:{{35-4}}px;">
+                    <view bindtap="showCardView" class="course-item-inner"  data-index="{{index}}" data-type="{{item.type}}">
+                      <view class="course-item-inner-body" style="height:{{35-5}}px;background-color:{{courseColors[item.type]}}">
+                        <text>{{item.CourseName}}</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+
+
+              </view>
+            </scroll-view>
+
+
+          </view>
+        </swiper-item>
+
+      </swiper>
+    </view>
+  </view>
+</view>

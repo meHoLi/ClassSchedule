@@ -1,4 +1,4 @@
-<!--pages/setAgenda/setAgenda.wxml-->
+<!--pages/commonNewAddAgenda/commonNewAddAgenda.wxml-->
 <view class="container">
   <view class="info-cont">
 
@@ -99,7 +99,7 @@
           </view>
         </view>
 
-        <view class="info-items">
+        <!-- <view class="info-items">
           <text>提醒</text>
           <view class="infotext">
             <picker bindchange="bindRemindPickerChange" value="{{remindValue}}" range="{{remind}}" class="info-motto">
@@ -108,7 +108,7 @@
               </view>
             </picker>
           </view>
-        </view>
+        </view> -->
 
         <view class="remark">
           <textarea class="remarkInput" value='{{remark}}' type='text' bindinput="setRemarkInput" maxlength='200' placeholder="备注" focus/>

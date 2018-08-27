@@ -1,0 +1,59 @@
+<!--pages/commonClassLogin/commonClassLogin.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        {{commonClassName}}
+      </view>
+
+      <view class="infoMain">
+        <view class="info-items">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>用户名</text>
+          </view>
+          <view class="infotext">
+            <input class="info-motto" value='{{comClassUserName}}' type='text' bindinput="setClassUserNameInput" placeholder="请输入用户名" focus/>
+          </view>
+        </view>
+
+        <view class="info-items">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>密码</text>
+          </view>
+          <view class="infotext">
+            <input class="info-motto" value='{{passWord}}' type='text' bindinput="setPassWord" placeholder="请输入密码" focus/>
+          </view>
+        </view>
+
+      </view>
+    </view>
+
+    <view class="btn">
+      <button bindtap="login" class="loginlBtn"> 登陆 </button>
+      <button bindtap="signUp" class='signUpBtn'> 注册 </button>
+    </view>
+
+    <view class='commonClassList' style="display:{{!!list&&!!list[0]?'block':'none'}};">
+      <view class='title'>
+        <text>注：以下是您已经创建的课程表，点击可直接查看</text>
+      </view>
+
+      <view>
+        <view wx:for="{{list}}" wx:key="{{index}}" class="item '{{'item'+index}}'">
+
+          <Button bindtap='openCommonClass' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="commonClassBtn">
+            {{item.Name}}
+          </Button>
+          <image bindtap='editInfo' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+        </view>
+
+      </view>
+
+    </view>
+
+
+  </view>
+</view>

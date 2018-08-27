@@ -1,5 +1,4 @@
-/* pages/settings/settings.wxss */
-
+/* pages/notice/notice.wxss */
 .container {
   padding: 0;
 }
@@ -40,8 +39,9 @@
 .item {
   position: relative;
   border-top: 2rpx solid #eee;
-  height: 120rpx;
-  line-height: 120rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 36rpx;
   overflow: hidden;
   margin: 0 20rpx;
 }
@@ -61,26 +61,14 @@
   flex-direction: row;
   align-items: center;
 }
-.inner.del {
-  background-color: #e64340;
-  width: 180rpx;
-  text-align: center;
-  right: 0;
-  color: #fff;
-  height: 120rpx;
-}
-.item-icon {
-  width: 100rpx;
-  height: 100rpx !important;
-  margin-right: 16rpx;
-  border-radius: 50%;
+.item-num{
+  width: 70rpx;
 }
 .item-text{
-  width: 550rpx; 
-  font-size: 36rpx;
-  white-space: nowrap;
+  flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   margin-right: 16rpx;
 }
 .item-edit{
@@ -100,37 +88,3 @@
   height: 55rpx;
   margin-right: 40rpx;
 }
-
-/* 公共课程吧表、帮助 */
-.common-item {
-  position: relative;
-  border-top: 2rpx solid #eee;
-  height: 80rpx;
-  line-height: 80rpx;
-  overflow: hidden;
-  margin-left: 20rpx; 
-}
-.common-item:nth-last-child(1){
-  border-bottom: 2rpx solid #eee;
-}
-
-.common {
-  background-color: #fff;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.common-text{
-  display: flex;
-  flex: 1;
-}
-.common-edit{
-  width: 80rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.common-edit image{
-  width: 40rpx;
-}
-

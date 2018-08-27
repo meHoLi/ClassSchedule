@@ -28,8 +28,25 @@
 
     <button class="addNewClass" bindtap='addNewClass'>
       <image class="addNewClass-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
-      <text>添加课程表</text>
+      <text>添加用户</text>
     </button>
-    
+
+    <view class="common-item">
+      <view bindtap='commonClass' class="common">
+        <text class="common-text">公共课程表</text>
+        <view class="common-edit">
+          <image mode="widthFix" src="../../imgs/setting/next.png"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="common-item">
+      <view bindtap='help' class="common">
+        <text class="common-text">帮助</text>
+        <view class="common-edit">
+          <image mode="widthFix" src="../../imgs/setting/next.png"></image>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

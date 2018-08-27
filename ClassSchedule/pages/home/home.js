@@ -114,7 +114,7 @@ Page({
 
           if (!!res.data.Status){
             wx.switchTab({ //跳转到tabBar页面，并关闭其他所有tabBar页面
-              url: "/pages/calendar/calendar"
+              url:"/pages/calendar/calendar"
             })
           }
         }

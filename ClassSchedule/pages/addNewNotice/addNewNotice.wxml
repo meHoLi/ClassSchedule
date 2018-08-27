@@ -1,0 +1,44 @@
+<!--pages/addNewNotice/addNewNotice.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        重要事项
+      </view>
+
+      <view class="infoMain">
+        <view class="info-items">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>日期</text>
+          </view>
+          <view class="infotext">
+            <view class="info-motto timePicker">
+              <picker mode="date" value="{{date}}" start="{{currentDate}}" bindchange="bindDateChange">
+                <view class="picker">{{dates}}</view>
+              </picker>
+            </view>
+          </view>
+        </view>
+
+        <view class="remark">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>事项</text>
+          </view>
+
+          <textarea class="remarkInput" value='{{remark}}' type='text' bindinput="setRemarkInput" maxlength='200' placeholder="请输入事项" focus/>
+        </view>
+      </view>
+    </view>
+
+    <view class="btn">
+      <button bindtap="cancel" class="cancelBtn"> 取消 </button>
+      <button bindtap="del" class='delBtn' style="display:{{!!id?'block':'none'}}"> 删除 </button>
+      <form bindsubmit='save' report-submit="true" class="saveBtn">
+        <button formType="submit">保存</button>
+      </form>
+    </view>
+  </view>
+</view>

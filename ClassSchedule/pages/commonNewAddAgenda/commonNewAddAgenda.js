@@ -1,4 +1,4 @@
-// pages/setAgenda/setAgenda.js
+// pages/commonNewAddAgenda/commonNewAddAgenda.js
 const app = getApp()
 var util = require('../../utils/util.js');
 var myDate = new Date(); //获取系统当前时间
@@ -65,35 +65,35 @@ Page({
     //提醒时间
     remind: ['无', '准时', '提前十分钟', '提前半小时', '提前两小时', '提前一天'],
     remindList: [{
-        id: 0,
-        name: '无',
-        time: '-9999'
-      },
-      {
-        id: 1,
-        name: '准时',
-        time: '0'
-      },
-      {
-        id: 2,
-        name: '提前十分钟',
-        time: '10'
-      },
-      {
-        id: 3,
-        name: '提前半小时',
-        time: '30'
-      },
-      {
-        id: 4,
-        name: '提前两小时',
-        time: '120'
-      },
-      {
-        id: 5,
-        name: '提前一天',
-        time: '1440'
-      }
+      id: 0,
+      name: '无',
+      time: '-9999'
+    },
+    {
+      id: 1,
+      name: '准时',
+      time: '0'
+    },
+    {
+      id: 2,
+      name: '提前十分钟',
+      time: '10'
+    },
+    {
+      id: 3,
+      name: '提前半小时',
+      time: '30'
+    },
+    {
+      id: 4,
+      name: '提前两小时',
+      time: '120'
+    },
+    {
+      id: 5,
+      name: '提前一天',
+      time: '1440'
+    }
     ],
     remindValue: 0,
     RemindTime: '-9999',
@@ -101,7 +101,7 @@ Page({
     remark: '', //备注
     isShowEditBtn: true
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     let that = this;
 
     wx.hideShareMenu()
@@ -110,31 +110,31 @@ Page({
       that.setAgendaData(options)
     } else {
       let classTime = options.date.split('-').join('/') + ' ' + this.data.startTime,
-        classTimestamp = Date.parse(classTime) 
+        classTimestamp = Date.parse(classTime)
 
-      console.log(classTimestamp > timestamp || classTimestamp == timestamp ? true : false)
       that.setData({
         date: options.date,
-        childrenID: options.childrenID,
+        publicCourseInfoID: options.publicCourseInfoID,
+        publicCourseTypeID: options.publicCourseTypeID,
         isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
       })
     }
   },
 
   //录入课程
-  setClassNameInput: function(e) {
+  setClassNameInput: function (e) {
     this.setData({
       className: e.detail.value
     })
   },
   //录入学校
-  setSchoolNameInput: function(e) {
+  setSchoolNameInput: function (e) {
     this.setData({
       schoolName: e.detail.value
     })
   },
   //点击开始时间组件确定事件  
-  bindStartTimeChange: function(e) {
+  bindStartTimeChange: function (e) {
     let startTime = e.detail.value,
       strtHour = Number(startTime.split(':')[0]) + 1,
       endTime = strtHour < 10 ? '0' + strtHour + ':00' : (strtHour == 24 ? '23:59' : strtHour + ':00'),
@@ -148,7 +148,7 @@ Page({
     })
   },
   //点击结束时间组件确定事件  
-  bindEndTimeChange: function(e) {
+  bindEndTimeChange: function (e) {
     this.setData({
       endTime: e.detail.value
     })
@@ -172,25 +172,25 @@ Page({
     })
   },
   //录入地址
-  setAddressInput: function(e) {
+  setAddressInput: function (e) {
     this.setData({
       address: e.detail.value
     })
   },
   //录入老师
-  setTeacherInput: function(e) {
+  setTeacherInput: function (e) {
     this.setData({
       teacher: e.detail.value
     })
   },
   //录入联系方式
-  setTelPhoneInput: function(e) {
+  setTelPhoneInput: function (e) {
     this.setData({
       phone: e.detail.value
     })
   },
   //选择提醒方式
-  bindRemindPickerChange: function(e) {
+  bindRemindPickerChange: function (e) {
     let time = this.data.remindList[e.detail.value].time
 
     this.setData({
@@ -199,20 +199,20 @@ Page({
     })
   },
   //录入备注
-  setRemarkInput: function(e) {
+  setRemarkInput: function (e) {
     this.setData({
       remark: e.detail.value
     })
   },
 
   //取消
-  cancel: function() {
+  cancel: function () {
     wx.navigateBack({
       delta: 1
     })
   },
   //删除
-  del: function(){
+  del: function () {
     let ID = this.data.ID,
       that = this;
 
@@ -225,7 +225,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        
         let data = res.data.Data
 
         that.setData({
@@ -256,20 +255,20 @@ Page({
     })
   },
   //保存
-  save: function(e) {
+  save: function (e) {
     let that = this,
       data = this.data,
       query = {
-        PublicCourseTypeID:0,
-        PublicCourseInfoID:0,
+        PublicCourseTypeID: data.publicCourseTypeID,
+        PublicCourseInfoID: data.publicCourseInfoID,
         OpenID: app.globalData.openID,
         ID: data.ID,
         BatchID: data.BatchID,
-        ChildrenID: data.childrenID,
+        ChildrenID: 0,
         CourseName: data.className,
         SchoolName: data.schoolName,
-        StartTime: data.date + ' ' +data.startTime,
-        EndTime: data.date + ' ' +data.endTime,
+        StartTime: data.date + ' ' + data.startTime,
+        EndTime: data.date + ' ' + data.endTime,
         Frequency: data.frequencyId,
         CourseType: data.typeId,
         Address: data.address,
@@ -278,8 +277,8 @@ Page({
         RemindTime: data.RemindTime,
         Remarks: data.remark
       }
-    
-    if (!query.CourseName){
+
+    if (!query.CourseName) {
       wx.showToast({
         title: '请填写课程名称',
         icon: 'none',
@@ -327,7 +326,7 @@ Page({
             url: that.data.url + '/WeChatAppAuthorize/GetToken',
             data: {},
             success: function (res) {
-              
+
               let data = JSON.parse(res.data.Data)
 
               if (that.data.RemindTime != '-9999') {
@@ -353,7 +352,7 @@ Page({
           'content-type': 'application/json' // 默认值
         },
         success: function (res) {
-          if (res.data.Result == '800'){
+          if (res.data.Result == '800') {
             wx.showToast({
               title: '当前时间已经有其他安排，请重新选择时间',
               icon: 'none',
@@ -361,7 +360,7 @@ Page({
               mask: true
             })
             return
-          } else if (res.data.Result == '500'){
+          } else if (res.data.Result == '500') {
             wx.showToast({
               title: '当前服务器异常，请稍后再试',
               icon: 'none',
@@ -375,16 +374,16 @@ Page({
             url: that.data.url + '/WeChatAppAuthorize/GetToken',
             data: {},
             success: function (res) {
-              
+
               let data = JSON.parse(res.data.Data)
-              
-              if (that.data.RemindTime != '-9999'){
+
+              if (that.data.RemindTime != '-9999') {
                 that.setInfoTemplate(e.detail.formId, data.access_token)
 
                 wx.navigateBack({
                   delta: 1
                 })
-              }else{
+              } else {
                 wx.navigateBack({
                   delta: 1
                 })
@@ -397,7 +396,7 @@ Page({
   },
 
   //设置消息提醒模板
-  setInfoTemplate: function (formId, access_token){
+  setInfoTemplate: function (formId, access_token) {
     var that = this;
     var openId = app.globalData.openID;
     var messageDemo = {
@@ -447,7 +446,7 @@ Page({
   },
 
   //初始化查询数据
-  setAgendaData: function (options) {debugger
+  setAgendaData: function (options) {
     let that = this
 
     wx.request({
@@ -461,13 +460,14 @@ Page({
       success: function (res) {
         let data = res.data.Data,
           remindList = that.data.remindList,
-          remindItem = remindList.filter(o =>{return o.time == data.RemindTime}),
+          remindItem = remindList.filter(o => { return o.time == data.RemindTime }),
           classTime = options.date.split('-').join('/') + ' ' + data.StartTime.split(' ')[1],
-          classTimestamp = Date.parse(classTime) 
-        
+          classTimestamp = Date.parse(classTime)
+
         that.setData({
           date: options.date,
-          childrenID: options.childrenID,
+          publicCourseInfoID: options.publicCourseInfoID,
+          publicCourseTypeID: options.publicCourseTypeID,
           ID: options.ID,
           BatchID: data.BatchID,
           className: data.CourseName, //课程名称

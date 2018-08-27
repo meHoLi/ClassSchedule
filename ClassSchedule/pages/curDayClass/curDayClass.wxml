@@ -1,0 +1,115 @@
+<!--pages/curDayClass/curDayClass.wxml-->
+<view class="container">
+  <view class="calendar">
+
+    <view class="classBody">
+      <view class='weui-navbar-body'>
+        <scroll-view scroll-x="true" class="weui-navbar">
+          <block wx:for-items="{{nameList}}">
+            <view id="{{index}}" class="{{activeIndex == index ?'item_on':''}} default-item" data-id="{{item.ID}}" bindtap="tabClick" style="width:{{tabW}}px">
+              {{item.Name}}
+            </view>
+          </block>
+          <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
+        </scroll-view>
+      </view>
+
+      <!-- <view class="rec" /> -->
+      <swiper current="{{activeIndex}}" class="swiper-box" duration="100" bindchange="bindChange" style='height:{{swiperHeight}}px'>
+        <swiper-item class="swiper-item" wx:for="{{nameList}}">
+          <view class="slide-view">
+
+            <view class="week-selector">
+              <view>{{currentDate}}</view>
+              <view class='paging'>
+                <view class="img-button pre-week-btn" bindtap="prevWeekHandler">
+                  <image src="../../imgs/accredit/prev.png"></image>
+                  <text>上一周</text>
+                </view>
+                <view class="img-button next-week-btn" bindtap="nextWeekHandler">
+                  <text>下一周</text>
+                  <image src="../../imgs/accredit/next.png"></image>
+                </view>
+              </view>
+            </view>
+
+            <view class="calendar-week">
+              <view class='month'></view>
+              <view class="week-list">
+                <view wx:for="{{dateList}}" class="week-item '{{item.className}}'" style="background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}}" bindtap='changeDay' data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}">
+
+                  <view class="week-item-body">
+                    <text>{{item.curWeek}}</text>
+                    <view>
+                      <text>{{item.curDay}}</text>
+                      <!-- <text class='today' style="display:{{!!item.IsToday?'block':'none'}};">今</text> -->
+                    </view>
+                  </view>
+                </view>
+              </view>
+
+            </view>
+
+            <scroll-view scroll-y="true" enable-back-to-top="true" class="tab-scroll" style='height:{{bodyHeight}}px'>
+              <view class="tab-container">
+                <!--分节-->
+                <view class='timeLine'>
+                  <view wx:for="{{timeList}}" wx:key="{{index}}" bindtap='addNewAgenda' class="timeItem '{{'timeItem'+index}}'">
+                    <text class="timeItem-text" data-index="{{index}}">{{item.time}}</text>
+                  </view>
+                </view>
+
+                <view class='noClassTable' style="display:{{noClassDis}}">
+                  <view class='noClassTableBody'>
+                    <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+                    <text class="login-accredit-text">当前还没有日程，请先添加日程哦~</text>
+                  </view>
+                </view>
+
+                <view class='haveClassTable' style="display:{{haveClassDis}}">
+                  <view wx:for="{{tableList}}" wx:key="id" class="class-item" bindtap="addNewAgenda" data-index="{{index}}" data-item="{{item}}" style="margin-top:{{item.marginTop}}rpx;height:{{item.height}}rpx;">
+                    <view class="class-item-inner" style="height:{{item.sections*50-5}}px;">
+                      <text class="class-item-inner-time">{{item.startTime}} - {{item.endTime}}</text>
+                      <text class="class-item-inner-school">
+                        <text class='schoolName'>{{item.SchoolName}}</text>
+                      <text class='className'> {{item.CourseName}}</text>
+                      </text>
+                      <text class='class-item-inner-isRemind'>{{item.RemindDes}}</text>
+                      <image class="class-item-inner-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+                    </view>
+                  </view>
+                </view>
+
+
+              </view>
+            </scroll-view>
+
+            <view class='editBtn'>
+              <button class="addSchedule" bindtap='addNewAgenda'>
+                <image class="addSchedule-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
+                <text>新增课程(日程)</text>
+              </button>
+              <button class="import-class" bindtap='importClass'>
+                <text>导入课程表</text>
+              </button>
+            </view>
+
+            <view class='memo' bindtap="toNotice">
+              <image src="../../imgs/accredit/notice.png" class='memo-img'></image>
+              <swiper wx:if="{{!!inforList&&!!inforList[0]}}" class="swiper_container" vertical="true" autoplay="true" circular="true" interval="2000">
+                <block wx:for="{{inforList}}">
+                  <swiper-item>
+                    <view class="swiper_item">{{item.MemorandumContent}}</view>
+                  </swiper-item>
+                </block>
+              </swiper>
+              <view class='memo-info' wx:else>当前还没有重要事项，请点击添加</view>
+            </view>
+
+          </view>
+        </swiper-item>
+
+      </swiper>
+    </view>
+  </view>
+</view>

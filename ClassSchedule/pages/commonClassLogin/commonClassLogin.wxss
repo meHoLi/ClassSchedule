@@ -1,10 +1,9 @@
-/* pages/setAgenda/setAgenda.wxss */
+/* pages/commonClassLogin/commonClassLogin.wxss */
 .info-cont {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .head{
@@ -23,7 +22,7 @@
   padding:0 40rpx;
   border-top:2rpx solid #f0f0f0;
 }
-.info-items:nth-last-child(2){
+.info-items:nth-child(2){
   border-bottom:2rpx solid #f0f0f0;
 }
 .title{
@@ -51,34 +50,42 @@
   width: 100%;
   height: 100%;
 }
-.timePicker picker{
-  width: 100rpx;
-  display: inline-block;
-}
-.timePicker picker:first-child{
-  text-align: left;
-}
-.remarkInput{
-  height:152rpx; 
-  font-size: 30rpx;
-  padding: 28rpx;
-  margin: 0 auto;
-  margin-top: 20rpx;
-  border:2rpx solid #e4e4e4;
-  border-radius: 10rpx;
-  overflow: hidden;   
-}
+
 .btn{
   display: flex;
   flex-direction: row;
+  padding: 20rpx 0 40rpx;
 }
- .btn>button,.btn .saveBtn{
+ .btn>button{
   flex-grow: 1;
 } 
-.btn .cancelBtn,.btn .delBtn{
+.btn .loginlBtn{
   margin-right: 16rpx;
 }
-.btn .saveBtn button{
-  color: #fff;
-  background: #54cbf0;
+
+/* 已创建的公共课程表列表 */
+.commonClassList{
+  display: flex;
+  flex-direction: column;
+  border-top:2rpx solid #54cbf0;
+}
+.commonClassList .title{
+  display: flex;
+  flex: 1;
+  width: 100%;
+  padding: 10rpx 0 40rpx;
+}
+.commonClassList .item {
+  display:flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+.commonClassList .item .commonClassBtn{
+  display: flex;
+  flex: 1;
+  text-align: center;
+  margin-right: 20rpx;
+}
+.commonClassList .item .item-edit{
+  width: 40rpx;
 }

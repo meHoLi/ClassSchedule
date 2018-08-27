@@ -1,0 +1,34 @@
+<!--pages/notice/notice.wxml-->
+<view class="container">
+  <view class="classList">
+
+    <view class='noClassTable' style="display:{{noClassDis}}">
+      <view class='noClassTableBody'>
+        <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+        <text class="login-accredit-text">当前还没有重要事项，请先添加事项哦~</text>
+      </view>
+    </view>
+
+    <view class="haveClassBody" style="display:{{haveClassDis}}">
+      <view class="haveClassTable">
+        <view wx:for="{{list}}" wx:key="{{index}}" class="item '{{'item'+index}}'">
+
+          <view bindtap='editInfo' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
+
+            <text class='item-num' data-index="{{index}}" data-item="{{item}}">{{index+1}}、</text>
+            <view class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.MemorandumContent}}</view>
+
+            <image data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+          </view>
+        
+        </view>
+      </view>
+    </view>
+
+    <button class="addNewClass" bindtap='addNewNotice'>
+      <image class="addNewClass-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
+      <text>添加重要事项</text>
+    </button>
+    
+  </view>
+</view>

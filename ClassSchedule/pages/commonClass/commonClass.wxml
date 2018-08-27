@@ -1,0 +1,97 @@
+<!--pages/commonClass/commonClass.wxml-->
+<view class="container">
+  <view class="calendar">
+
+    <view class="classBody">
+      <view class='nav-title'>
+        {{title}}
+      </view>
+
+      <!-- <view class="rec" /> -->
+      <view class="slide-view">
+
+        <view class="week-selector">
+          <view>{{currentDate}}</view>
+          <view class='paging'>
+            <view class="img-button pre-week-btn" bindtap="prevWeekHandler">
+              <image src="../../imgs/accredit/prev.png"></image>
+              <text>上一周</text>
+            </view>
+            <view class="img-button next-week-btn" bindtap="nextWeekHandler">
+              <text>下一周</text>
+              <image src="../../imgs/accredit/next.png"></image>
+            </view>
+          </view>
+        </view>
+
+        <view class="calendar-week">
+          <view class='month'></view>
+          <view class="week-list">
+            <view wx:for="{{dateList}}" class="week-item '{{item.className}}'" style="background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}}" bindtap='changeDay' data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}">
+
+              <view class="week-item-body">
+                <text>{{item.curWeek}}</text>
+                <view>
+                  <text>{{item.curDay}}</text>
+                  <!-- <text class='today' style="display:{{!!item.IsToday?'block':'none'}};">今</text> -->
+                </view>
+              </view>
+            </view>
+          </view>
+
+        </view>
+
+        <scroll-view scroll-y="true" enable-back-to-top="true" class="tab-scroll" style='height:{{bodyHeight}}px'>
+          <view class="tab-container">
+            <!--分节-->
+            <view class='timeLine'>
+              <view wx:for="{{timeList}}" wx:key="{{index}}" bindtap='addNewAgenda' class="timeItem '{{'timeItem'+index}}'">
+                <text class="timeItem-text" data-index="{{index}}">{{item.time}}</text>
+              </view>
+            </view>
+
+            <view class='noClassTable' style="display:{{noClassDis}}">
+              <view class='noClassTableBody'>
+                <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+                <text class="login-accredit-text">当前还没有日程，请先添加日程哦~</text>
+              </view>
+            </view>
+
+            <view class='haveClassTable' style="display:{{haveClassDis}}">
+              <view wx:for="{{tableList}}" wx:key="id" class="class-item" bindtap="addNewAgenda" data-index="{{index}}" data-item="{{item}}" style="margin-top:{{item.marginTop}}rpx;height:{{item.height}}rpx;">
+                <view class="class-item-inner" style="height:{{item.sections*50-5}}px;">
+                  <text class="class-item-inner-time">{{item.startTime}} - {{item.endTime}}</text>
+                  <text class="class-item-inner-school">
+                    <text class='schoolName'>{{item.SchoolName}}</text>
+                  <text class='className'> {{item.CourseName}}</text>
+                  </text>
+                  <text class='class-item-inner-isRemind'>{{item.RemindDes}}</text>
+                  <image class="class-item-inner-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+                </view>
+              </view>
+            </view>
+
+
+          </view>
+        </scroll-view>
+
+        <view class='editBtn'>
+          <button class="addSchedule" bindtap='addNewAgenda' style="display:{{!!isEdit?'flex':'none'}}">
+            <image class="addSchedule-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
+            <text>新增课程(日程)</text>
+          </button>
+
+          <button class="reset" bindtap='resetCommonClass' style="display:{{!!isEdit?'flex':'none'}}">重置</button>
+          <button class="share" bindtap='shareCommonClass'>分享</button>
+        </view>
+
+      </view>
+
+      <canvas style="width: 262px;height: 467px;" canvas-id="mycanvas" />
+      <view class="canvas-box" hidden="{{maskHidden}}">
+        <image src='{{prurl}}' mode='widthFix'></image>
+        <view class="save" hidden="{{maskHidden}}">点击保存图片</view>
+      </view>
+    </view>
+  </view>
+</view>

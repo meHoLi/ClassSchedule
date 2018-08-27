@@ -7,7 +7,19 @@
     "pages/setAgenda/setAgenda",
     "pages/settings/settings",
     "pages/addNewClass/addNewClass",
-    "pages/classDetails/classDetails"
+    "pages/curWeekClass/curWeekClass",
+    "pages/classDetails/classDetails",
+    "pages/curDayClass/curDayClass",
+    "pages/notice/notice",
+    "pages/addNewNotice/addNewNotice",
+    "pages/commonClassList/commonClassList",
+    "pages/commonClassLogin/commonClassLogin",
+    "pages/commonClass/commonClass",
+    "pages/commonClassSignUp/commonClassSignUp",
+    "pages/addNewCommonClass/addNewCommonClass",
+    "pages/commonNewAddAgenda/commonNewAddAgenda",
+    "pages/importLogin/importLogin",
+    "pages/importClass/importClass"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -16,20 +28,19 @@
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "borderStyle": "white",
     "selectedColor": "#54cbf0",
     "list": [
       {
-        "pagePath": "pages/calendar/calendar",
-        "iconPath": "/imgs/tabBar/classGray.png",
-        "selectedIconPath": "/imgs/tabBar/classBlue.png",
-        "text": "课程表"
+        "pagePath": "pages/curWeekClass/curWeekClass",
+        "iconPath": "/imgs/tabBar/curWeekGray.png",
+        "selectedIconPath": "/imgs/tabBar/curWeekBlue.png",
+        "text": "本周"
       },
       {
-        "pagePath": "pages/usingHelp/usingHelp",
-        "iconPath": "/imgs/tabBar/helpGray.png",
-        "selectedIconPath": "/imgs/tabBar/helpBlue.png",
-        "text": "使用帮助"
+        "pagePath": "pages/curDayClass/curDayClass",
+        "iconPath": "/imgs/tabBar/classGray.png",
+        "selectedIconPath": "/imgs/tabBar/classBlue.png",
+        "text": "当日"
       },
       {
         "pagePath": "pages/settings/settings",
