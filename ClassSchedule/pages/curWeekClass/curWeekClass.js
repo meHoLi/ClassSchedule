@@ -25,11 +25,34 @@ Page({
     pageSize: 7,
     tasklist: [
       { id: 0, type: 0, day: 0, start: 1, sections: 1, CourseName: "语文", teacher: "刘德华", place: "大钟寺" },
+      { id: 1, type: 1, day: 1, start: 1, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 2, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" }, 
+      { id: 1, type: 1, day: 1, start: 3, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" }, 
+      { id: 1, type: 1, day: 1, start: 4, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
       { id: 1, type: 1, day: 1, start: 5, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 6, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 7, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 8, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 9, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 10, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" }, 
+      { id: 1, type: 1, day: 1, start: 11, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 12, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 13, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 14, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 15, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 16, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 17, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 18, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 19, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 20, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 21, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 22, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 23, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
+      { id: 1, type: 1, day: 1, start: 24, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
       { id: 2, type: 2, day: 2, start: 1, sections: 2, CourseName: "英语", teacher: "小明", place: "科贸" },
       { id: 2, type: 0, day: 4, start: 3, sections: 1, CourseName: "英语", teacher: "小明", place: "科贸" }
     ],
-    courseColors: ['#ffca7f', '#91d7fd', '#96a4f9'], // 0学校课程 1其他课程 2智康课程
+    courseColors: ['#ffca7f', '#91d7fd', '#96a4f9'], // 0学校正课 1课外课 2其他
   },
 
   onLoad: function (options) {
@@ -199,7 +222,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {debugger
+      success: function (res) {
         let nameList = res.data.Data,
           activeIndex = that.data.activeIndex
 
@@ -245,34 +268,10 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {debugger
+      success: function (res) {
         let dateList = res.data.Data
 
         that.setClassBodyData(dateList, query)
-
-        // wx.getSystemInfo({
-        //   success: function (res) {
-
-
-        //     mtabW = (res.windowWidth - 20 - 8) / 3; //设置tab的宽度
-        //     // mdateW = (res.windowWidth - 20 - 40 - 30 - 15) / 3; //设置日期的宽度
-        //     // mdateH = (res.windowHeight - 20 - 30 - 20 - 28 - 20 - 15 - 10 - 30 - 30 - 30) / 3; //设置日期高度
-        //     hSwiper = res.windowHeight - 20 - 40 - 10 - 28
-
-        //     dateList = that.setDateList(dateList)
-
-        //     that.setData({
-        //       dateList: dateList,
-        //       page: query.page,
-        //       query: query,
-        //       childrenID: query.childrenID,
-        //       tabW: mtabW,
-        //       // dateW: mdateW,
-        //       // dateH: mdateH,
-        //       swiperHeight: hSwiper
-        //     })
-        //   }
-        // });
       }
     })
   },
@@ -292,6 +291,10 @@ Page({
       success: function (res) {
         let classList = res.data.Data
 
+        classList = that.setClassList(classList)
+
+        console.log(classList)
+
         wx.getSystemInfo({
           success: function (res) {
             mtabW = (res.windowWidth - 20 - 8) / 3; //设置tab的宽度
@@ -302,6 +305,7 @@ Page({
             
             that.setData({
               dateList: dateList,
+              classList: classList,
               page: query.page,
               query: query,
               childrenID: query.childrenID,
@@ -314,6 +318,116 @@ Page({
       }
     })
 
+  },
+
+  //设置课程位置
+  setClassList: function(classList){
+    classList.map((o,index)=>{
+      let hour = Number(o.StartTime.split(' ')[1].split(':')[0])
+
+      if (o.DayOfWeek.indexOf('一') != -1){
+        o.day = 0
+      } else if (o.DayOfWeek.indexOf('二') != -1){
+        o.day = 1
+      } else if (o.DayOfWeek.indexOf('三') != -1) {
+        o.day = 2
+      } else if (o.DayOfWeek.indexOf('四') != -1) {
+        o.day = 3
+      } else if (o.DayOfWeek.indexOf('五') != -1) {
+        o.day = 4
+      } else if (o.DayOfWeek.indexOf('六') != -1) {
+        o.day = 5
+      } else {
+        o.day = 6
+      }
+
+      if (o.CourseType == 1){
+        o.type = 0
+      } else if (o.CourseType == 1){
+        o.type = 1
+      } else{
+        o.type = 2
+      }
+
+      switch (hour) {
+        case 4:
+          o.start = 1
+          break;
+        case 5:
+          o.start = 2
+          break;
+        case 6:
+          o.start = 3
+          break;
+        case 7:
+          o.start = 4
+          break;
+        case 8:
+          o.start = 5
+          break;
+        case 9:
+          o.start = 6
+          break;
+        case 10:
+          o.start = 7
+          break;
+        case 11:
+          o.start = 8
+          break;
+        case 12:
+          o.start = 9
+          break;
+        case 13:
+          o.start = 10
+          break;
+        case 14:
+          o.start = 11
+          break;
+        case 15:
+          o.start = 12
+          break;
+        case 16:
+          o.start = 13
+          break;
+        case 17:
+          o.start = 14
+          break;
+        case 18:
+          o.start = 15
+          break;
+        case 19:
+          o.start = 16
+          break;
+        case 20:
+          o.start = 17
+          break;
+        case 21:
+          o.start = 18
+          break;
+        case 22:
+          o.start = 19
+          break;
+        case 23:
+          o.start = 20
+          break;
+        case 0:
+          o.start = 21
+          break;
+        case 1:
+          o.start = 22
+          break;
+        case 2:
+          o.start = 23
+          break;
+        case 3:
+          o.start = 24
+          break;
+      }
+
+      return o
+    })
+
+    return classList
   },
 
   //设置时间戳

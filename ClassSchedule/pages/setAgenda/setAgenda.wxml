@@ -35,13 +35,13 @@
           </view>
           <view class="infotext">
             <view class="info-motto timePicker">
-              <picker mode="time" value="{{startTime}}" start="07:00" end="23:59" bindchange="bindStartTimeChange">
+              <picker mode="time" value="{{startTime}}" start="00:00" end="23:59" bindchange="bindStartTimeChange">
                 <view class="picker">
                   {{startTime}}
                 </view>
               </picker>
               —
-              <picker mode="time" value="{{endTime}}" start="07:00" end="23:59" bindchange="bindEndTimeChange">
+              <picker mode="time" value="{{endTime}}" start="00:00" end="23:59" bindchange="bindEndTimeChange">
                 <view class="picker">
                   {{endTime}}
                 </view>

@@ -1,9 +1,11 @@
 // pages/addNewClass/addNewClass.js
 const app = getApp()
-var util = require('../../utils/util.js');
-var myDate = new Date();//获取系统当前时间
-var currentDate = myDate.toLocaleDateString(); //获取当前日期
-var mradioW
+const plugin = requirePlugin("WechatSI")
+const manager = plugin.getRecordRecognitionManager()// 获取**全局唯一**的语音识别管理器**recordRecoManager**
+let util = require('../../utils/util.js');
+let myDate = new Date(); //获取系统当前时间
+let currentDate = myDate.toLocaleDateString(); //获取当前日期
+let mradioW
 
 Page({
 
@@ -11,27 +13,36 @@ Page({
    * 页面的初始数据
    */
   data: {
-    HeadPortrait:"../../imgs/head/head.png",
+    HeadPortrait: "../../imgs/head/head.png",
 
-    Name:'',
+    Name: '',
 
     Birthday: currentDate.split('/').join('-'),
     endDate: currentDate.split('/').join('-'),
 
     gender: ['男', '女'],
-    genderList: [
-      { id: 0, name: '男' },
-      { id: 1, name: '女' }
+    genderList: [{
+        id: 0,
+        name: '男'
+      },
+      {
+        id: 1,
+        name: '女'
+      }
     ],
     Sex: 0,
 
-    radio: [
-      { 'value': '#54cbf0', checked:true },
-      { 'value': '#1daca9' },
-      
+    radio: [{
+        'value': '#54cbf0',
+        checked: true
+      },
+      {
+        'value': '#1daca9'
+      },
       // { 'value': '#f4b3b3' },
-      
-      { 'value': '#ff527f' },
+      {
+        'value': '#ff527f'
+      },
       // { 'value': '#f9b72b' },
       // { 'value': '#ffda44' },
 
@@ -40,27 +51,36 @@ Page({
       // { 'value': '#3c3c3c' }
     ],
     Background: '#54cbf0',
-    radioW: 0
+    radioW: 0,
+
+    voiceURL: '../../imgs/accredit/voice.png',
+    recording: false,  // 正在录音
+    recordStatus: 0,
+    isPopDis: false,
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this;
-    
+
     wx.hideShareMenu()
 
-    if (!!options.id){
+    if (!!options.id) {
       that.setPesonData(options)
-    }else{
+    } else {
       that.setTabW(undefined, options.openID)
     }
+
+    this.initRecord()
+
+    app.getRecordAuth()
   },
 
-  setPhotoInfo: function(){
+  setPhotoInfo: function() {
     var that = this;
     wx.chooseImage({
       count: 1, // 默认9
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
+      success: function(res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths;
 
@@ -69,25 +89,25 @@ Page({
     })
   },
   //录入姓名
-  setNameInput: function (e) {
+  setNameInput: function(e) {
     this.setData({
       Name: e.detail.value
     })
   },
   //选择生日
-  bindDateChange: function (e) {
+  bindDateChange: function(e) {
     this.setData({
       Birthday: e.detail.value
     })
   },
   //选择性别
-  bindPickerChange: function (e) {
+  bindPickerChange: function(e) {
     this.setData({
       Sex: e.detail.value
     })
   },
   //选择单选
-  getradio: function (e) {
+  getradio: function(e) {
     let index = e.currentTarget.dataset.id;
     let radio = this.data.radio;
     for (let i = 0; i < radio.length; i++) {
@@ -102,13 +122,13 @@ Page({
     let userRadio = radio.filter((item, index) => {
       return item.checked == true;
     })
-    this.setData({ 
+    this.setData({
       radio: this.data.radio,
       Background: this.data.Background
     })
   },
   //取消
-  cancel: function(){
+  cancel: function() {
     wx.navigateBack({
       delta: 1
     })
@@ -125,7 +145,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
+      success: function(res) {
         wx.navigateBack({
           delta: 1
         })
@@ -133,7 +153,7 @@ Page({
     })
   },
   //保存
-  save: function(){
+  save: function() {
     let data = this.data,
       query = {
         ID: data.ID,
@@ -162,7 +182,7 @@ Page({
         header: {
           'content-type': 'application/json' // 默认值
         },
-        success: function (res) {
+        success: function(res) {
           wx.navigateBack({
             delta: 1
           })
@@ -175,7 +195,7 @@ Page({
         header: {
           'content-type': 'application/json' // 默认值
         },
-        success: function (res) {
+        success: function(res) {
           wx.navigateBack({
             delta: 1
           })
@@ -185,7 +205,7 @@ Page({
   },
 
 
-  setPesonData: function (options){
+  setPesonData: function(options) {
     let that = this;
 
     wx.request({
@@ -196,8 +216,8 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
-        
+      success: function(res) {
+
         let data = res.data.Data
 
         that.setTabW(data, options.openID)
@@ -205,14 +225,14 @@ Page({
     })
   },
 
-  setTabW: function (formData,openID){
+  setTabW: function(formData, openID) {
     let that = this;
 
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         mradioW = (res.windowWidth - 20 - 30) / 3 - 2; //设置tab的宽度
 
-        if (!!formData){
+        if (!!formData) {
           that.setData({
             ID: formData.ID,
             openID: openID,
@@ -223,13 +243,13 @@ Page({
             Background: !!formData.Background ? formData.Background : '#54cbf0',
             radioW: mradioW
           })
-        }else{
-          if (!!openID){
+        } else {
+          if (!!openID) {
             that.setData({
               openID: openID,
               radioW: mradioW
             })
-          }else{
+          } else {
             that.setData({
               radioW: mradioW
             })
@@ -237,49 +257,173 @@ Page({
         }
       }
     });
-  }
+  },
+
+  /**
+   * 按下按钮开始录音
+   */
+  streamRecord: function(e) {
+    // 先清空背景音
+    wx.stopBackgroundAudio()
+
+    console.log("streamrecord" ,e)
+
+    let detail = e.detail || {}
+    
+    manager.start({
+      lang: "zh_CN",
+    })
+
+    this.setData({
+      recordStatus: 0,
+      recording: true,
+      voiceURL:'../../imgs/accredit/voice2.png',
+      isPopDis: true
+
+    })
+
+  },
+
+  /**
+   * 松开按钮结束录音
+   */
+  endStreamRecord: function(e) {
+    console.log("streamRecordEnd" ,e)
+    let detail = e.detail || {}  // 自定义组件触发事件时提供的detail对象
+    let buttonItem = detail.buttonItem || {}
+
+    // 防止重复触发stop函数
+    if (!this.data.recording || this.data.recordStatus != 0) {
+      console.warn("has finished!")
+      return
+    }
+
+    manager.stop()
+
+    this.setData({
+      voiceURL: '../../imgs/accredit/voice.png',
+      isPopDis: false
+    })
+  },
+
+
+  /**
+   * 识别内容为空时的反馈
+   */
+  showRecordEmptyTip: function () {
+    this.setData({
+      recording: false,
+    })
+    wx.showToast({
+      title: '亲，请说话哦~',
+      icon: 'success',
+      image: '../../imgs/accredit/no_voice.png',
+      duration: 2000,
+      success: function (res) {
+
+      },
+      fail: function (res) {
+        console.log(res);
+      }
+    });
+  },
+
+  /**
+   * 初始化语音识别回调
+   * 绑定语音播放开始事件
+   */
+  initRecord: function () {
+    //有新的识别内容返回，则会调用此事件
+    manager.onRecognize = (res) => {
+      let text = res.result
+
+      console.log("res", res)
+
+      this.setData({
+        Name: text,
+      })
+    }
+
+    // 识别结束事件
+    manager.onStop = (res) => {
+      console.log("res2", res)
+
+      let text = res.result
+
+      if (text == '') {
+        this.showRecordEmptyTip()
+        return
+      }
+
+      console.log(text)
+
+      let currentData = Object.assign({}, {
+        text: res.result,
+      })
+
+      this.setData({
+        Name: text,
+        recordStatus: 1,
+      })
+
+    }
+
+    // 识别错误事件
+    manager.onError = (res) => {
+
+      this.setData({
+        recording: false,
+      })
+
+    }
+
+  },
+
+
 })
 
 function upload(that, path) {
   wx.showToast({
-    icon: "loading",
-    title: "正在上传"
-  }),
-  wx.uploadFile({
-    url: app.globalData.url + '/FileUpload/HandleFileSave',
-    filePath: path[0],
-    name: 'file',
-    header: { "Content-Type": "multipart/form-data" },
-    formData: {
-      //和服务器约定的token, 一般也可以放在header中
-      'session_token': wx.getStorageSync('session_token'),
-      domainName: app.globalData.url
-    },
-    success: function (res) {
-      if (res.statusCode != 200) {
+      icon: "loading",
+      title: "正在上传"
+    }),
+    wx.uploadFile({
+      url: app.globalData.url + '/FileUpload/HandleFileSave',
+      filePath: path[0],
+      name: 'file',
+      header: {
+        "Content-Type": "multipart/form-data"
+      },
+      formData: {
+        //和服务器约定的token, 一般也可以放在header中
+        'session_token': wx.getStorageSync('session_token'),
+        domainName: app.globalData.url
+      },
+      success: function(res) {
+        if (res.statusCode != 200) {
+          wx.showModal({
+            title: '提示',
+            content: '上传失败',
+            showCancel: false
+          })
+          return;
+        }
+        var filePath = JSON.parse(res.data).Data.filePath
+
+        that.setData({ //上传成功修改显示头像
+          HeadPortrait: filePath //path[0]
+        })
+      },
+      fail: function(e) {
+        console.log(e);
         wx.showModal({
           title: '提示',
           content: '上传失败',
           showCancel: false
         })
-        return;
+      },
+      complete: function() {
+        wx.hideToast(); //隐藏Toast
       }
-      var filePath = JSON.parse(res.data).Data.filePath
-
-      that.setData({  //上传成功修改显示头像
-        HeadPortrait: filePath//path[0]
-      })
-    },
-    fail: function (e) {
-      console.log(e);
-      wx.showModal({
-        title: '提示',
-        content: '上传失败',
-        showCancel: false
-      })
-    },
-    complete: function () {
-      wx.hideToast();  //隐藏Toast
-    }
-  })
+    })
 }

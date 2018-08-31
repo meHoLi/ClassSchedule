@@ -15,6 +15,10 @@
           <view class="infotext">
             <input class="info-motto" type='text' value='{{Name}}' bindinput="setNameInput" placeholder="请输入姓名" focus/>
           </view>
+          <view catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
+            <image class="voice" src="{{voiceURL}}"></image>
+          </view>
+          
         </view>
 
         <view class="info-items">
@@ -47,11 +51,16 @@
         </view>
       </view>
     </view>
-    
+
     <view class="btn">
       <button bindtap="cancel" class="cancelBtn"> 取消 </button>
       <button bindtap="del" class='delBtn' style="display:{{!!ID?'block':'none'}};"> 删除 </button>
       <button bindtap="save" class="saveBtn"> 保存 </button>
     </view>
+  </view>
+
+  <view class='voicePop' style="display:{{!!isPopDis?'flex':'none'}}">
+    <image class="voice-loading" src="../../imgs/accredit/loading2.gif"></image>
+    <text class='voice-text'>亲，正在聆听中，请您说话~</text>
   </view>
 </view>

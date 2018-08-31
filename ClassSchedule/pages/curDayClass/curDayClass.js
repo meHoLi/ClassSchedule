@@ -10,6 +10,22 @@ let date = '' + year + '-' + (month < 10 ? '0' + Number(month) : month) + '-' + 
 let timestamp = new Date().getTime(); //当前日期时间戳
 let mtabW, hSwiper, bodyH
 let timeList = [{
+    time: "00:00"
+  },{
+    time: "01:00"
+  },{
+    time: "02:00"
+  },{
+    time: "03:00"
+  },{
+    time: "04:00"
+  },{
+    time: "05:00"
+  },{
+    time: "06:00"
+  },{
+    time: "07:00"
+  },{
     time: "08:00"
   },{
     time: "09:00"
@@ -162,7 +178,7 @@ Page({
     this.setClassData(query)
   },
   //编辑课程信息
-  changeDay: function(e) {debugger
+  changeDay: function(e) {
     let date = e.currentTarget.dataset.time,
       query = this.data.query
 
@@ -181,7 +197,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function(res) {
-        debugger
         let nameList = res.data.Data,
           activeIndex = that.data.activeIndex
 
@@ -228,7 +243,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function(res) {
-        debugger
         let dateList = res.data.Data
 
         dateList = that.setDateList(dateList)
@@ -371,7 +385,7 @@ Page({
 
 })
 
-function setDataLocation(list) {
+function setDataLocation(list) {debugger
   if (!!list) {
     for (let i = 0; i < list.length; i++) {
       let item = list[i],
@@ -395,13 +409,17 @@ function setDataLocation(list) {
       }
       height = height + (endMinute - startMinute)
 
-      if (startHour - 7 > 0) {
-        if (startHour - 7 == 1) {
-          marginTop = 60
-        } else if (startHour - 7 > 1) {
-          marginTop = 60 * (startHour - 7)
-        }
+      // if (startHour - 7 > 0) {
+      //   if (startHour - 7 == 1) {
+      //     marginTop = 60
+      //   } else if (startHour - 7 > 1) {
+      //     marginTop = 60 * (startHour - 7)
+      //   }
+      // }
+      if (startHour - 0 > 0) {
+        marginTop = 60 * (startHour + 1)
       }
+
       marginTop = marginTop + startMinute
 
       item.startTime = startTime

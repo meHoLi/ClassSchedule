@@ -237,7 +237,7 @@
   display:flex;
   flex:1;
   flex-direction: row;
-  position: relative;
+  /* position: relative; */
 }
 
 .tab-divide {
@@ -247,7 +247,7 @@
 
 .tab-divide-item {
   width: 54rpx;
-  height: 200px;
+  height: 480rpx;
   font-size: 24rpx;
   justify-content: center;
   display: flex;
@@ -265,39 +265,35 @@
 .tab-body{
   display: flex;
   flex: 1;
+  position: relative;
 }
 
-.tab-section {
+/* .tab-section {
   background-color:#f6f6f6;
   color:#18191A;
-}
+} */
 
-.tab-section-divide {
+/* .tab-section-divide {
   width: 53rpx;
-  height: 200px;
+  height: 400rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-bottom: 1rpx solid #d1d1d1;
+  border-bottom: 2rpx solid #d1d1d1;
   box-sizing: border-box;
-}
+} */
 
-.tab-section-item {
+/* .tab-section-item {
   width: 53rpx;
-  height: 50px;
+  height: 100rpx;
   font-size: 24rpx;
   justify-content: center;
   display: flex;
   align-items: center;
-}
+} */
 
 .tab-line-column {
-  /* position: absolute; */
-  /* width: 1px; */
-  /* height: calc(100% - 60rpx - 110rpx); */
-  /* background-color:#d1d1d1; */
-  /* margin-top: -1px; */
   display:flex;
   flex-grow:1;
   border-right:2rpx solid #d1d1d1;
@@ -309,9 +305,9 @@
 .tab-line {
   position: absolute;
   width: 100%;
-  height: 1px;
+  height: 2rpx;
   background-color:#d1d1d1;
-  margin-top: -1px;
+  /* margin-top: -2rpx; */
 }
 
 .course-item {
@@ -327,7 +323,7 @@
 }
 .course-item-inner-body{
   width: 100%;
-  border-radius: 3px;
+  border-radius: 6rpx;
   font-size: 24rpx;
   color: #fff;
   display: flex;
