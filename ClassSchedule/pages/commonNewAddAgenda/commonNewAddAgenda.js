@@ -1,9 +1,11 @@
 // pages/commonNewAddAgenda/commonNewAddAgenda.js
 const app = getApp()
-var util = require('../../utils/util.js');
-var myDate = new Date(); //获取系统当前时间
-var currentDate = myDate.toLocaleDateString(); //获取当前日期
-var timestamp = new Date().getTime();//当前日期时间戳
+const plugin = requirePlugin("WechatSI")
+const manager = plugin.getRecordRecognitionManager()// 获取**全局唯一**的语音识别管理器**recordRecoManager**
+let util = require('../../utils/util.js');
+let myDate = new Date(); //获取系统当前时间
+let currentDate = myDate.toLocaleDateString(); //获取当前日期
+let timestamp = new Date().getTime();//当前日期时间戳
 
 Page({
 
@@ -99,7 +101,12 @@ Page({
     RemindTime: '-9999',
 
     remark: '', //备注
-    isShowEditBtn: true
+    isShowEditBtn: true,
+
+    voiceURL: '../../imgs/accredit/voice.png',
+    recording: false,  // 正在录音
+    recordStatus: 0,
+    isPopDis: false,
   },
   onLoad: function (options) {
     let that = this;
@@ -119,6 +126,10 @@ Page({
         isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
       })
     }
+
+    this.initRecord()
+
+    app.getRecordAuth()
   },
 
   //录入课程
@@ -488,6 +499,142 @@ Page({
         })
       }
     })
-  }
+  },
+
+  /**
+   * 按下按钮开始录音
+   */
+  streamRecord: function (e) {
+    debugger
+    this.setData({
+      voiceType: e.currentTarget.dataset.type,
+    })
+    // 先清空背景音
+    wx.stopBackgroundAudio()
+
+    let detail = e.detail || {}
+
+    manager.start({
+      lang: "zh_CN",
+    })
+
+    this.setData({
+      recordStatus: 0,
+      recording: true,
+      voiceURL: '../../imgs/accredit/voice2.png',
+      isPopDis: true
+    })
+  },
+
+  /**
+   * 松开按钮结束录音
+   */
+  endStreamRecord: function (e) {
+    debugger
+    this.setData({
+      voiceType: e.currentTarget.dataset.type,
+    })
+
+    let detail = e.detail || {}  // 自定义组件触发事件时提供的detail对象
+    let buttonItem = detail.buttonItem || {}
+
+    // 防止重复触发stop函数
+    if (!this.data.recording || this.data.recordStatus != 0) {
+      console.warn("has finished!")
+      return
+    }
+
+    manager.stop()
+
+    this.setData({
+      voiceURL: '../../imgs/accredit/voice.png',
+      isPopDis: false,
+    })
+  },
+
+
+  /**
+   * 识别内容为空时的反馈
+   */
+  showRecordEmptyTip: function () {
+    this.setData({
+      recording: false,
+    })
+    wx.showToast({
+      title: '亲，请说话哦~',
+      icon: 'success',
+      image: '../../imgs/accredit/no_voice.png',
+      duration: 2000,
+      success: function (res) {
+
+      },
+      fail: function (res) {
+        console.log(res);
+      }
+    });
+  },
+
+  /**
+   * 初始化语音识别回调
+   * 绑定语音播放开始事件
+   */
+  initRecord: function () {
+    let that = this
+    //有新的识别内容返回，则会调用此事件
+    manager.onRecognize = (res) => {
+      debugger
+      let text = res.result,
+        voiceType = that.data.voiceType
+
+      console.log('startText', text)
+
+      if (voiceType == 'className') {
+        this.setData({
+          className: text,
+        })
+      } else if (voiceType == 'schoolName') {
+        this.setData({
+          schoolName: text,
+        })
+      }
+    }
+
+    // 识别结束事件
+    manager.onStop = (res) => {
+      debugger
+      let text = res.result,
+        voiceType = that.data.voiceType
+
+      console.log('endText', text)
+
+      if (text == '') {
+        this.showRecordEmptyTip()
+        return
+      }
+
+      if (voiceType == 'className') {
+        this.setData({
+          className: text,
+          recordStatus: 1,
+        })
+      } else if (voiceType == 'schoolName') {
+        this.setData({
+          schoolName: text,
+          recordStatus: 1,
+        })
+      }
+
+    }
+
+    // 识别错误事件
+    manager.onError = (res) => {
+
+      this.setData({
+        recording: false,
+      })
+
+    }
+
+  },
 
 })

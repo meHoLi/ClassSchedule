@@ -4,7 +4,7 @@
       <view class="modal">
         <image src="../../imgs/accredit/minus.png" bindtap='minus' background-size="cover"></image>
         <text>我要给</text>
-        <input type="number" value="{{initChildNum}}" maxlength="3" bindinput="setChildNum" auto-focus/>
+        <input type="number" value="{{initChildNum}}" maxlength="3" bindinput="setChildNum"/>
         <text>个孩子制定课程表</text>
         <image src="../../imgs/accredit/plus.png" bindtap='plus' background-size="cover"></image>
       </view>
@@ -14,7 +14,7 @@
       <view class="modal2">
         <view wx:for="{{childList}}">
           <text>宝贝{{item}}：</text>
-          <input type="text" data-index="{{index}}" placeholder="请输入宝贝姓名" bindinput="setChildName" auto-focus/>
+          <input type="text" data-index="{{index}}" placeholder="请输入宝贝姓名" bindinput="setChildName"/>
         </view>
 
       </view>

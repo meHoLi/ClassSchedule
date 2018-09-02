@@ -69,9 +69,9 @@ Page({
       that.setTabW(undefined, options.openID)
     }
 
-    this.initRecord()
+    // this.initRecord()
 
-    app.getRecordAuth()
+    // app.getRecordAuth()
   },
 
   setPhotoInfo: function() {
@@ -262,11 +262,9 @@ Page({
   /**
    * 按下按钮开始录音
    */
-  streamRecord: function(e) {
+  streamRecord: function(e) {debugger
     // 先清空背景音
     wx.stopBackgroundAudio()
-
-    console.log("streamrecord" ,e)
 
     let detail = e.detail || {}
     
@@ -287,10 +285,8 @@ Page({
   /**
    * 松开按钮结束录音
    */
-  endStreamRecord: function(e) {
-    console.log("streamRecordEnd" ,e)
+  endStreamRecord: function(e) {debugger
     let detail = e.detail || {}  // 自定义组件触发事件时提供的detail对象
-    let buttonItem = detail.buttonItem || {}
 
     // 防止重复触发stop函数
     if (!this.data.recording || this.data.recordStatus != 0) {
@@ -334,10 +330,10 @@ Page({
    */
   initRecord: function () {
     //有新的识别内容返回，则会调用此事件
-    manager.onRecognize = (res) => {
+    manager.onRecognize = (res) => {debugger
       let text = res.result
 
-      console.log("res", res)
+      console.log('startText', text)
 
       this.setData({
         Name: text,
@@ -345,17 +341,15 @@ Page({
     }
 
     // 识别结束事件
-    manager.onStop = (res) => {
-      console.log("res2", res)
-
+    manager.onStop = (res) => {debugger
       let text = res.result
+
+      console.log('endText',text)
 
       if (text == '') {
         this.showRecordEmptyTip()
         return
       }
-
-      console.log(text)
 
       let currentData = Object.assign({}, {
         text: res.result,

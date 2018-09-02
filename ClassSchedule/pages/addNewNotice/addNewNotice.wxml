@@ -28,7 +28,7 @@
             <text>事项</text>
           </view>
 
-          <textarea class="remarkInput" value='{{remark}}' type='text' bindinput="setRemarkInput" maxlength='200' placeholder="请输入事项" focus/>
+          <textarea class="remarkInput" value='{{remark}}' type='text' bindinput="setRemarkInput" maxlength='200' placeholder="请输入事项"/>
         </view>
       </view>
     </view>

@@ -343,7 +343,7 @@ Page({
 
       if (o.CourseType == 1){
         o.type = 0
-      } else if (o.CourseType == 1){
+      } else if (o.CourseType == 2){
         o.type = 1
       } else{
         o.type = 2

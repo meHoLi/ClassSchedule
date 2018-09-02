@@ -66,7 +66,7 @@
                   <view wx:for="{{[1,2]}}" wx:key="*this" class="tab-line" style="top:{{item*478}}rpx;"></view>
 
                   <!--课程-->
-                  <view wx:for="{{classList}}" wx:key="id" class="course-item" style="margin-left:{{item.day*100+2}}rpx;margin-top:{{(item.start-1)*60+2}}rpx;height:{{60-2}}rpx;">
+                  <view wx:for="{{classList}}" wx:key="id" class="course-item" style="left:{{item.day*100}}rpx;top:{{(item.start-1)*60+2}}rpx;height:{{60-2}}rpx;">
                     <view class="course-item-inner">
                       <view class="course-item-inner-body" style="height:{{60-2}}rpx;background-color:{{courseColors[item.type]}}">
                         <text>{{item.CourseName}}</text>

@@ -10,7 +10,7 @@
             <text>课程表名称</text>
           </view>
           <view class="infotext">
-            <input class="info-motto" value='{{comClassName}}' type='text' bindinput="setClassNameInput" placeholder="请输入课程表名称" focus/>
+            <input class="info-motto" value='{{comClassName}}' type='text' bindinput="setClassNameInput" placeholder="请输入课程表名称"/>
           </view>
         </view>
 

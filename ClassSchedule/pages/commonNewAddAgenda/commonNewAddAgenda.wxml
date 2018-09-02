@@ -14,7 +14,10 @@
             <text>课程(日程)名称</text>
           </view>
           <view class="infotext">
-            <input class="info-motto" value='{{className}}' type='text' bindinput="setClassNameInput" placeholder="如：英语课，或 逛公园" focus/>
+            <input class="info-motto" value='{{className}}' type='text' bindinput="setClassNameInput" placeholder="如：英语课，或 逛公园"/>
+          </view>
+          <view data-type="className" catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
+            <image class="voice" src="{{voiceURL}}"></image>
           </view>
         </view>
 
@@ -24,7 +27,10 @@
             <text>学校名称(或目的地)</text>
           </view>
           <view class="infotext">
-            <input class="info-motto" value='{{schoolName}}' type='text' bindinput="setSchoolNameInput" placeholder="如：学而思 或 香山" focus/>
+            <input class="info-motto" value='{{schoolName}}' type='text' bindinput="setSchoolNameInput" placeholder="如：学而思 或 香山"/>
+          </view>
+          <view data-type="schoolName" catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
+            <image class="voice" src="{{voiceURL}}"></image>
           </view>
         </view>
 
@@ -81,21 +87,21 @@
         <view class="info-items">
           <text>地址</text>
           <view class="infotext">
-            <input class="info-motto" value='{{address}}' type='text' bindinput="setAddressInput" placeholder="请输入地址" focus/>
+            <input class="info-motto" value='{{address}}' type='text' bindinput="setAddressInput" placeholder="请输入地址"/>
           </view>
         </view>
 
         <view class="info-items">
           <text>老师</text>
           <view class="infotext">
-            <input class="info-motto" value='{{teacher}}' type='text' bindinput="setTeacherInput" placeholder="请输入老师姓名" focus/>
+            <input class="info-motto" value='{{teacher}}' type='text' bindinput="setTeacherInput" placeholder="请输入老师姓名"/>
           </view>
         </view>
 
         <view class="info-items">
           <text>联系方式</text>
           <view class="infotext">
-            <input class="info-motto" value='{{phone}}' type='text' maxlength='50' bindinput="setTelPhoneInput" placeholder="请输入联系方式" focus/>
+            <input class="info-motto" value='{{phone}}' type='text' maxlength='50' bindinput="setTelPhoneInput" placeholder="请输入联系方式"/>
           </view>
         </view>
 
@@ -111,7 +117,7 @@
         </view> -->
 
         <view class="remark">
-          <textarea class="remarkInput" value='{{remark}}' type='text' bindinput="setRemarkInput" maxlength='200' placeholder="备注" focus/>
+          <textarea class="remarkInput" value='{{remark}}' type='text' bindinput="setRemarkInput" maxlength='200' placeholder="备注"/>
         </view>
       </view>
     </view>
@@ -124,5 +130,10 @@
       </form>
       <!-- <button bindtap="save" class="saveBtn"> 保存 </button> -->
     </view>
+  </view>
+
+  <view class='voicePop' style="display:{{!!isPopDis?'flex':'none'}}">
+    <image class="voice-loading" src="../../imgs/accredit/loading2.gif"></image>
+    <text class='voice-text'>亲，正在聆听中，请您说话~</text>
   </view>
 </view>
