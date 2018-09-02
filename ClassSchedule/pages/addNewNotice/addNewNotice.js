@@ -156,7 +156,7 @@ Page({
         header: {
           'content-type': 'application/json' // 默认值
         },
-        success: function (res) {debugger
+        success: function (res) {
           if (res.data.Result == '500') {
             wx.showToast({
               title: '当前服务器异常，请稍后再试',
@@ -251,7 +251,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {debugger
+      success: function (res) {
         let data = res.data.Data
 
         that.setData({

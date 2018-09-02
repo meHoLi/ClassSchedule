@@ -239,7 +239,7 @@ Page({
   },
 
   // 分享
-  shareCommonClass: function(){debugger
+  shareCommonClass: function(){
     let that = this
 
     // that.setData({

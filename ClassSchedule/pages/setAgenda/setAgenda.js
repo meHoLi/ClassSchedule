@@ -457,7 +457,7 @@ Page({
   },
 
   //初始化查询数据
-  setAgendaData: function (options) {debugger
+  setAgendaData: function (options) {
     let that = this
 
     wx.request({
@@ -503,7 +503,7 @@ Page({
   /**
    * 按下按钮开始录音
    */
-  streamRecord: function (e) {debugger
+  streamRecord: function (e) {
     this.setData({
       voiceType: e.currentTarget.dataset.type,
     })
@@ -527,7 +527,7 @@ Page({
   /**
    * 松开按钮结束录音
    */
-  endStreamRecord: function (e) {debugger
+  endStreamRecord: function (e) {
     this.setData({
       voiceType: e.currentTarget.dataset.type,
     })
@@ -578,7 +578,7 @@ Page({
   initRecord: function () {
     let that = this
     //有新的识别内容返回，则会调用此事件
-    manager.onRecognize = (res) => {debugger
+    manager.onRecognize = (res) => {
       let text = res.result,
         voiceType = that.data.voiceType
 
@@ -596,7 +596,7 @@ Page({
     }
 
     // 识别结束事件
-    manager.onStop = (res) => {debugger
+    manager.onStop = (res) => {
       let text = res.result,
         voiceType = that.data.voiceType
 

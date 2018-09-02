@@ -262,7 +262,7 @@ Page({
   /**
    * 按下按钮开始录音
    */
-  streamRecord: function(e) {debugger
+  streamRecord: function(e) {
     // 先清空背景音
     wx.stopBackgroundAudio()
 
@@ -285,7 +285,7 @@ Page({
   /**
    * 松开按钮结束录音
    */
-  endStreamRecord: function(e) {debugger
+  endStreamRecord: function(e) {
     let detail = e.detail || {}  // 自定义组件触发事件时提供的detail对象
 
     // 防止重复触发stop函数
@@ -330,7 +330,7 @@ Page({
    */
   initRecord: function () {
     //有新的识别内容返回，则会调用此事件
-    manager.onRecognize = (res) => {debugger
+    manager.onRecognize = (res) => {
       let text = res.result
 
       console.log('startText', text)
@@ -341,7 +341,7 @@ Page({
     }
 
     // 识别结束事件
-    manager.onStop = (res) => {debugger
+    manager.onStop = (res) => {
       let text = res.result
 
       console.log('endText',text)

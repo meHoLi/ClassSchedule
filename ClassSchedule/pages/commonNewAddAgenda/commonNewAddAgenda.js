@@ -505,7 +505,6 @@ Page({
    * 按下按钮开始录音
    */
   streamRecord: function (e) {
-    debugger
     this.setData({
       voiceType: e.currentTarget.dataset.type,
     })
@@ -530,7 +529,6 @@ Page({
    * 松开按钮结束录音
    */
   endStreamRecord: function (e) {
-    debugger
     this.setData({
       voiceType: e.currentTarget.dataset.type,
     })
@@ -582,7 +580,6 @@ Page({
     let that = this
     //有新的识别内容返回，则会调用此事件
     manager.onRecognize = (res) => {
-      debugger
       let text = res.result,
         voiceType = that.data.voiceType
 
@@ -601,7 +598,6 @@ Page({
 
     // 识别结束事件
     manager.onStop = (res) => {
-      debugger
       let text = res.result,
         voiceType = that.data.voiceType
 

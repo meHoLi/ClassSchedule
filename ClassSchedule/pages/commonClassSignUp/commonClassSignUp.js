@@ -13,7 +13,6 @@ Page({
     passWord: '', //公共课程表密码
   },
   onLoad: function(options) {
-    debugger
     let that = this,
       publicCourseTypeID = options.publicCourseTypeID,
       id = options.id
@@ -79,7 +78,6 @@ Page({
 
   //保存
   signUp: function(e) {
-    debugger
     let that = this,
       data = this.data,
       query = {
@@ -169,7 +167,6 @@ Page({
 
   //初始化数据
   setInitData: function(id) {
-    debugger
     let that = this;
 
     wx.request({
@@ -181,8 +178,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function(res) {
-        debugger
-
         let data = res.data.Data
 
         that.setData({

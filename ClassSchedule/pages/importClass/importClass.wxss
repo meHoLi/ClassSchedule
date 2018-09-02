@@ -226,6 +226,12 @@
 .class-item-inner-isRemind {
   width: 100rpx;
   text-align: center;
+  padding: 12rpx;
+}
+
+.class-item-inner-isRemind image{
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .class-item-inner-edit {

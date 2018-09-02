@@ -59,13 +59,16 @@
 
             <view class='haveClassTable' style="display:{{haveClassDis}}">
               <view wx:for="{{tableList}}" wx:key="id" class="class-item" bindtap="addNewAgenda" data-index="{{index}}" data-item="{{item}}" style="margin-top:{{item.marginTop}}rpx;height:{{item.height}}rpx;">
-                <view class="class-item-inner" style="height:{{item.sections*50-5}}px;">
+                <view class="class-item-inner">
                   <text class="class-item-inner-time">{{item.startTime}} - {{item.endTime}}</text>
                   <text class="class-item-inner-school">
                     <text class='schoolName'>{{item.SchoolName}}</text>
                   <text class='className'> {{item.CourseName}}</text>
                   </text>
-                  <text class='class-item-inner-isRemind'>{{item.RemindDes}}</text>
+                  <!-- <view class="class-item-inner-isRemind">
+                    <image mode="widthFix" src="{{item.RemindDes=='已提醒'?'../../imgs/accredit/haveNoticeClock.png':(item.RemindDes=='未提醒'?'../../imgs/accredit/notNoticeClock.png':'../../imgs/accredit/notSetClock.png')}}"></image>
+                  </view> -->
+                  <!-- <text class='class-item-inner-isRemind'>{{item.RemindDes}}</text> -->
                   <image class="class-item-inner-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
                 </view>
               </view>

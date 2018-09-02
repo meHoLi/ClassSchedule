@@ -55,7 +55,7 @@ Page({
     })
   },
 
-  editInfo: function (e) {debugger
+  editInfo: function (e) {
     let id = e.target.dataset.item.ID;
 
     wx.navigateTo({

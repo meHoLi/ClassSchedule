@@ -13,7 +13,7 @@ Page({
     comClassUserName: '', //公共课程表用户名
     passWord: '', //公共课程表密码
   },
-  onLoad: function (options) {debugger
+  onLoad: function (options) {
     let that = this,
       publicCourseTypeID = options.publicCourseTypeID,
       commonClassName = !!options.commonClassName ? options.commonClassName : (publicCourseTypeID == -1 ? '家庭课程表' : '班级课程表')
@@ -111,7 +111,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {debugger
+      success: function (res) {
         let obj = res.data.Data
 
         wx.navigateTo({
@@ -122,7 +122,7 @@ Page({
   },
 
   //打开课程表
-  openCommonClass: function(e){debugger
+  openCommonClass: function(e){
     wx.navigateTo({
       url: '../commonClass/commonClass?id=' + e.currentTarget.dataset.item.ID + '&comonClassTitle=' + e.currentTarget.dataset.item.Name + '&publicCourseTypeID=' + this.data.publicCourseTypeID + '&outOpenId=' + app.globalData.openID
     })

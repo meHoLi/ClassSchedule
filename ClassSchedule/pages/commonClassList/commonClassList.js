@@ -27,7 +27,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {debugger
+      success: function (res) {
         let list = res.data.Data
 
         that.setData({
