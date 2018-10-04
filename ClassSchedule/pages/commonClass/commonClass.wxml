@@ -10,8 +10,8 @@
       <!-- <view class="rec" /> -->
       <view class="slide-view">
 
-        <view class="week-selector">
-          <view>{{currentDate}}</view>
+        <!-- <view class="week-selector">
+          <view>{{date}}</view>
           <view class='paging'>
             <view class="img-button pre-week-btn" bindtap="prevWeekHandler">
               <image src="../../imgs/accredit/prev.png"></image>
@@ -22,17 +22,18 @@
               <image src="../../imgs/accredit/next.png"></image>
             </view>
           </view>
-        </view>
+        </view> -->
 
         <view class="calendar-week">
           <view class='month'></view>
           <view class="week-list">
-            <view wx:for="{{dateList}}" class="week-item '{{item.className}}'" style="background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}}" bindtap='changeDay' data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}">
+            <view wx:for="{{dateList}}" class="week-item '{{item.className}}'"  bindtap='changeDay' data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}" data-item="{{item}}" data-index="{{index}}">
+            <!-- style="background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}}" -->
 
               <view class="week-item-body">
                 <text>{{item.curWeek}}</text>
                 <view>
-                  <text>{{item.curDay}}</text>
+                  <!-- <text>{{item.curDay}}</text> -->
                   <!-- <text class='today' style="display:{{!!item.IsToday?'block':'none'}};">今</text> -->
                 </view>
               </view>
@@ -41,7 +42,7 @@
 
         </view>
 
-        <scroll-view scroll-y="true" enable-back-to-top="true" class="tab-scroll" style='height:{{bodyHeight}}px'>
+        <scroll-view scroll-y="true" scroll-top="294" enable-back-to-top="true" class="tab-scroll" style='height:{{bodyHeight}}px'>
           <view class="tab-container">
             <!--分节-->
             <view class='timeLine'>
@@ -50,7 +51,7 @@
               </view>
             </view>
 
-            <view class='noClassTable' style="display:{{noClassDis}}">
+            <view class='noClassTable' style="display:{{noClassDis}};margin-top:560rpx">
               <view class='noClassTableBody'>
                 <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
                 <text class="login-accredit-text">当前还没有日程，请先添加日程哦~</text>
@@ -85,7 +86,7 @@
           </button>
 
           <button class="reset" bindtap='resetCommonClass' style="display:{{!!isEdit?'flex':'none'}}">重置</button>
-          <button class="share" bindtap='shareCommonClass'>分享</button>
+          <!-- <button class="share" bindtap='shareCommonClass'>分享</button> -->
         </view>
 
       </view>

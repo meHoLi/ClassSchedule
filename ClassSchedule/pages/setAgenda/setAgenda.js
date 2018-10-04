@@ -106,9 +106,10 @@ Page({
     voiceURL: '../../imgs/accredit/voice.png',
     recording: false,  // 正在录音
     recordStatus: 0,
-    isPopDis: false,
+    isPopDis: false
   },
   onLoad: function(options) {
+    console.log('onLoad113:',options)
     let that = this;
 
     wx.hideShareMenu()
@@ -128,7 +129,7 @@ Page({
 
     this.initRecord()
 
-    app.getRecordAuth()
+    // app.getRecordAuth()
   },
 
   //录入课程
@@ -224,7 +225,13 @@ Page({
   //删除
   del: function(){
     let ID = this.data.ID,
+      frequencyId = this.data.frequencyId,
       that = this;
+    if (frequencyId == 2 || frequencyId == 3){
+      that.delUpdate()
+
+      return
+    }
 
     wx.request({
       url: that.data.url + '/Course/Delete', //仅为示例，并非真实的接口地址
@@ -265,6 +272,103 @@ Page({
       }
     })
   },
+  
+  delUpdate: function(){
+    let that = this,
+      data = this.data,
+      ID = data.ID,
+      query = {
+        PublicCourseTypeID: 0,
+        PublicCourseInfoID: 0,
+        OpenID: app.globalData.openID,
+        ID: data.ID,
+        BatchID: data.BatchID,
+        ChildrenID: data.childrenID,
+        CourseName: data.className,
+        SchoolName: data.schoolName,
+        StartTime: data.date + ' ' + data.startTime,
+        EndTime: data.date + ' ' + data.endTime,
+        Frequency: 1,
+        CourseType: data.typeId,
+        Address: data.address,
+        Teacher: data.teacher,
+        Phone: data.phone,
+        RemindTime: data.RemindTime,
+        Remarks: data.remark
+      }
+
+    wx.request({
+      url: that.data.url + '/Course/Update',
+      data: query,
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        let data = res.data.Data
+
+        if (res.data.Result == '800') {
+          wx.showToast({
+            title: '请重新打开此页面再删除',
+            icon: 'none',
+            duration: 1500,
+            mask: true
+          })
+          return
+        } else if (res.data.Result == '500') {
+          wx.showToast({
+            title: '当前服务器异常，请稍后再试',
+            icon: 'none',
+            duration: 1500,
+            mask: true
+          })
+          return
+        }
+
+        wx.request({
+          url: that.data.url + '/Course/Delete', //仅为示例，并非真实的接口地址
+          data: {
+            id: data.ID
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function (res) {
+
+            let data = res.data.Data
+
+            that.setData({
+              ID: null,
+              className: '', //课程名称
+              schoolName: '', //学校名称
+              startTime: '07:00', //开始时间
+              endTime: '08:00', //结束时间
+              frequencyValue: 0,//课程频率
+              frequencyId: 1,//课程频率id
+              typeValue: 0,//课程类型
+              typeId: 1,//课程类型id
+              address: '', //地址
+              teacher: '', //老师姓名
+              phone: '', //联系方式
+              remindValue: 0,
+              RemindTime: '-9999',
+              remark: '' //备注
+            })
+
+            wx.showToast({
+              title: '删除成功',
+              icon: 'none',
+              duration: 1000,
+              mask: true
+            })
+          }
+        })
+      }
+    })
+
+  },
+
+
+
   //保存
   save: function(e) {
     let that = this,
@@ -413,7 +517,8 @@ Page({
     var messageDemo = {
       touser: openId,//openId   
       template_id: '1fubB0p5PAMlP_o5P1R93-35W_TCa2plZTpPogGn87w',//模板消息id，  
-      // page: 'pages/setAgenda/setAgenda?childrenID=' + this.data.childrenID + '&date=' + this.data.date + '&ID=' + this.data.ID,//点击详情时跳转的主页
+      //page: 'pages/setAgenda/setAgenda?childrenID=' + this.data.childrenID + '&date=' + this.data.date + '&ID=' + this.data.ID,//点击详情时跳转的主页 失败原因是此时无法获取课程ID
+      page: 'pages/login/login',//点击详情时跳转的主页
       form_id: formId,//formId
       data: {//下面的keyword*是设置的模板消息的关键词变量  
         "keyword1": {
@@ -585,13 +690,17 @@ Page({
       console.log('startText', text)
 
       if (voiceType == 'className'){
-        this.setData({
-          className: text,
-        })
+        setTimeout(()=>{
+          this.setData({
+            className: text,
+          })
+        },2000)
       } else if (voiceType == 'schoolName'){
-        this.setData({
-          schoolName: text,
-        })
+        setTimeout(() => {
+          this.setData({
+            schoolName: text,
+          })
+        }, 2000)
       }
     }
 
@@ -608,15 +717,19 @@ Page({
       }
 
       if (voiceType == 'className') {
-        this.setData({
-          className: text,
-          recordStatus: 1,
-        })
+        setTimeout(() => {
+          this.setData({
+            className: text,
+            recordStatus: 1,
+          })
+        }, 2000)
       } else if (voiceType == 'schoolName') {
-        this.setData({
-          schoolName: text,
-          recordStatus: 1,
-        })
+        setTimeout(() => {
+          this.setData({
+            schoolName: text,
+            recordStatus: 1,
+          })
+        }, 2000)
       }
 
     }

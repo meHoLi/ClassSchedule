@@ -142,7 +142,7 @@
 }
 .month{
   width: 52rpx;
-  height: 20rpx;
+  /* height: 20rpx; */
 }
 
 .week-list {
@@ -247,10 +247,10 @@
 
 .tab-divide-item {
   width: 54rpx;
-  height: 480rpx;
+  /* height: 480rpx; */
   font-size: 24rpx;
-  justify-content: center;
   display: flex;
+  justify-content: center;
   align-items: center;
   border-bottom: 2rpx solid #d1d1d1;
   border-right: 2rpx solid #d1d1d1;
@@ -266,6 +266,7 @@
   display: flex;
   flex: 1;
   position: relative;
+  /* border-bottom:2rpx solid #d1d1d1; */
 }
 
 /* .tab-section {
@@ -333,8 +334,11 @@
   align-items: center;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space:nowrap;
 }
-
+.course-item-inner-body text{
+  width: 100%;
+}
 .course-item-inner-body text:not(:last-child) {
   margin-bottom: 6rpx;
 }

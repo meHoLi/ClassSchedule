@@ -76,6 +76,18 @@ Page({
       success: function (res) {
         let obj = res.data.Data
 
+        console.log(obj)
+
+        if (!obj){
+          wx.showToast({
+            title: '用户名或密码错误，请检查',
+            icon: 'none',
+            duration: 1500,
+            mask: true
+          })
+          return
+        }
+
         wx.navigateTo({
           url: '../importClass/importClass?id=' + obj.ID + '&comonClassTitle=' + obj.Name + '&publicCourseTypeID=' + obj.PublicCourseTypeID + '&childrenID=' + data.childrenID
         })

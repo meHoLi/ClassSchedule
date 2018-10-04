@@ -16,9 +16,9 @@
           <view class="infotext">
             <input class="info-motto" value='{{className}}' type='text' bindinput="setClassNameInput" placeholder="如：英语课，或 逛公园"/>
           </view>
-          <view data-type="className" catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
+          <!-- <view data-type="className" catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
             <image class="voice" src="{{voiceURL}}"></image>
-          </view>
+          </view> -->
         </view>
 
         <view class="info-items">
@@ -29,9 +29,9 @@
           <view class="infotext">
             <input class="info-motto" value='{{schoolName}}' type='text' bindinput="setSchoolNameInput" placeholder="如：学而思 或 香山"/>
           </view>
-          <view data-type="schoolName" catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
+          <!-- <view data-type="schoolName" catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
             <image class="voice" src="{{voiceURL}}"></image>
-          </view>
+          </view> -->
         </view>
 
         <view class="info-items">
@@ -130,10 +130,11 @@
       </form>
       <!-- <button bindtap="save" class="saveBtn"> 保存 </button> -->
     </view>
+
   </view>
 
-  <view class='voicePop' style="display:{{!!isPopDis?'flex':'none'}}">
+  <!-- <view class='voicePop' style="display:{{!!isPopDis?'flex':'none'}}">
     <image class="voice-loading" src="../../imgs/accredit/loading2.gif"></image>
     <text class='voice-text'>亲，正在聆听中，请您说话~</text>
-  </view>
+  </view> -->
 </view>

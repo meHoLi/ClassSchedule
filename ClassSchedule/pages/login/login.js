@@ -17,7 +17,7 @@ Page({
             code: res.code,
           },
           success: function(res) {
-
+            console.log('我停止了')
             let data = JSON.parse(res.data.Data);
 
             app.globalData.openID = data.openid,
@@ -43,7 +43,7 @@ Page({
       success: function(res) {
         if (!!res.data.Data[0]) {
           wx.switchTab({ //跳转到tabBar页面，并关闭其他所有tabBar页面
-            url: "/pages/curWeekClass/curWeekClass"//"/pages/calendar/calendar"
+            url: "/pages/curDayClass/curDayClass"//"/pages/calendar/calendar"
           })
         }else{
           wx.redirectTo({

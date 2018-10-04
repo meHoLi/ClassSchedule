@@ -31,15 +31,15 @@ Page({
       },
       {
         id: 2,
-        name: '准时'
+        name: '每天这个时段'
       },
       {
         id: 3,
-        name: '提前十分钟'
+        name: '每周这个时段'
       }
     ],
-    frequencyValue: 0,
-    frequencyId: 1,
+    frequencyValue: 2,
+    frequencyId: 3,
 
     //课程类型
     typeD: ['学校正课 ', '课外班', '其他'],
@@ -129,7 +129,7 @@ Page({
 
     this.initRecord()
 
-    app.getRecordAuth()
+    // app.getRecordAuth()
   },
 
   //录入课程
@@ -224,13 +224,13 @@ Page({
   },
   //删除
   del: function () {
-    let ID = this.data.ID,
+    let batchID = this.data.BatchID,
       that = this;
 
     wx.request({
-      url: that.data.url + '/Course/Delete', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/Course/DeleteByGuid', //仅为示例，并非真实的接口地址
       data: {
-        id: ID
+        batchID: batchID
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -244,8 +244,8 @@ Page({
           schoolName: '', //学校名称
           startTime: '07:00', //开始时间
           endTime: '08:00', //结束时间
-          frequencyValue: 0,//课程频率
-          frequencyId: 1,//课程频率id
+          frequencyValue: 2,//课程频率
+          frequencyId: 3,//课程频率id
           typeValue: 0,//课程类型
           typeId: 1,//课程类型id
           address: '', //地址
@@ -341,7 +341,7 @@ Page({
               let data = JSON.parse(res.data.Data)
 
               if (that.data.RemindTime != '-9999') {
-                that.setInfoTemplate(e.detail.formId, data.access_token)
+                // that.setInfoTemplate(e.detail.formId, data.access_token)
 
                 wx.navigateBack({
                   delta: 1
@@ -389,7 +389,7 @@ Page({
               let data = JSON.parse(res.data.Data)
 
               if (that.data.RemindTime != '-9999') {
-                that.setInfoTemplate(e.detail.formId, data.access_token)
+                // that.setInfoTemplate(e.detail.formId, data.access_token)
 
                 wx.navigateBack({
                   delta: 1
@@ -586,13 +586,17 @@ Page({
       console.log('startText', text)
 
       if (voiceType == 'className') {
-        this.setData({
-          className: text,
-        })
+        setTimeout(() => {
+          this.setData({
+            className: text,
+          })
+        }, 2000)
       } else if (voiceType == 'schoolName') {
-        this.setData({
-          schoolName: text,
-        })
+        setTimeout(() => {
+          this.setData({
+            schoolName: text,
+          })
+        }, 2000)
       }
     }
 
@@ -609,15 +613,19 @@ Page({
       }
 
       if (voiceType == 'className') {
-        this.setData({
-          className: text,
-          recordStatus: 1,
-        })
+        setTimeout(() => {
+          this.setData({
+            className: text,
+            recordStatus: 1,
+          })
+        }, 2000)
       } else if (voiceType == 'schoolName') {
-        this.setData({
-          schoolName: text,
-          recordStatus: 1,
-        })
+        setTimeout(() => {
+          this.setData({
+            schoolName: text,
+            recordStatus: 1,
+          })
+        }, 2000)
       }
 
     }

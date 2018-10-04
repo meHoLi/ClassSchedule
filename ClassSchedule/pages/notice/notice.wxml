@@ -16,7 +16,7 @@
           <view bindtap='editInfo' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
 
             <text class='item-num' data-index="{{index}}" data-item="{{item}}">{{index+1}}、</text>
-            <view class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.MemorandumContent}}</view>
+            <view class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.eventTime}} {{item.MemorandumContent}}</view>
 
             <image data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
           </view>

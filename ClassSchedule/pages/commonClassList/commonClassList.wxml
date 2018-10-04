@@ -5,26 +5,29 @@
     <view class="haveClassBody">
       <view class="haveClassTable">
 
-        <view class="item">
-          <view bindtap='editInfo' data-type="-1" style="{{item.txtStyle}}" class="inner txt">
+        <view class="item noChanged">
+          <view bindtap='commonLogin' data-type="-1" style="{{item.txtStyle}}" class="inner txt">
             <text class="item-text" data-type="-1" >家庭课程表</text>
-            <image class="item-edit" data-type="-1"  mode="widthFix" src="../../imgs/setting/next.png"></image>
+            <image class="item-next" data-type="-1"  mode="widthFix" src="../../imgs/setting/next.png"></image>
           </view>
         </view>
 
-        <view class="item">
-          <view bindtap='editInfo' data-type="-2"  style="{{item.txtStyle}}" class="inner txt">
+        <view class="item noChanged">
+          <view bindtap='commonLogin' data-type="-2"  style="{{item.txtStyle}}" class="inner txt">
             <text class="item-text" data-type="-2" >班级课程表</text>
-            <image class="item-edit" data-type="-2"  mode="widthFix" src="../../imgs/setting/next.png"></image>
+            <image class="item-next" data-type="-2"  mode="widthFix" src="../../imgs/setting/next.png"></image>
           </view>
         </view>
 
-        <view wx:for="{{list}}" wx:key="{{index}}" class="item '{{'item'+index}}'">
+        <view wx:for="{{list}}" wx:key="{{index}}" class="item isChanged '{{'item'+index}}'">
 
-          <view bindtap='editInfo' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
+          <view bindtap='commonLogin' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
             <text class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.Name}}</text>
 
-            <image data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/next.png"></image>
+            <image data-index="{{index}}" data-item="{{item}}" class="item-next" mode="widthFix" src="../../imgs/setting/next.png"></image>
+          </view>
+          <view class='item-edit' bindtap='editInfo' data-index="{{index}}" data-item="{{item}}">
+            <image bindtap='editInfo' data-index="{{index}}" data-item="{{item}}" class="item-edit-png" mode="widthFix" src="../../imgs/setting/edit.png"></image>
           </view>
         </view>
       </view>

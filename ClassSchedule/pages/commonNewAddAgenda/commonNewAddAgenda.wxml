@@ -4,7 +4,8 @@
 
     <view class='info'>
       <view class="head">
-        {{date}} 日程表
+        <!-- {{date}}  -->
+        日程表
       </view>
 
       <view class="infoMain">
@@ -16,9 +17,9 @@
           <view class="infotext">
             <input class="info-motto" value='{{className}}' type='text' bindinput="setClassNameInput" placeholder="如：英语课，或 逛公园"/>
           </view>
-          <view data-type="className" catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
+          <!-- <view data-type="className" catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
             <image class="voice" src="{{voiceURL}}"></image>
-          </view>
+          </view> -->
         </view>
 
         <view class="info-items">
@@ -29,9 +30,9 @@
           <view class="infotext">
             <input class="info-motto" value='{{schoolName}}' type='text' bindinput="setSchoolNameInput" placeholder="如：学而思 或 香山"/>
           </view>
-          <view data-type="schoolName" catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
+          <!-- <view data-type="schoolName" catchtouchstart="streamRecord" catchtouchend="endStreamRecord" class='voice-body'>
             <image class="voice" src="{{voiceURL}}"></image>
-          </view>
+          </view> -->
         </view>
 
         <view class="info-items">
@@ -41,13 +42,13 @@
           </view>
           <view class="infotext">
             <view class="info-motto timePicker">
-              <picker mode="time" value="{{startTime}}" start="07:00" end="23:59" bindchange="bindStartTimeChange">
+              <picker mode="time" value="{{startTime}}" start="00:00" end="23:59" bindchange="bindStartTimeChange">
                 <view class="picker">
                   {{startTime}}
                 </view>
               </picker>
               —
-              <picker mode="time" value="{{endTime}}" start="07:00" end="23:59" bindchange="bindEndTimeChange">
+              <picker mode="time" value="{{endTime}}" start="00:00" end="23:59" bindchange="bindEndTimeChange">
                 <view class="picker">
                   {{endTime}}
                 </view>
@@ -56,7 +57,7 @@
           </view>
         </view>
 
-        <view class="info-items">
+        <!-- <view class="info-items">
           <view class="title">
             <text class="asterisk">*</text>
             <text>课程(日程)频率</text>
@@ -68,7 +69,7 @@
               </view>
             </picker>
           </view>
-        </view>
+        </view> -->
 
         <view class="info-items">
           <view class="title">
@@ -124,16 +125,17 @@
 
     <view class="btn">
       <button bindtap="cancel" class="cancelBtn"> 取消 </button>
-      <button bindtap="del" class='delBtn'> 删除 </button>
-      <form bindsubmit='save' report-submit="true" class="saveBtn" style="display:{{!!isShowEditBtn?'block':'none'}}">
+      <button bindtap="del" class='delBtn' style="display:{{!!ID?'block':'none'}}"> 删除 </button>
+      <form bindsubmit='save' report-submit="true" class="saveBtn">
+      <!-- style="display:{{!!isShowEditBtn?'block':'none'}}" -->
         <button formType="submit">保存</button>
       </form>
       <!-- <button bindtap="save" class="saveBtn"> 保存 </button> -->
     </view>
   </view>
 
-  <view class='voicePop' style="display:{{!!isPopDis?'flex':'none'}}">
+  <!-- <view class='voicePop' style="display:{{!!isPopDis?'flex':'none'}}">
     <image class="voice-loading" src="../../imgs/accredit/loading2.gif"></image>
     <text class='voice-text'>亲，正在聆听中，请您说话~</text>
-  </view>
+  </view> -->
 </view>

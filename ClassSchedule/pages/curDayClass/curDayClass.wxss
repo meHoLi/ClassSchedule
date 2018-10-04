@@ -146,7 +146,7 @@
 
 .month {
   width: 90rpx;
-  height: 20rpx;
+  /* height: 20rpx; */
 }
 
 .week-list {
@@ -170,13 +170,18 @@
 }
 
 .lastDate {
-  color: #000 !important;
-  background: #f5f5f5 !important;
+  /* color: #000 !important;
+  background: #f5f5f5 !important; */
 }
 
 .isToday {
   color: #fff !important;
-  background: #782878 !important;
+  /* background: #782878 !important; */
+  background: #54cbf0;
+}
+
+.selectDay{
+  background:rgba(84, 203, 240, 0.3);
 }
 
 .week-list .week-item .week-item-body {
@@ -263,7 +268,8 @@
   flex: 1;
   justify-content: center;
   align-items: flex-end;
-  height: 116rpx;
+  height: 80rpx;
+  /* 116rpx; */
   border: 2rpx dashed #f0f0f0;
 }
 
@@ -310,15 +316,20 @@
   border-radius: 6rpx;
   font-size: 24rpx;
   display: flex;
+  flex: 1;
   align-items: center;
 }
 
 .class-item-inner text {
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 50rpx;
+  line-height: 50rpx;
 }
-
-.class-item-inner-time, .class-item-inner-school, .class-item-inner-isRemind {
+.class-item-inner-time{
+  width: 200rpx;
+  text-align: center;
+  border-right: 2rpx solid #54cbf0;
+}
+.class-item-inner-school, .class-item-inner-isRemind {
   padding: 0 16rpx;
   border-right: 2rpx solid #54cbf0;
 }
@@ -331,12 +342,12 @@
 .class-item-inner-isRemind {
   width: 100rpx;
   text-align: center;
-  padding: 12rpx;
+  padding: 0 12rpx;
 }
 
 .class-item-inner-isRemind image{
-  width: 50rpx;
-  height: 50rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .class-item-inner-edit {

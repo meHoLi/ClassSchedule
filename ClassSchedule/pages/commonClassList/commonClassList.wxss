@@ -44,21 +44,24 @@
   overflow: hidden;
   margin: 0 20rpx;
 }
+.isChanged {
+  display: flex;
+  flex: 1;
+}
+
 .item:last-child {
   border-bottom: 2rpx solid #eee;
 }
-.inner {
-  position: absolute;
-  top: 0;
+.noChanged .inner.txt{
+  width: 100%;
 }
 .inner.txt {
-  background-color: #fff;
-  width: 100%;
-  z-index: 1;
-  transition: left 0.2s ease-in-out;
   display: flex;
+  flex: 1;
   flex-direction: row;
   align-items: center;
+  background-color: #fff;
+  transition: left 0.2s ease-in-out
 }
 .inner.del {
   background-color: #e64340;
@@ -82,8 +85,16 @@
   text-overflow: ellipsis;
   margin-right: 16rpx;
 }
-.item-edit{
+.item-next, .item-edit-png{
   width: 40rpx;
+}
+
+.item-edit{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width: 120rpx;
+  border-left: 2rpx solid #eee;
 }
 
 /* 新增按钮 */

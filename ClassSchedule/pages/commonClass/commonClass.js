@@ -2,54 +2,71 @@
 const app = getApp()
 let util = require('../../utils/util.js');
 let myDate = new Date(); //获取系统当前时间
-let currentDate = myDate.toLocaleDateString(); //获取当前日期
 let year = myDate.getFullYear()
 let month = myDate.getMonth() + 1
 let day = myDate.getDate()
+let currentDate = '' + year + '-' + (month < 10 ? '0' + Number(month) : month) + '-' + (day < 10 ? '0' + Number(day) : day);//myDate.toLocaleDateString();//获取当前日期
 let date = '' + year + '-' + (month < 10 ? '0' + Number(month) : month) + '-' + (day < 10 ? '0' + Number(day) : day) //myDate.toLocaleDateString(); //获取当前日期
 let timestamp = new Date().getTime(); //当前日期时间戳
 let bodyH
 let timeList = [{
-  time: "08:00"
-}, {
-  time: "09:00"
-}, {
-  time: "10:00"
-}, {
-  time: "11:00"
-}, {
-  time: "12:00"
-}, {
-  time: "13:00"
-}, {
-  time: "14:00"
-}, {
-  time: "15:00"
-}, {
-  time: "16:00"
-}, {
-  time: "17:00"
-}, {
-  time: "18:00"
-}, {
-  time: "19:00"
-}, {
-  time: "20:00"
-}, {
-  time: "21:00"
-}, {
-  time: "22:00"
-}, {
-  time: "23:00"
-}, {
-  time: "24:00"
-}]
+    time: "00:00"
+  },{
+    time: "01:00"
+  },{
+    time: "02:00"
+  },{
+    time: "03:00"
+  },{
+    time: "04:00"
+  },{
+    time: "05:00"
+  },{
+    time: "06:00"
+  },{
+    time: "07:00"
+  },{
+    time: "08:00"
+  },{
+    time: "09:00"
+  },{
+    time: "10:00"
+  },{
+    time: "11:00"
+  },{
+    time: "12:00"
+  },{
+    time: "13:00"
+  },{
+    time: "14:00"
+  },{
+    time: "15:00"
+  },{
+    time: "16:00"
+  },{
+    time: "17:00"
+  },{
+    time: "18:00"
+  },{
+    time: "19:00"
+  },{
+    time: "20:00"
+  },{
+    time: "21:00"
+  },{
+    time: "22:00"
+  },{
+    time: "23:00"
+  },{
+    time: "24:00"
+  }
+]
 
 Page({
   data: {
     timeList: timeList,
     timestamp: timestamp,
-    currentDate: currentDate,
+    currentDate: currentDate.split('/').join('-'),
     date: date,
     url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
     list: [],
@@ -89,11 +106,31 @@ Page({
   },
 
   //编辑课程信息
-  changeDay: function(e) {
+  changeDay: function(e) {debugger
     let date = e.currentTarget.dataset.time,
-      query = this.data.query
+      query = this.data.query,
+      dateList = this.data.dateList,
+      item = e.currentTarget.dataset.item,
+      index = e.currentTarget.dataset.index
 
-    this.setClassBodyData(undefined, query, date)
+    dateList.map((o,dateIndex)=>{
+      if (dateIndex == index) {
+        o.className = 'selectDay'
+      } else {
+        o.className = ''
+      }
+      // if (o.className.indexOf('isToday') == -1){
+      //   if (dateIndex == index){
+      //     o.className = 'selectDay'
+      //   }else{
+      //     o.className = ''
+      //   }
+      // }
+
+      return o
+    })
+
+    this.setClassBodyData(dateList, query, date)
   },
 
   //查询周列表
@@ -142,7 +179,7 @@ Page({
 
         wx.getSystemInfo({
           success: function (res) {
-            bodyH = res.windowHeight - 10 - 30 - 30 - 55 - 50 - 8
+            bodyH = res.windowHeight - 10 - 30 - 55 - 50 - 8 // - 30
 
             that.setData({
               dateList: !!dateList ? dateList : that.data.dateList,
@@ -165,14 +202,22 @@ Page({
 
   //设置时间戳
   setDateList: function(dateList) {
+    let date = this.data.date,
+      currentDate = this.data.currentDate
+
     dateList.map((o, index) => {
       let startTimeStamp = Date.parse(o.StartTime.split('-').join('/') + " 00:00:00") //当前日期时间戳
 
       dateList[index].className = startTimeStamp < timestamp ? 'lastDate' : (startTimeStamp > timestamp ? 'nextDate' : '')
 
-      if (!!o.IsToday) {
-        dateList[index].className = 'isToday'
+      if (!!o.IsToday && o.StartTime == date) {
+        dateList[index].className = 'selectDay'//'isToday'
       }
+
+      if (o.StartTime == date && o.StartTime != currentDate) {
+        dateList[index].className = 'selectDay'
+      }
+
       dateList[index].curWeek = o.DayOfWeek.substr(2)
       dateList[index].curDay = o.StartTime.split('-')[2]
     })
@@ -378,28 +423,33 @@ function setDataLocation(list) {
         startMinute = Number(startTime.split(':')[1]),
         endHour = Number(endTime.split(':')[0]),
         endMinute = Number(endTime.split(':')[1]),
-        height = 3,
+        height = 0,
         marginTop = 0
 
       if (endHour - startHour == 1) {
-        height = height + 56
+        height = height + 40
 
         // if (!!endMinute) { //后期加精度去掉
-        //   height = height + 59
+        //   height = height + 40
         // }
       } else if (endHour - startHour > 1) {
-        height = height + 56 + 59 * (endHour - startHour - 1)
+        height = height + 40 + 40 * (endHour - startHour - 1)
       }
-      height = height + (endMinute - startMinute)
+      height = height + (endMinute - startMinute) / 60 * 40
 
-      if (startHour - 7 > 0) {
-        if (startHour - 7 == 1) {
-          marginTop = 60
-        } else if (startHour - 7 > 1) {
-          marginTop = 60 * (startHour - 7)
-        }
+      // if (startHour - 7 > 0) {
+      //   if (startHour - 7 == 1) {
+      //     marginTop = 42
+      //   } else if (startHour - 7 > 1) {
+      //     marginTop = 42 * (startHour - 7)
+      //   }
+      // } 
+
+      if (startHour - 0 > 0) {
+        marginTop = 42 * (startHour + 1) 
       }
-      marginTop = marginTop + startMinute
+      
+      marginTop = marginTop + startMinute / 60 * 40
 
       item.startTime = startTime
       item.endTime = endTime

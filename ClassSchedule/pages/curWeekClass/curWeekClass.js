@@ -2,15 +2,20 @@
 const app = getApp()
 var util = require('../../utils/util.js');
 var myDate = new Date(); //获取系统当前时间
-var currentDate = myDate.toLocaleDateString(); //获取当前日期
+//var currentDate = myDate.toLocaleDateString(); //获取当前日期
+let year = myDate.getFullYear()
+let month = myDate.getMonth() + 1
+let day = myDate.getDate()
+let currentDate = '' + year + '-' + (month < 10 ? '0' + Number(month) : month) + '-' + (day < 10 ? '0' + Number(day) : day);//myDate.toLocaleDateString(); //获取当前日期
 // var timestamp = Date.parse(currentDate+ " 00:00:00")//当前日期时间戳
 var timestamp = new Date().getTime();//当前日期时间戳
-var mtabW, mdateW, mdateH, hSwiper, bodyH
+var mtabW, mdateW, mdateH, hSwiper, bodyH, itemHeight
 
 Page({
   data: {
     timestamp: timestamp,
-    currentDate: currentDate,
+    currentDate: currentDate.split('/').join('-'),
+    month: month,
     url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
     list: [],
     activeIndex: 0,
@@ -24,35 +29,9 @@ Page({
     page: 1,
     pageSize: 7,
     tasklist: [
-      { id: 0, type: 0, day: 0, start: 1, sections: 1, CourseName: "语文", teacher: "刘德华", place: "大钟寺" },
-      { id: 1, type: 1, day: 1, start: 1, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 2, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" }, 
-      { id: 1, type: 1, day: 1, start: 3, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" }, 
-      { id: 1, type: 1, day: 1, start: 4, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 5, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 6, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 7, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 8, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 9, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 10, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" }, 
-      { id: 1, type: 1, day: 1, start: 11, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 12, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 13, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 14, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 15, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 16, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 17, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 18, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 19, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 20, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 21, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 22, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 23, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 1, type: 1, day: 1, start: 24, sections: 2, CourseName: "数学", teacher: "谢霆锋", place: "五道口" },
-      { id: 2, type: 2, day: 2, start: 1, sections: 2, CourseName: "英语", teacher: "小明", place: "科贸" },
-      { id: 2, type: 0, day: 4, start: 3, sections: 1, CourseName: "英语", teacher: "小明", place: "科贸" }
+      { id: 0, type: 0, day: 0, start: 1, sections: 1, CourseName: "语文", teacher: "刘德华", place: "大钟寺" }
     ],
-    courseColors: ['#ffca7f', '#91d7fd', '#96a4f9'], // 0学校正课 1课外课 2其他
+    courseColors: ['#000000', '#c00000', '#538035'], // 0学校正课 1课外课 2其他  '#91d7fd', '#96a4f9'
   },
 
   onLoad: function (options) {
@@ -75,89 +54,6 @@ Page({
     // });
     // this.onLoad()
     this.setTabData(undefined, query);
-  },
-
-  //点击左上角折叠展开按钮
-  isUnfold: function () {
-    if (!this.data.isUnfoldType) {
-      this.setData({
-        isUnfoldType: true
-      })
-    } else {
-      this.setData({
-        isUnfoldType: false
-      })
-    }
-  },
-
-  //点击新增孩子
-  addClassTable: function () {
-    wx.navigateTo({
-      url: '../addNewClass/addNewClass?openID=' + app.globalData.openID
-    })
-  },
-
-  //点击与上周课程一样
-  likePrev: function () {
-    let that = this,
-      dateList = this.data.dateList,
-      query = {
-        childrenID: this.data.childrenID,
-        startTime: dateList[0].StartTime,
-        endTime: dateList[dateList.length - 1].StartTime + ' 23:59',
-        interval: 7
-      }
-    wx.request({
-      url: that.data.url + '/Course/AddCourseList', //仅为示例，并非真实的接口地址
-      data: query,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-
-        let query = that.data.query
-
-        if (!!res.data.Data.isExistence) {
-          let message = res.data.Msg + '已经存在课程，请手动修改'
-
-          wx.showModal({
-            title: '提示',
-            content: message,
-            showCancel: false
-          })
-        }
-
-        that.setClassData(query)
-      },
-      complete: function () {
-        wx.hideToast(); //隐藏Toast
-      }
-    })
-  },
-
-  //点击当周新建课程
-  curNewAdd: function () {
-    let that = this,
-      dateList = this.data.dateList,
-      query = {
-        childrenID: this.data.childrenID,
-        startTime: dateList[0].StartTime,
-        endTime: dateList[dateList.length - 1].StartTime + ' 23:59'
-      }
-
-    wx.request({
-      url: that.data.url + '/Course/Deletes', //仅为示例，并非真实的接口地址
-      data: query,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-
-        let query = that.data.query
-
-        that.setClassData(query)
-      }
-    })
   },
 
   //页签切换
@@ -283,7 +179,8 @@ Page({
       endDate = dateList[dateList.length - 1].StartTime +' 23:59:59'
 
     wx.request({
-      url: that.data.url + '/Course/GetChildrenCourseByDate', //仅为示例，并非真实的接口地址
+      // url: that.data.url + '/Course/GetChildrenCourseByDate', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/Course/GetChildrenCourseByDateFormatOfWeek', //仅为示例，并非真实的接口地址
       data: { childrenID: query.childrenID, startTime: startDate, endTime: endDate},
       header: {
         'content-type': 'application/json' // 默认值
@@ -300,18 +197,22 @@ Page({
             mtabW = (res.windowWidth - 20 - 8) / 3; //设置tab的宽度
             hSwiper = res.windowHeight - 10 - 28
             bodyH = res.windowHeight - 10 - 28 - 30 - 55 - 8
+            itemHeight = bodyH/3*2
 
             dateList = that.setDateList(dateList)
-            
+            let month = Number(dateList[0].StartTime.split('-')[1])
+
             that.setData({
               dateList: dateList,
               classList: classList,
+              month: month,
               page: query.page,
               query: query,
               childrenID: query.childrenID,
               tabW: mtabW,
               swiperHeight: hSwiper,
-              bodyHeight: bodyH
+              bodyHeight: bodyH*2,
+              itemHeight: itemHeight
             })
           }
         });
@@ -323,7 +224,8 @@ Page({
   //设置课程位置
   setClassList: function(classList){
     classList.map((o,index)=>{
-      let hour = Number(o.StartTime.split(' ')[1].split(':')[0])
+      // let hour = Number(o.StartTime.split(' ')[1].split(':')[0])
+      let hour = Number(o.ShowDate.split(' ')[1].split(':')[0])
 
       if (o.DayOfWeek.indexOf('一') != -1){
         o.day = 0

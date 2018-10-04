@@ -20,7 +20,7 @@
           <view class="slide-view">
 
             <view class="week-selector">
-              <view>{{currentDate}}</view>
+              <view>{{date}}</view>
               <view class='paging'>
                 <view class="img-button pre-week-btn" bindtap="prevWeekHandler">
                   <image src="../../imgs/accredit/prev.png"></image>
@@ -34,9 +34,11 @@
             </view>
 
             <view class="calendar-week">
-              <view class='month'></view>
+              <view class='month'>{{month}}月</view>
               <view class="week-list">
-                <view wx:for="{{dateList}}" class="week-item '{{item.className}}'" style="background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}}" bindtap='changeDay' data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}">
+                <view wx:for="{{dateList}}" class="week-item '{{item.className}}'" bindtap='changeDay' data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}" data-item="{{item}}" data-index="{{index}}">
+
+                <!-- style="background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}}"  -->
 
                   <view class="week-item-body">
                     <text>{{item.curWeek}}</text>
@@ -50,7 +52,7 @@
 
             </view>
 
-            <scroll-view scroll-y="true" enable-back-to-top="true" class="tab-scroll" style='height:{{bodyHeight}}px'>
+            <scroll-view scroll-y="true" scroll-top="294" enable-back-to-top="true" class="tab-scroll" style='height:{{bodyHeight}}px'>
               <view class="tab-container">
                 <!--分节-->
                 <view class='timeLine'>
@@ -59,7 +61,7 @@
                   </view>
                 </view>
 
-                <view class='noClassTable' style="display:{{noClassDis}}">
+                <view class='noClassTable' style="display:{{noClassDis}};margin-top:560rpx">
                   <view class='noClassTableBody'>
                     <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
                     <text class="login-accredit-text">当前还没有日程，请先添加日程哦~</text>
@@ -75,7 +77,7 @@
                       <text class='className'> {{item.CourseName}}</text>
                       </text>
                       <view class="class-item-inner-isRemind">
-                        <image mode="widthFix" src="{{item.RemindDes=='已提醒'?'../../imgs/accredit/haveNoticeClock.png':(item.RemindDes=='未提醒'?'../../imgs/accredit/notNoticeClock.png':'../../imgs/accredit/notSetClock.png')}}"></image>
+                        <image mode="widthFix" src="{{item.RemindDes=='已提醒'?'../../imgs/accredit/clockRed.png':(item.RemindDes=='未提醒'?'../../imgs/accredit/clockBlack.png':'../../imgs/accredit/clockBlack.png')}}"></image>
                       </view>
                       <!-- <text class='class-item-inner-isRemind'>{{item.RemindDes}}</text> -->
                       <image class="class-item-inner-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
@@ -98,15 +100,15 @@
             </view>
 
             <view class='memo' bindtap="toNotice">
-              <image src="../../imgs/accredit/notice.png" class='memo-img'></image>
+              <image src="../../imgs/accredit/notice2.png" class='memo-img'></image>
               <swiper wx:if="{{!!inforList&&!!inforList[0]}}" class="swiper_container" vertical="true" autoplay="true" circular="true" interval="2000">
                 <block wx:for="{{inforList}}">
                   <swiper-item>
-                    <view class="swiper_item">{{item.MemorandumContent}}</view>
+                    <view class="swiper_item">{{item.eventTime}} {{item.MemorandumContent}}</view>
                   </swiper-item>
                 </block>
               </swiper>
-              <view class='memo-info' wx:else>当前还没有重要事项，请点击添加</view>
+              <view class='memo-info' wx:else>每日重要事情备忘，请点击添加</view>
             </view>
 
           </view>

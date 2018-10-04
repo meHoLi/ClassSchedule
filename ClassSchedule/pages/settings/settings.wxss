@@ -105,10 +105,11 @@
 .common-item {
   position: relative;
   border-top: 2rpx solid #eee;
-  height: 80rpx;
-  line-height: 80rpx;
+  font-size: 36rpx;
+  height: 120rpx;
+  line-height: 120rpx;
   overflow: hidden;
-  margin-left: 20rpx; 
+  margin: 0 20rpx; 
 }
 .common-item:nth-last-child(1){
   border-bottom: 2rpx solid #eee;
@@ -131,6 +132,6 @@
   justify-content: center;
 }
 .common-edit image{
-  width: 40rpx;
+  width: 50rpx;
 }
 

@@ -36,7 +36,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        let list = res.data.Data
+        let list = that.setList(res.data.Data)
 
         if (!!list[0]) {
           that.setData({
@@ -53,6 +53,16 @@ Page({
         }
       }
     })
+  },
+
+  setList: function (list){
+    list.map(o=>{
+      o.eventTime = o.StartTime.split(' ')[0]
+
+      return o
+    })
+
+    return list
   },
 
   editInfo: function (e) {

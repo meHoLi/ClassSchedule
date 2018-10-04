@@ -10,11 +10,37 @@ Page({
     url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
     comClassName: '', //公共课程表类型名称
   },
-  onLoad: function(options) {
-    let that = this;
+  onLoad: function(options) {debugger
+    let that = this
 
     wx.hideShareMenu()
 
+    if(!!options.id){
+      this.tempData(options.id);
+    }
+  },
+
+  //设置数据
+  tempData: function (id) {
+    let that = this;
+
+    wx.request({
+      url: app.globalData.url + '/PublicCourseType/GetPublicCourseTypeByID',
+      data: {
+        id: id
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {debugger
+        let list = res.data.Data
+
+        that.setData({
+          comClassName: list.Name,
+          id: id
+        })
+      }
+    })
   },
 
   //录入课程表类型名称
@@ -23,7 +49,6 @@ Page({
       comClassName: e.detail.value
     })
   },
-
 
   //取消
   cancel: function() {
@@ -38,7 +63,7 @@ Page({
     wx.request({
       url: app.globalData.url + '/PublicCourseType/Delete', //仅为示例，并非真实的接口地址
       data: {
-        id: that.data.ID
+        id: that.data.id
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -70,7 +95,7 @@ Page({
       return
     } 
 
-    if (!!data.ID) {
+    if (!!data.id) {
       wx.request({
         url: app.globalData.url + '/PublicCourseType/Update',
         data: query,

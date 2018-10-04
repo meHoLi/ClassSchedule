@@ -38,7 +38,7 @@ Page({
   },
 
   // 点击课程表
-  editInfo: function (e) {
+  commonLogin: function (e) {
     let publicCourseType = e.currentTarget.dataset.type,
       item = e.currentTarget.dataset.item,
       name = item ? item.Name : ''
@@ -48,7 +48,17 @@ Page({
     })
   },
 
-  // 新增孩子
+  //修改公共课程表信息
+  editInfo: function (e){
+    let item = e.currentTarget.dataset.item,
+      id = item.ID
+
+    wx.navigateTo({
+      url: '../addNewCommonClass/addNewCommonClass?id=' + id
+    })
+  },
+
+  // 新增公共课程表
   addNewClass: function () {
     wx.navigateTo({
       url: '../addNewCommonClass/addNewCommonClass?openID=' + app.globalData.openID

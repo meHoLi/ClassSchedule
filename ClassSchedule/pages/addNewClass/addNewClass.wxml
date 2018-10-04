@@ -41,14 +41,14 @@
           </view>
         </view>
 
-        <view class="info-items-radio">
+        <!-- <view class="info-items-radio">
           <text>请选择课程表背景：</text>
           <view class="checkBgColor">
             <view wx:for="{{radio}}" wx:key="{{item.value}}" class="checkbox '{{'checkbox'+index}}' '{{item.checked?'checkedActive':''}}'" style="width:{{radioW}}px" data-id="{{index}}" bindtap='getradio'>
               <image style="display:{{Background==radio[index].value?'block':'none'}};" src="../../imgs/head/whiteRight.png"></image>
             </view>
           </view>
-        </view>
+        </view> -->
       </view>
     </view>
 

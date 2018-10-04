@@ -2,10 +2,10 @@
 const app = getApp()
 let util = require('../../utils/util.js');
 let myDate = new Date(); //获取系统当前时间
-let currentDate = myDate.toLocaleDateString(); //获取当前日期
 let year = myDate.getFullYear()
 let month = myDate.getMonth() + 1
 let day = myDate.getDate()
+let currentDate = '' + year + '-' + (month < 10 ? '0' + Number(month) : month) + '-' + (day < 10 ? '0' + Number(day) : day);//myDate.toLocaleDateString(); //获取当前日期
 let date = '' + year + '-' + (month < 10 ? '0' + Number(month) : month) + '-' + (day < 10 ? '0' + Number(day) : day)//myDate.toLocaleDateString(); //获取当前日期
 let timestamp = new Date().getTime(); //当前日期时间戳
 let mtabW, hSwiper, bodyH
@@ -66,8 +66,9 @@ Page({
   data: {
     timeList: timeList,
     timestamp: timestamp,
-    currentDate: currentDate,
+    currentDate: currentDate.split('/').join('-'),
     date: date,
+    month: month,
     url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
     list: [],
     activeIndex: 0,
@@ -96,7 +97,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        let list = res.data.Data
+        let list = that.setList(res.data.Data)
 
         that.setData({
           inforList: list
@@ -110,6 +111,17 @@ Page({
       }
     })
   },
+
+  setList: function (list) {
+    list.map(o => {
+      o.eventTime = o.StartTime.split(' ')[0]
+
+      return o
+    })
+
+    return list
+  },
+
   onShow() { //返回显示页面状态函数
     let that = this,
       query = this.data.query
@@ -127,7 +139,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        let list = res.data.Data
+        let list = that.setList(res.data.Data)
 
         that.setData({
           inforList: list
@@ -178,9 +190,30 @@ Page({
     this.setClassData(query)
   },
   //编辑课程信息
-  changeDay: function(e) {
+  changeDay: function(e) {debugger
     let date = e.currentTarget.dataset.time,
-      query = this.data.query
+      query = this.data.query,
+      dateList = this.data.dateList,
+      item = e.currentTarget.dataset.item,
+      index = e.currentTarget.dataset.index,
+      month = Number(date.split('-')[1])
+
+    dateList.map((o, dateIndex) => {
+      if (o.className.indexOf('isToday') == -1) {
+        if (dateIndex == index) {
+          o.className = 'selectDay'
+        } else {
+          o.className = ''
+        }
+      }
+
+      return o
+    })
+
+    this.setData({
+      dateList: dateList,
+      month: month
+    })
 
     this.setClassBodyData(query, date)
   },
@@ -246,9 +279,11 @@ Page({
         let dateList = res.data.Data
 
         dateList = that.setDateList(dateList)
+        let month = Number(dateList[0].StartTime.split('-')[1])
 
         that.setData({
-          dateList: dateList
+          dateList: dateList,
+          month: month
         })
 
         that.setClassBodyData(query)
@@ -301,7 +336,10 @@ Page({
   },
 
   //设置时间戳
-  setDateList: function(dateList) {
+  setDateList: function(dateList) {debugger
+    let date = this.data.date,
+      currentDate = this.data.currentDate
+
     dateList.map((o, index) => {
       let startTimeStamp = Date.parse(o.StartTime.split('-').join('/') + " 00:00:00") //当前日期时间戳
 
@@ -310,6 +348,11 @@ Page({
       if (!!o.IsToday) {
         dateList[index].className = 'isToday'
       }
+
+      if (o.StartTime == date && o.StartTime != currentDate) {
+        dateList[index].className = 'selectDay'
+      }
+
       dateList[index].curWeek = o.DayOfWeek.substr(2)
       dateList[index].curDay = o.StartTime.split('-')[2]
     })
@@ -385,7 +428,7 @@ Page({
 
 })
 
-function setDataLocation(list) {
+function setDataLocation(list) {debugger
   if (!!list) {
     for (let i = 0; i < list.length; i++) {
       let item = list[i],
@@ -395,32 +438,32 @@ function setDataLocation(list) {
         startMinute = Number(startTime.split(':')[1]),
         endHour = Number(endTime.split(':')[0]),
         endMinute = Number(endTime.split(':')[1]),
-        height = 3,
+        height = 0,
         marginTop = 0
 
       if (endHour - startHour == 1) {
-        height = height + 56
+        height = height + 40
 
         // if (!!endMinute) { //后期加精度去掉
-        //   height = height + 59
+        //   height = height + 40
         // }
       } else if (endHour - startHour > 1) {
-        height = height + 56 + 59 * (endHour - startHour - 1)
+        height = height + 40 + 40 * (endHour - startHour - 1)
       }
-      height = height + (endMinute - startMinute)
+      height = height + (endMinute - startMinute)/60*40
 
       // if (startHour - 7 > 0) {
       //   if (startHour - 7 == 1) {
-      //     marginTop = 60
+      //     marginTop = 42
       //   } else if (startHour - 7 > 1) {
-      //     marginTop = 60 * (startHour - 7)
+      //     marginTop = 42 * (startHour - 7)
       //   }
       // }
       if (startHour - 0 > 0) {
-        marginTop = 60 * (startHour + 1)
+        marginTop = 42 * (startHour + 1)
       }
 
-      marginTop = marginTop + startMinute
+      marginTop = marginTop + startMinute / 60 * 40
 
       item.startTime = startTime
       item.endTime = endTime
