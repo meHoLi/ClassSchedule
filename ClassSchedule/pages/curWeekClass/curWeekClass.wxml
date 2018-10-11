@@ -52,7 +52,7 @@
               <view class="tab-container">
                 <!--分节-->
                 <view class="tab-divide" style='height:{{bodyHeight}}rpx'>
-                  <view wx:for="{{['上午', '下午', '晚上']}}" wx:key="*this" class="tab-divide-item" style='height:{{itemHeight}}rpx'>
+                  <view wx:for="{{['上午', '下午', '晚上']}}" wx:key="*this" class="tab-divide-item" style="height:{{index===0?classHeight*12:classHeight*6}}rpx">
                     <text>{{item}}</text>
                   </view>
                 </view>
@@ -62,12 +62,12 @@
                   <view wx:for="{{[1,2,3,4,5,6,7]}}" wx:key="*this" class="tab-line-column"></view>
 
                   <!--横线条-->
-                  <view wx:for="{{[1,2,3]}}" wx:key="*this" class="tab-line" style="top:{{item*itemHeight-2}}rpx;"></view>
+                  <view wx:for="{{[1,2,3]}}" wx:key="*this" class="tab-line" style="top:{{item=='1'?12*classHeight-2:(12*classHeight+6*classHeight*(item-1)-2)}}rpx;"></view>
 
                   <!--课程-->
-                  <view wx:for="{{classList}}" wx:key="id" class="course-item" style="left:{{item.day*100}}rpx;top:{{(item.start-1)*(itemHeight/8)+2}}rpx;height:{{itemHeight/8}}rpx;">
+                  <view wx:for="{{classList}}" wx:key="id" class="course-item" style="left:{{item.day*100}}rpx;top:{{(item.start-1)*classHeight+2}}rpx;height:{{classHeight}}rpx;">
                     <view class="course-item-inner">
-                      <view class="course-item-inner-body" style="height:{{itemHeight/8}}rpx;color:{{courseColors[item.type]}};">
+                      <view class="course-item-inner-body" style="height:{{classHeight}}rpx;color:{{courseColors[item.type]}};">
                         <text>{{item.CourseName}}</text>
                       </view>
                     </view>

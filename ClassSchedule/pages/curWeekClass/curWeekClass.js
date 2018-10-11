@@ -9,7 +9,7 @@ let day = myDate.getDate()
 let currentDate = '' + year + '-' + (month < 10 ? '0' + Number(month) : month) + '-' + (day < 10 ? '0' + Number(day) : day);//myDate.toLocaleDateString(); //获取当前日期
 // var timestamp = Date.parse(currentDate+ " 00:00:00")//当前日期时间戳
 var timestamp = new Date().getTime();//当前日期时间戳
-var mtabW, mdateW, mdateH, hSwiper, bodyH, itemHeight
+var mtabW, mdateW, mdateH, hSwiper, bodyH, itemHeight,classHeight
 
 Page({
   data: {
@@ -198,6 +198,7 @@ Page({
             hSwiper = res.windowHeight - 10 - 28
             bodyH = res.windowHeight - 10 - 28 - 30 - 55 - 8
             itemHeight = bodyH/3*2
+            classHeight = bodyH/24*2
 
             dateList = that.setDateList(dateList)
             let month = Number(dateList[0].StartTime.split('-')[1])
@@ -212,7 +213,8 @@ Page({
               tabW: mtabW,
               swiperHeight: hSwiper,
               bodyHeight: bodyH*2,
-              itemHeight: itemHeight
+              itemHeight: itemHeight,
+              classHeight: classHeight
             })
           }
         });
@@ -252,80 +254,153 @@ Page({
       }
 
       switch (hour) {
-        case 4:
+        case 0:
           o.start = 1
           break;
-        case 5:
+        case 1:
           o.start = 2
           break;
-        case 6:
+        case 2:
           o.start = 3
           break;
-        case 7:
+        case 3:
           o.start = 4
           break;
-        case 8:
+        case 4:
           o.start = 5
           break;
-        case 9:
+        case 5:
           o.start = 6
           break;
-        case 10:
+        case 6:
           o.start = 7
           break;
-        case 11:
+        case 7:
           o.start = 8
           break;
-        case 12:
+        case 8:
           o.start = 9
           break;
-        case 13:
+        case 9:
           o.start = 10
           break;
-        case 14:
+        case 10:
           o.start = 11
           break;
-        case 15:
+        case 11:
           o.start = 12
           break;
-        case 16:
+        case 12:
           o.start = 13
           break;
-        case 17:
+        case 13:
           o.start = 14
           break;
-        case 18:
+        case 14:
           o.start = 15
           break;
-        case 19:
+        case 15:
           o.start = 16
           break;
-        case 20:
+        case 16:
           o.start = 17
           break;
-        case 21:
+        case 17:
           o.start = 18
           break;
-        case 22:
+        case 18:
           o.start = 19
           break;
-        case 23:
+        case 19:
           o.start = 20
           break;
-        case 0:
+        case 20:
           o.start = 21
           break;
-        case 1:
+        case 21:
           o.start = 22
           break;
-        case 2:
+        case 22:
           o.start = 23
           break;
-        case 3:
+        case 23:
           o.start = 24
           break;
       }
-
+      // switch (hour) {
+      //   case 4:
+      //     o.start = 1
+      //     break;
+      //   case 5:
+      //     o.start = 2
+      //     break;
+      //   case 6:
+      //     o.start = 3
+      //     break;
+      //   case 7:
+      //     o.start = 4
+      //     break;
+      //   case 8:
+      //     o.start = 5
+      //     break;
+      //   case 9:
+      //     o.start = 6
+      //     break;
+      //   case 10:
+      //     o.start = 7
+      //     break;
+      //   case 11:
+      //     o.start = 8
+      //     break;
+      //   case 12:
+      //     o.start = 9
+      //     break;
+      //   case 13:
+      //     o.start = 10
+      //     break;
+      //   case 14:
+      //     o.start = 11
+      //     break;
+      //   case 15:
+      //     o.start = 12
+      //     break;
+      //   case 16:
+      //     o.start = 13
+      //     break;
+      //   case 17:
+      //     o.start = 14
+      //     break;
+      //   case 18:
+      //     o.start = 15
+      //     break;
+      //   case 19:
+      //     o.start = 16
+      //     break;
+      //   case 20:
+      //     o.start = 17
+      //     break;
+      //   case 21:
+      //     o.start = 18
+      //     break;
+      //   case 22:
+      //     o.start = 19
+      //     break;
+      //   case 23:
+      //     o.start = 20
+      //     break;
+      //   case 0:
+      //     o.start = 21
+      //     break;
+      //   case 1:
+      //     o.start = 22
+      //     break;
+      //   case 2:
+      //     o.start = 23
+      //     break;
+      //   case 3:
+      //     o.start = 24
+      //     break;
+      // }
       return o
     })
 

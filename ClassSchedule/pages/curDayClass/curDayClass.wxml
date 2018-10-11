@@ -77,7 +77,7 @@
                       <text class='className'> {{item.CourseName}}</text>
                       </text>
                       <view class="class-item-inner-isRemind">
-                        <image mode="widthFix" src="{{item.RemindDes=='已提醒'?'../../imgs/accredit/clockRed.png':(item.RemindDes=='未提醒'?'../../imgs/accredit/clockBlack.png':'../../imgs/accredit/clockBlack.png')}}"></image>
+                        <image mode="widthFix" src="{{item.RemindDes=='已提醒'?'../../imgs/accredit/clockRed.png':(item.RemindDes=='未提醒'?'../../imgs/accredit/clockRed.png':'../../imgs/accredit/clockBlack.png')}}"></image>
                       </view>
                       <!-- <text class='class-item-inner-isRemind'>{{item.RemindDes}}</text> -->
                       <image class="class-item-inner-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
