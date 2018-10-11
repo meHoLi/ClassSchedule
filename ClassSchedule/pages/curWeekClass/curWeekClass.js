@@ -253,80 +253,147 @@ Page({
         o.type = 2
       }
 
-      switch (hour) {
-        case 0:
-          o.start = 1
-          break;
-        case 1:
-          o.start = 2
-          break;
-        case 2:
-          o.start = 3
-          break;
-        case 3:
-          o.start = 4
-          break;
-        case 4:
-          o.start = 5
-          break;
-        case 5:
-          o.start = 6
-          break;
-        case 6:
-          o.start = 7
-          break;
-        case 7:
-          o.start = 8
-          break;
-        case 8:
-          o.start = 9
-          break;
-        case 9:
-          o.start = 10
-          break;
-        case 10:
-          o.start = 11
-          break;
-        case 11:
-          o.start = 12
-          break;
-        case 12:
-          o.start = 13
-          break;
-        case 13:
-          o.start = 14
-          break;
-        case 14:
-          o.start = 15
-          break;
-        case 15:
-          o.start = 16
-          break;
-        case 16:
-          o.start = 17
-          break;
-        case 17:
-          o.start = 18
-          break;
-        case 18:
-          o.start = 19
-          break;
-        case 19:
-          o.start = 20
-          break;
-        case 20:
-          o.start = 21
-          break;
-        case 21:
-          o.start = 22
-          break;
-        case 22:
-          o.start = 23
-          break;
-        case 23:
-          o.start = 24
-          break;
-      }
+      // switch (hour) {
+      //   case 0:
+      //     o.start = 1
+      //     break;
+      //   case 1:
+      //     o.start = 2
+      //     break;
+      //   case 2:
+      //     o.start = 3
+      //     break;
+      //   case 3:
+      //     o.start = 4
+      //     break;
+      //   case 4:
+      //     o.start = 5
+      //     break;
+      //   case 5:
+      //     o.start = 6
+      //     break;
+      //   case 6:
+      //     o.start = 7
+      //     break;
+      //   case 7:
+      //     o.start = 8
+      //     break;
+        
+      //   case 12:
+      //     o.start = 9
+      //     break;
+      //   case 13:
+      //     o.start = 10
+      //     break;
+      //   case 14:
+      //     o.start = 11
+      //     break;
+      //   case 15:
+      //     o.start = 12
+      //     break;
+      //   case 16:
+      //     o.start = 13
+      //     break;
+      //   case 17:
+      //     o.start = 14
+      //     break;
+
+      //   case 18:
+      //     o.start = 17
+      //     break;
+      //   case 19:
+      //     o.start = 18
+      //     break;
+      //   case 20:
+      //     o.start = 19
+      //     break;
+      //   case 21:
+      //     o.start = 20
+      //     break;
+      //   case 22:
+      //     o.start = 21
+      //     break;
+      //   case 23:
+      //     o.start = 22
+      //     break;
+      // }
+
+      // switch (hour) {
+      //   case 0:
+      //     o.start = 1
+      //     break;
+      //   case 1:
+      //     o.start = 2
+      //     break;
+      //   case 2:
+      //     o.start = 3
+      //     break;
+      //   case 3:
+      //     o.start = 4
+      //     break;
+      //   case 4:
+      //     o.start = 5
+      //     break;
+      //   case 5:
+      //     o.start = 6
+      //     break;
+      //   case 6:
+      //     o.start = 7
+      //     break;
+      //   case 7:
+      //     o.start = 8
+      //     break;
+      //   case 8:
+      //     o.start = 9
+      //     break;
+      //   case 9:
+      //     o.start = 10
+      //     break;
+      //   case 10:
+      //     o.start = 11
+      //     break;
+      //   case 11:
+      //     o.start = 12
+      //     break;
+      //   case 12:
+      //     o.start = 13
+      //     break;
+      //   case 13:
+      //     o.start = 14
+      //     break;
+      //   case 14:
+      //     o.start = 15
+      //     break;
+      //   case 15:
+      //     o.start = 16
+      //     break;
+      //   case 16:
+      //     o.start = 17
+      //     break;
+      //   case 17:
+      //     o.start = 18
+      //     break;
+      //   case 18:
+      //     o.start = 19
+      //     break;
+      //   case 19:
+      //     o.start = 20
+      //     break;
+      //   case 20:
+      //     o.start = 21
+      //     break;
+      //   case 21:
+      //     o.start = 22
+      //     break;
+      //   case 22:
+      //     o.start = 23
+      //     break;
+      //   case 23:
+      //     o.start = 24
+      //     break;
+      // }
+
+
       // switch (hour) {
       //   case 4:
       //     o.start = 1
