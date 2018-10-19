@@ -8,310 +8,93 @@ var timestamp = new Date().getTime();//当前日期时间戳
 var mtabW, mdateW, mdateH, hSwiper
 
 Page({
-  data: {
-    timestamp: timestamp,
-    url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
-    list: [],
-    activeIndex: 0,
-    slideOffset: 0,
-    tabW: 0,
-    dateW: 0,
-    dateH: 0,
-    swiperHeight: 0,
-    isUnfoldType: false,
-    page: 1,
-    pageSize: 7
-  },
-
-  onLoad: function(options) {
-    wx.hideShareMenu()
-
-    if (!!options && options.openID) {
-      this.setTabData(options.openID);
-    } else {
-      this.setTabData();
-    }
-  },
-  onShow() { //返回显示页面状态函数
-    let query = this.data.query
-
-    wx.hideShareMenu()
-
-    // this.setClassData(query)//再次加载，实现返回上一页页面刷新
-    // this.setData({
-    //   activeIndex: 0,
-    // });
-    // this.onLoad()
-    this.setTabData(undefined, query);
-  },
-
-  //点击左上角折叠展开按钮
-  isUnfold: function() {
-    if (!this.data.isUnfoldType) {
-      this.setData({
-        isUnfoldType: true
-      })
-    } else {
-      this.setData({
-        isUnfoldType: false
-      })
-    }
-  },
-
-  //点击新增孩子
-  addClassTable: function() {
-    wx.navigateTo({
-      url: '../addNewClass/addNewClass?openID=' + app.globalData.openID
+  data: { timestamp: timestamp, url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] ? app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] : '\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x78\x69\x61\x6f\x73\x68\x61\x6e\x67\x62\x61\x6e\x67\x2e\x63\x6f\x6d', list: [], activeIndex: 0, slideOffset: 0, tabW: 0, dateW: 0, dateH: 0, swiperHeight: 0, isUnfoldType: false, page: 1, pageSize: 7 }, onLoad: function (BUmsmutZT1) { wx["\x68\x69\x64\x65\x53\x68\x61\x72\x65\x4d\x65\x6e\x75"]()    
+  if (!!BUmsmutZT1 && BUmsmutZT1["\x6f\x70\x65\x6e\x49\x44"]) { this["\x73\x65\x74\x54\x61\x62\x44\x61\x74\x61"](BUmsmutZT1["\x6f\x70\x65\x6e\x49\x44"]); } else { this["\x73\x65\x74\x54\x61\x62\x44\x61\x74\x61"](); } }, onShow() {
+    let query = this["\x64\x61\x74\x61"]["\x71\x75\x65\x72\x79"]
+    wx["\x68\x69\x64\x65\x53\x68\x61\x72\x65\x4d\x65\x6e\x75"]()    
+    this["\x73\x65\x74\x54\x61\x62\x44\x61\x74\x61"](undefined, query);
+  }, isUnfold: function () { if (!this["\x64\x61\x74\x61"]["\x69\x73\x55\x6e\x66\x6f\x6c\x64\x54\x79\x70\x65"]) { this["\x73\x65\x74\x44\x61\x74\x61"]({ isUnfoldType: true }) } else { this["\x73\x65\x74\x44\x61\x74\x61"]({ isUnfoldType: false }) } }, addClassTable: function () {
+    wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x54\x6f"]({
+      url: '\x2e\x2e\x2f\x61\x64\x64\x4e\x65\x77\x43\x6c\x61\x73\x73\x2f\x61\x64\x64\x4e\x65\x77\x43\x6c\x61\x73\x73\x3f\x6f\x70\x65\x6e\x49\x44\x3d' + app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x6f\x70\x65\x6e\x49\x44"]
     })
-  },
-
-  //点击与上周课程一样
-  likePrev: function() {
-    let that = this,
-      dateList = this.data.dateList,
-      query = {
-        childrenID: this.data.childrenID,
-        startTime: dateList[0].StartTime,
-        endTime: dateList[dateList.length - 1].StartTime + ' 23:59',
-        interval: 7
-      }
-    wx.request({
-      url: that.data.url + '/Course/AddCourseList', //仅为示例，并非真实的接口地址
-      data: query,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function(res) {
-  
-        let query = that.data.query
-
-        if (!!res.data.Data.isExistence) {
-          let message = res.data.Msg + '已经存在课程，请手动修改'
-
-          wx.showModal({
-            title: '提示',
-            content: message,
-            showCancel: false
-          })
-        }
-
-        that.setClassData(query)
-      },
-      complete: function() {
-        wx.hideToast(); //隐藏Toast
+  }, likePrev: function () {
+    let that = this, dateList = this["\x64\x61\x74\x61"]["\x64\x61\x74\x65\x4c\x69\x73\x74"], query = { childrenID: this["\x64\x61\x74\x61"]["\x63\x68\x69\x6c\x64\x72\x65\x6e\x49\x44"], startTime: dateList[0]["\x53\x74\x61\x72\x74\x54\x69\x6d\x65"], endTime: dateList[dateList["\x6c\x65\x6e\x67\x74\x68"] - 1]["\x53\x74\x61\x72\x74\x54\x69\x6d\x65"] + ' \x32\x33\x3a\x35\x39', interval: 7 }    
+    wx["\x72\x65\x71\x75\x65\x73\x74"]({
+      url: that["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x43\x6f\x75\x72\x73\x65\x2f\x41\x64\x64\x43\x6f\x75\x72\x73\x65\x4c\x69\x73\x74', data: query, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (tVlJrUGA2) {
+        let query = that["\x64\x61\x74\x61"]["\x71\x75\x65\x72\x79"]
+        if (!!tVlJrUGA2["\x64\x61\x74\x61"]["\x44\x61\x74\x61"]["\x69\x73\x45\x78\x69\x73\x74\x65\x6e\x63\x65"]) { let message = tVlJrUGA2["\x64\x61\x74\x61"]["\x4d\x73\x67"] + '\u5df2\u7ecf\u5b58\u5728\u8bfe\u7a0b\uff0c\u8bf7\u624b\u52a8\u4fee\u6539'          
+        wx["\x73\x68\x6f\x77\x4d\x6f\x64\x61\x6c"]({ title: '\u63d0\u793a', content: message, showCancel: false }) } that["\x73\x65\x74\x43\x6c\x61\x73\x73\x44\x61\x74\x61"](query)
+      }, complete: function () { wx["\x68\x69\x64\x65\x54\x6f\x61\x73\x74"](); }
+    })
+  }, curNewAdd: function () {
+    let that = this, dateList = this["\x64\x61\x74\x61"]["\x64\x61\x74\x65\x4c\x69\x73\x74"], query = { childrenID: this["\x64\x61\x74\x61"]["\x63\x68\x69\x6c\x64\x72\x65\x6e\x49\x44"], startTime: dateList[0]["\x53\x74\x61\x72\x74\x54\x69\x6d\x65"], endTime: dateList[dateList["\x6c\x65\x6e\x67\x74\x68"] - 1]["\x53\x74\x61\x72\x74\x54\x69\x6d\x65"] + ' \x32\x33\x3a\x35\x39' }    
+    wx["\x72\x65\x71\x75\x65\x73\x74"]({
+      url: that["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x43\x6f\x75\x72\x73\x65\x2f\x44\x65\x6c\x65\x74\x65\x73', data: query, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (bEkPtCL3) {
+        let query = that["\x64\x61\x74\x61"]["\x71\x75\x65\x72\x79"]
+        that["\x73\x65\x74\x43\x6c\x61\x73\x73\x44\x61\x74\x61"](query)
       }
     })
-  },
-
-  //点击当周新建课程
-  curNewAdd: function() {
-    let that = this,
-      dateList = this.data.dateList,
-      query = {
-        childrenID: this.data.childrenID,
-        startTime: dateList[0].StartTime,
-        endTime: dateList[dateList.length - 1].StartTime + ' 23:59'
-      }
-
-    wx.request({
-      url: that.data.url + '/Course/Deletes', //仅为示例，并非真实的接口地址
-      data: query,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function(res) {
-  
-        let query = that.data.query
-
-        that.setClassData(query)
-      }
-    })
-  },
-
-  //页签切换
-  tabClick: function(e) {
-    var that = this;
-    var childrenID = e.currentTarget.dataset.id;
-    var idIndex = e.currentTarget.id;
-    var offsetW = e.currentTarget.offsetLeft; //2种方法获取距离文档左边有多少距离
-    var query = {
-      childrenID: childrenID,
-      page: 1,
-      "pageSize": that.data.pageSize
-    }
-    this.setData({
-      childrenID: childrenID,
-      activeIndex: idIndex,
-      slideOffset: offsetW
-    });
-
-    that.setClassData(query)
-  },
-  //页签项滑动切换
-  bindChange: function(e) {
-    var current = e.detail.current;
-    var curNameList = this.data.nameList[current]
-    var query = {
-      "childrenID": curNameList.ID,
-      "page": 1,
-      "pageSize": this.data.pageSize
-    }
-    if ((current + 1) % 4 == 0) {
-
-    }
-    var offsetW = current * mtabW; //2种方法获取距离文档左边有多少距离
-    this.setData({
-      activeIndex: current,
-      slideOffset: offsetW
-    });
-
-    this.setClassData(query)
-  },
-  //编辑课程信息
-  editAgenda: function(e) {
-    let activeIndex = this.data.activeIndex,
-      curNameList = this.data.nameList[activeIndex],
-      time = e.currentTarget.dataset.time,
-      week = e.currentTarget.dataset.week
-
-    wx.navigateTo({
-      url: "/pages/classDetails/classDetails?childrenID=" + curNameList.ID + '&time=' + time + '&week=' + week
-    })
-  },
-
-  //设置tab数据
-  setTabData: function(openID, query) {
-    let that = this
-    wx.request({
-      url: that.data.url + '/Children/Index', //仅为示例，并非真实的接口地址
-      data: {
-        openID: !!openID ? openID : app.globalData.openID
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function(res) {
-        console.log(res)
-        let nameList = res.data.Data,
-          activeIndex = that.data.activeIndex
-
-        if (!!query) {
-          let item = nameList.filter(o => {
-            return o.ID == query.childrenID
-          })
-
+  }, tabClick: function (_hIDiMqC4) {
+    var Sjfusq5 = this; var gm6 = _hIDiMqC4["\x63\x75\x72\x72\x65\x6e\x74\x54\x61\x72\x67\x65\x74"]["\x64\x61\x74\x61\x73\x65\x74"]["\x69\x64"]; var DZkPV7 = _hIDiMqC4["\x63\x75\x72\x72\x65\x6e\x74\x54\x61\x72\x67\x65\x74"]["\x69\x64"]; var B8 = _hIDiMqC4["\x63\x75\x72\x72\x65\x6e\x74\x54\x61\x72\x67\x65\x74"]["\x6f\x66\x66\x73\x65\x74\x4c\x65\x66\x74"]; var CPJs9 = {
+      gm6: gm6, page: 1, "\x70\x61\x67\x65\x53\x69\x7a\x65": Sjfusq5["\x64\x61\x74\x61"]["\x70\x61\x67\x65\x53\x69\x7a\x65"]
+    }    
+    this["\x73\x65\x74\x44\x61\x74\x61"]({ gm6: gm6, activeIndex: DZkPV7, slideOffset: B8 }); Sjfusq5["\x73\x65\x74\x43\x6c\x61\x73\x73\x44\x61\x74\x61"](CPJs9)
+  }, bindChange: function (mXurlk10) {
+    var S11 = mXurlk10["\x64\x65\x74\x61\x69\x6c"]["\x63\x75\x72\x72\x65\x6e\x74"]; var FNSjhc12 = this["\x64\x61\x74\x61"]["\x6e\x61\x6d\x65\x4c\x69\x73\x74"][S11]    
+    var cqRyU13 = {
+      "\x63\x68\x69\x6c\x64\x72\x65\x6e\x49\x44": FNSjhc12["\x49\x44"], "\x70\x61\x67\x65": 1, "\x70\x61\x67\x65\x53\x69\x7a\x65": this["\x64\x61\x74\x61"]["\x70\x61\x67\x65\x53\x69\x7a\x65"]
+    }    
+    if ((S11 + 1) % 4 == 0) { } var grKGCUw_P14 = S11 * mtabW; this["\x73\x65\x74\x44\x61\x74\x61"]({ activeIndex: S11, slideOffset: grKGCUw_P14 }); this["\x73\x65\x74\x43\x6c\x61\x73\x73\x44\x61\x74\x61"](cqRyU13)
+  }, editAgenda: function (rqsCTq15) {
+    let activeIndex = this["\x64\x61\x74\x61"]["\x61\x63\x74\x69\x76\x65\x49\x6e\x64\x65\x78"], curNameList = this["\x64\x61\x74\x61"]["\x6e\x61\x6d\x65\x4c\x69\x73\x74"][activeIndex], time = rqsCTq15["\x63\x75\x72\x72\x65\x6e\x74\x54\x61\x72\x67\x65\x74"]["\x64\x61\x74\x61\x73\x65\x74"]["\x74\x69\x6d\x65"], week = rqsCTq15["\x63\x75\x72\x72\x65\x6e\x74\x54\x61\x72\x67\x65\x74"]["\x64\x61\x74\x61\x73\x65\x74"]["\x77\x65\x65\x6b"]
+    wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x54\x6f"]({ url: "\x2f\x70\x61\x67\x65\x73\x2f\x63\x6c\x61\x73\x73\x44\x65\x74\x61\x69\x6c\x73\x2f\x63\x6c\x61\x73\x73\x44\x65\x74\x61\x69\x6c\x73\x3f\x63\x68\x69\x6c\x64\x72\x65\x6e\x49\x44\x3d" + curNameList["\x49\x44"] + '\x26\x74\x69\x6d\x65\x3d' + time + '\x26\x77\x65\x65\x6b\x3d' + week })
+  }, setTabData: function (uh16, FguQiJu17) {
+    let that = this    
+    wx["\x72\x65\x71\x75\x65\x73\x74"]({
+      url: that["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x43\x68\x69\x6c\x64\x72\x65\x6e\x2f\x49\x6e\x64\x65\x78', data: {
+        uh16: !!uh16 ? uh16 : app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x6f\x70\x65\x6e\x49\x44"]
+      }, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (y18) {
+        let nameList = y18["\x64\x61\x74\x61"]["\x44\x61\x74\x61"], activeIndex = that["\x64\x61\x74\x61"]["\x61\x63\x74\x69\x76\x65\x49\x6e\x64\x65\x78"]
+        if (!!FguQiJu17) {
+          let item = nameList["\x66\x69\x6c\x74\x65\x72"](o => {
+            return o["\x49\x44"] == FguQiJu17["\x63\x68\x69\x6c\x64\x72\x65\x6e\x49\x44"]
+          })          
           if (!item[0]) {
-            query = {
-              "childrenID": nameList[0].ID,
-              "page": that.data.page,
-              "pageSize": that.data.pageSize
-            }
+            FguQiJu17 = {
+              "\x63\x68\x69\x6c\x64\x72\x65\x6e\x49\x44": nameList[0]["\x49\x44"], "\x70\x61\x67\x65": that["\x64\x61\x74\x61"]["\x70\x61\x67\x65"], "\x70\x61\x67\x65\x53\x69\x7a\x65": that["\x64\x61\x74\x61"]["\x70\x61\x67\x65\x53\x69\x7a\x65"]
+            }            
             activeIndex = 0
           }
         } else {
-          query = {
-            "childrenID": nameList[0].ID,
-            "page": that.data.page,
-            "pageSize": that.data.pageSize
-          }
+          FguQiJu17 = {
+            "\x63\x68\x69\x6c\x64\x72\x65\x6e\x49\x44": nameList[0]["\x49\x44"], "\x70\x61\x67\x65": that["\x64\x61\x74\x61"]["\x70\x61\x67\x65"], "\x70\x61\x67\x65\x53\x69\x7a\x65": that["\x64\x61\x74\x61"]["\x70\x61\x67\x65\x53\x69\x7a\x65"]
+          }          
           activeIndex = 0
-        }
-
-        that.setData({
-          nameList: nameList,
-          activeIndex: activeIndex
-        })
-
-        that.setClassData(query)
+        } that["\x73\x65\x74\x44\x61\x74\x61"]({ nameList: nameList, activeIndex: activeIndex })        
+        that["\x73\x65\x74\x43\x6c\x61\x73\x73\x44\x61\x74\x61"](FguQiJu17)
       }
     })
-  },
-
-  setClassData(query) {
-    let that = this
-
-    wx.request({
-      url: that.data.url + '/Course/Index', //仅为示例，并非真实的接口地址
-      data: query,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function(res) {
-        let dateList = res.data.Data
-
-        wx.getSystemInfo({
-          success: function(res) {
-      
-
-            mtabW = (res.windowWidth - 20 - 8) / 3; //设置tab的宽度
-            mdateW = (res.windowWidth - 20 - 40 - 30 - 15) / 3; //设置日期的宽度
-            mdateH = (res.windowHeight - 20 - 30 - 20 - 28 - 20 - 15 - 10 - 30 - 30 - 30) / 3; //设置日期高度
-            hSwiper = res.windowHeight - 20 - 40 - 10 - 28
-
-            dateList = that.setDateList(dateList)
-
-            that.setData({
-              dateList: dateList,
-              page: query.page,
-              query: query,
-              childrenID: query.childrenID,
-              tabW: mtabW,
-              dateW: mdateW,
-              dateH: mdateH,
-              swiperHeight: hSwiper
-            })
-          }
-        });
+  }, setClassData(query) {
+    let that = this    
+    wx["\x72\x65\x71\x75\x65\x73\x74"]({
+      url: that["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x43\x6f\x75\x72\x73\x65\x2f\x49\x6e\x64\x65\x78', data: query, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (hyoksRid19) {
+        let dateList = hyoksRid19["\x64\x61\x74\x61"]["\x44\x61\x74\x61"]
+        wx["\x67\x65\x74\x53\x79\x73\x74\x65\x6d\x49\x6e\x66\x6f"]({ success: function (hyoksRid19) { mtabW = (hyoksRid19["\x77\x69\x6e\x64\x6f\x77\x57\x69\x64\x74\x68"] - 20 - 8) / 3; mdateW = (hyoksRid19["\x77\x69\x6e\x64\x6f\x77\x57\x69\x64\x74\x68"] - 20 - 40 - 30 - 15) / 3; mdateH = (hyoksRid19["\x77\x69\x6e\x64\x6f\x77\x48\x65\x69\x67\x68\x74"] - 20 - 30 - 20 - 28 - 20 - 15 - 10 - 30 - 30 - 30) / 3; hSwiper = hyoksRid19["\x77\x69\x6e\x64\x6f\x77\x48\x65\x69\x67\x68\x74"] - 20 - 40 - 10 - 28            
+        dateList = that["\x73\x65\x74\x44\x61\x74\x65\x4c\x69\x73\x74"](dateList)            
+        that["\x73\x65\x74\x44\x61\x74\x61"]({ dateList: dateList, page: query["\x70\x61\x67\x65"], query: query, childrenID: query["\x63\x68\x69\x6c\x64\x72\x65\x6e\x49\x44"], tabW: mtabW, dateW: mdateW, dateH: mdateH, swiperHeight: hSwiper }) } });
       }
     })
-  },
-
-  //设置时间戳
-  setDateList: function (dateList){
-    dateList.map((o,index)=>{
-      let startTimeStamp = Date.parse(o.StartTime.split('-').join('/') + " 00:00:00")//当前日期时间戳
-
-      console.log(startTimeStamp,'////日历')
-      console.log(startTimeStamp<timestamp)
-      console.log(timestamp, '////今天')
-
-      dateList[index].className = startTimeStamp < timestamp ? 'lastDate' : (startTimeStamp > timestamp ? 'nextDate' : '')
-
-      if (!!o.IsToday){
-        dateList[index].className = 'isToday'
-      }
-    })
-
-    return dateList
-  },
-
-  //上一周
-  prevWeekHandler: function() {
-    let query = this.data.query,
-      page = this.data.page - 1
-
-    query.page = page
-
-    this.setClassData(query)
-  },
-  //下一周
-  nextWeekHandler: function() {
-    let query = this.data.query,
-      page = this.data.page + 1
-
-    query.page = page
-
-    this.setClassData(query)
-  },
-  onShareAppMessage: function() {
-    let data = this.data,
-      query = data.query
-
+  }, setDateList: function (jHOpJIG20) { jHOpJIG20["\x6d\x61\x70"]((o, index) => { let startTimeStamp = window["\x44\x61\x74\x65"]["\x70\x61\x72\x73\x65"](o["\x53\x74\x61\x72\x74\x54\x69\x6d\x65"]["\x73\x70\x6c\x69\x74"]('\x2d')["\x6a\x6f\x69\x6e"]('\x2f') + " \x30\x30\x3a\x30\x30\x3a\x30\x30")      
+  jHOpJIG20[index]["\x63\x6c\x61\x73\x73\x4e\x61\x6d\x65"] = startTimeStamp < timestamp ? '\x6c\x61\x73\x74\x44\x61\x74\x65' : (startTimeStamp > timestamp ? '\x6e\x65\x78\x74\x44\x61\x74\x65' : '')      
+  if (!!o["\x49\x73\x54\x6f\x64\x61\x79"]) { jHOpJIG20[index]["\x63\x6c\x61\x73\x73\x4e\x61\x6d\x65"] = '\x69\x73\x54\x6f\x64\x61\x79' } })    
+  return jHOpJIG20 }, prevWeekHandler: function () { let query = this["\x64\x61\x74\x61"]["\x71\x75\x65\x72\x79"], page = this["\x64\x61\x74\x61"]["\x70\x61\x67\x65"] - 1    
+  query["\x70\x61\x67\x65"] = page    
+  this["\x73\x65\x74\x43\x6c\x61\x73\x73\x44\x61\x74\x61"](query) }, nextWeekHandler: function () { let query = this["\x64\x61\x74\x61"]["\x71\x75\x65\x72\x79"], page = this["\x64\x61\x74\x61"]["\x70\x61\x67\x65"] + 1    
+  query["\x70\x61\x67\x65"] = page    
+  this["\x73\x65\x74\x43\x6c\x61\x73\x73\x44\x61\x74\x61"](query) }, onShareAppMessage: function () {
+    let data = this["\x64\x61\x74\x61"], query = data["\x71\x75\x65\x72\x79"]
     return {
-      title: '',
-      desc: '',
-      path: '/pages/calendar/calendar?activeIndex=' + data.activeIndex + '&childrenID=' + query.childrenID + '&page=' + query.page + '&pageSize=' + query.pageSize + '&openID=' + app.globalData.openID
+      title: '', desc: '', path: '\x2f\x70\x61\x67\x65\x73\x2f\x63\x61\x6c\x65\x6e\x64\x61\x72\x2f\x63\x61\x6c\x65\x6e\x64\x61\x72\x3f\x61\x63\x74\x69\x76\x65\x49\x6e\x64\x65\x78\x3d' + data["\x61\x63\x74\x69\x76\x65\x49\x6e\x64\x65\x78"] + '\x26\x63\x68\x69\x6c\x64\x72\x65\x6e\x49\x44\x3d' + query["\x63\x68\x69\x6c\x64\x72\x65\x6e\x49\x44"] + '\x26\x70\x61\x67\x65\x3d' + query["\x70\x61\x67\x65"] + '\x26\x70\x61\x67\x65\x53\x69\x7a\x65\x3d' + query["\x70\x61\x67\x65\x53\x69\x7a\x65"] + '\x26\x6f\x70\x65\x6e\x49\x44\x3d' + app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x6f\x70\x65\x6e\x49\x44"]
     }
-  },
-
+  }
 })

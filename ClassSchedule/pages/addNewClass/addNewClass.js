@@ -8,416 +8,71 @@ let currentDate = myDate.toLocaleDateString(); //获取当前日期
 let mradioW
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    HeadPortrait: "../../imgs/head/head.png",
-
-    Name: '',
-
-    Birthday: currentDate.split('/').join('-'),
-    endDate: currentDate.split('/').join('-'),
-
-    gender: ['男', '女'],
-    genderList: [{
-        id: 0,
-        name: '男'
-      },
-      {
-        id: 1,
-        name: '女'
-      }
-    ],
-    Sex: 0,
-
-    radio: [{
-        'value': '#54cbf0',
-        checked: true
-      },
-      {
-        'value': '#1daca9'
-      },
-      // { 'value': '#f4b3b3' },
-      {
-        'value': '#ff527f'
-      },
-      // { 'value': '#f9b72b' },
-      // { 'value': '#ffda44' },
-
-      // { 'value': '#939393' },
-      // { 'value': '#656565' },
-      // { 'value': '#3c3c3c' }
-    ],
-    Background: '#54cbf0',
-    radioW: 0,
-
-    voiceURL: '../../imgs/accredit/voice.png',
-    recording: false,  // 正在录音
-    recordStatus: 0,
-    isPopDis: false,
-  },
-  onLoad: function(options) {
-    var that = this;
-
-    wx.hideShareMenu()
-
-    if (!!options.id) {
-      that.setPesonData(options)
-    } else {
-      that.setTabW(undefined, options.openID)
-    }
-
-    // this.initRecord()
-
-    // app.getRecordAuth()
-  },
-
-  setPhotoInfo: function() {
-    var that = this;
-    wx.chooseImage({
-      count: 1, // 默认9
-      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths;
-
-        upload(that, tempFilePaths);
+  data: { HeadPortrait: "\x2e\x2e\x2f\x2e\x2e\x2f\x69\x6d\x67\x73\x2f\x68\x65\x61\x64\x2f\x68\x65\x61\x64\x2e\x70\x6e\x67", Name: '', Birthday: currentDate["\x73\x70\x6c\x69\x74"]('\x2f')["\x6a\x6f\x69\x6e"]('\x2d'), endDate: currentDate["\x73\x70\x6c\x69\x74"]('\x2f')["\x6a\x6f\x69\x6e"]('\x2d'), gender: ['\u7537', '\u5973'], genderList: [{ id: 0, name: '\u7537' }, { id: 1, name: '\u5973' }], Sex: 0, radio: [{ '\x76\x61\x6c\x75\x65': '\x23\x35\x34\x63\x62\x66\x30', checked: true }, { '\x76\x61\x6c\x75\x65': '\x23\x31\x64\x61\x63\x61\x39' }, { '\x76\x61\x6c\x75\x65': '\x23\x66\x66\x35\x32\x37\x66' }], Background: '\x23\x35\x34\x63\x62\x66\x30', radioW: 0, voiceURL: '\x2e\x2e\x2f\x2e\x2e\x2f\x69\x6d\x67\x73\x2f\x61\x63\x63\x72\x65\x64\x69\x74\x2f\x76\x6f\x69\x63\x65\x2e\x70\x6e\x67', recording: false, recordStatus: 0, isPopDis: false, }, onLoad: function (sYm1) { var ZBwQJn2 = this; wx["\x68\x69\x64\x65\x53\x68\x61\x72\x65\x4d\x65\x6e\x75"]()    
+  if (!!sYm1["\x69\x64"]) { ZBwQJn2["\x73\x65\x74\x50\x65\x73\x6f\x6e\x44\x61\x74\x61"](sYm1) } else { ZBwQJn2["\x73\x65\x74\x54\x61\x62\x57"](undefined, sYm1["\x6f\x70\x65\x6e\x49\x44"]) } }, setPhotoInfo: function () { var evsIs3 = this; wx["\x63\x68\x6f\x6f\x73\x65\x49\x6d\x61\x67\x65"]({ count: 1, sizeType: ['\x63\x6f\x6d\x70\x72\x65\x73\x73\x65\x64'], sourceType: ['\x61\x6c\x62\x75\x6d', '\x63\x61\x6d\x65\x72\x61'], success: function (WUDsSrXko4) { var HSsQsDA5 = WUDsSrXko4["\x74\x65\x6d\x70\x46\x69\x6c\x65\x50\x61\x74\x68\x73"]; upload(evsIs3, HSsQsDA5); } }) }, setNameInput: function (WrW7) {
+    this["\x73\x65\x74\x44\x61\x74\x61"]({
+      Name: WrW7["\x64\x65\x74\x61\x69\x6c"]["\x76\x61\x6c\x75\x65"]
+    })
+  }, bindDateChange: function (haEAFL8) {
+    this["\x73\x65\x74\x44\x61\x74\x61"]({
+      Birthday: haEAFL8["\x64\x65\x74\x61\x69\x6c"]["\x76\x61\x6c\x75\x65"]
+    })
+  }, bindPickerChange: function (MfR9) {
+    this["\x73\x65\x74\x44\x61\x74\x61"]({
+      Sex: MfR9["\x64\x65\x74\x61\x69\x6c"]["\x76\x61\x6c\x75\x65"]
+    })
+  }, getradio: function (IBloL10) {
+    let index = IBloL10["\x63\x75\x72\x72\x65\x6e\x74\x54\x61\x72\x67\x65\x74"]["\x64\x61\x74\x61\x73\x65\x74"]["\x69\x64"]; let radio = this["\x64\x61\x74\x61"]["\x72\x61\x64\x69\x6f"]; for (let i = 0; i < radio["\x6c\x65\x6e\x67\x74\x68"]; i++) { this["\x64\x61\x74\x61"]["\x72\x61\x64\x69\x6f"][i]["\x63\x68\x65\x63\x6b\x65\x64"] = false; } if (radio[index]["\x63\x68\x65\x63\x6b\x65\x64"]) { this["\x64\x61\x74\x61"]["\x72\x61\x64\x69\x6f"][index]["\x63\x68\x65\x63\x6b\x65\x64"] = false; } else {
+    this["\x64\x61\x74\x61"]["\x72\x61\x64\x69\x6f"][index]["\x63\x68\x65\x63\x6b\x65\x64"] = true; this["\x64\x61\x74\x61"]["\x42\x61\x63\x6b\x67\x72\x6f\x75\x6e\x64"] = this["\x64\x61\x74\x61"]["\x72\x61\x64\x69\x6f"][index]["\x76\x61\x6c\x75\x65"]
+    } let userRadio = radio["\x66\x69\x6c\x74\x65\x72"]((item, index) => { return item["\x63\x68\x65\x63\x6b\x65\x64"] == true; })    
+    this["\x73\x65\x74\x44\x61\x74\x61"]({
+      radio: this["\x64\x61\x74\x61"]["\x72\x61\x64\x69\x6f"], Background: this["\x64\x61\x74\x61"]["\x42\x61\x63\x6b\x67\x72\x6f\x75\x6e\x64"]
+    })
+  }, cancel: function () { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) }, del: function (IPTR11) {
+    let that = this; wx["\x72\x65\x71\x75\x65\x73\x74"]({
+      url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x43\x68\x69\x6c\x64\x72\x65\x6e\x2f\x44\x65\x6c\x65\x74\x65', data: {
+        id: that["\x64\x61\x74\x61"]["\x49\x44"]
+      }, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (WVCVbJX12) { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) }
+    })
+  }, save: function () { let data = this["\x64\x61\x74\x61"], query = { ID: data["\x49\x44"], openID: data["\x6f\x70\x65\x6e\x49\x44"], HeadPortrait: data["\x48\x65\x61\x64\x50\x6f\x72\x74\x72\x61\x69\x74"] == '\x2e\x2e\x2f\x2e\x2e\x2f\x69\x6d\x67\x73\x2f\x68\x65\x61\x64\x2f\x68\x65\x61\x64\x2e\x70\x6e\x67' ? '' : data["\x48\x65\x61\x64\x50\x6f\x72\x74\x72\x61\x69\x74"], Name: data["\x4e\x61\x6d\x65"], Birthday: data["\x42\x69\x72\x74\x68\x64\x61\x79"], Sex: data["\x53\x65\x78"], Background: data["\x42\x61\x63\x6b\x67\x72\x6f\x75\x6e\x64"], }    
+  if (!query["\x4e\x61\x6d\x65"]) { wx["\x73\x68\x6f\x77\x54\x6f\x61\x73\x74"]({ title: '\u8bf7\u586b\u5199\u59d3\u540d', icon: '\x6e\x6f\x6e\x65', duration: 1000, mask: true })      
+  return } if (!!data["\x49\x44"]) { wx["\x72\x65\x71\x75\x65\x73\x74"]({ url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x43\x68\x69\x6c\x64\x72\x65\x6e\x2f\x55\x70\x64\x61\x74\x65', data: query, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (BW$13) { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) } }) } else { wx["\x72\x65\x71\x75\x65\x73\x74"]({ url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x43\x68\x69\x6c\x64\x72\x65\x6e\x2f\x41\x64\x64', data: query, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (ZFHhwz14) { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) } }) } }, setPesonData: function (isKlS15) {
+    let that = this; wx["\x72\x65\x71\x75\x65\x73\x74"]({
+      url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x43\x68\x69\x6c\x64\x72\x65\x6e\x2f\x47\x65\x74\x43\x68\x69\x6c\x64\x72\x65\x6e\x42\x79\x49\x44', data: {
+        id: isKlS15["\x69\x64"]
+      }, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (XH16) {
+        let data = XH16["\x64\x61\x74\x61"]["\x44\x61\x74\x61"]
+        that["\x73\x65\x74\x54\x61\x62\x57"](data, isKlS15["\x6f\x70\x65\x6e\x49\x44"])
       }
     })
-  },
-  //录入姓名
-  setNameInput: function(e) {
-    this.setData({
-      Name: e.detail.value
-    })
-  },
-  //选择生日
-  bindDateChange: function(e) {
-    this.setData({
-      Birthday: e.detail.value
-    })
-  },
-  //选择性别
-  bindPickerChange: function(e) {
-    this.setData({
-      Sex: e.detail.value
-    })
-  },
-  //选择单选
-  getradio: function(e) {
-    let index = e.currentTarget.dataset.id;
-    let radio = this.data.radio;
-    for (let i = 0; i < radio.length; i++) {
-      this.data.radio[i].checked = false;
-    }
-    if (radio[index].checked) {
-      this.data.radio[index].checked = false;
-    } else {
-      this.data.radio[index].checked = true;
-      this.data.Background = this.data.radio[index].value
-    }
-    let userRadio = radio.filter((item, index) => {
-      return item.checked == true;
-    })
-    this.setData({
-      radio: this.data.radio,
-      Background: this.data.Background
-    })
-  },
-  //取消
-  cancel: function() {
-    wx.navigateBack({
-      delta: 1
-    })
-  },
-  //删除
-  del: function(e) {
-    let that = this;
-
-    wx.request({
-      url: app.globalData.url + '/Children/Delete', //仅为示例，并非真实的接口地址
-      data: {
-        id: that.data.ID
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function(res) {
-        wx.navigateBack({
-          delta: 1
-        })
-      }
-    })
-  },
-  //保存
-  save: function() {
-    let data = this.data,
-      query = {
-        ID: data.ID,
-        openID: data.openID,
-        HeadPortrait: data.HeadPortrait == '../../imgs/head/head.png' ? '' : data.HeadPortrait,
-        Name: data.Name,
-        Birthday: data.Birthday,
-        Sex: data.Sex,
-        Background: data.Background,
-      }
-
-    if (!query.Name) {
-      wx.showToast({
-        title: '请填写姓名',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      })
-      return
-    }
-
-    if (!!data.ID) {
-      wx.request({
-        url: app.globalData.url + '/Children/Update',
-        data: query,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function(res) {
-          wx.navigateBack({
-            delta: 1
-          })
-        }
-      })
-    } else {
-      wx.request({
-        url: app.globalData.url + '/Children/Add', //仅为示例，并非真实的接口地址
-        data: query,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function(res) {
-          wx.navigateBack({
-            delta: 1
-          })
-        }
-      })
-    }
-  },
-
-
-  setPesonData: function(options) {
-    let that = this;
-
-    wx.request({
-      url: app.globalData.url + '/Children/GetChildrenByID', //仅为示例，并非真实的接口地址
-      data: {
-        id: options.id
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function(res) {
-
-        let data = res.data.Data
-
-        that.setTabW(data, options.openID)
-      }
-    })
-  },
-
-  setTabW: function(formData, openID) {
-    let that = this;
-
-    wx.getSystemInfo({
-      success: function(res) {
-        mradioW = (res.windowWidth - 20 - 30) / 3 - 2; //设置tab的宽度
-
-        if (!!formData) {
-          that.setData({
-            ID: formData.ID,
-            openID: openID,
-            HeadPortrait: !!formData.HeadPortrait ? formData.HeadPortrait : that.data.HeadPortrait,
-            Name: !!formData.Name ? formData.Name : '',
-            Birthday: !!formData.Birthday ? formData.Birthday : that.data.Birthday,
-            Sex: formData.Sex === null ? that.data.Sex : formData.Sex,
-            Background: !!formData.Background ? formData.Background : '#54cbf0',
-            radioW: mradioW
-          })
-        } else {
-          if (!!openID) {
-            that.setData({
-              openID: openID,
-              radioW: mradioW
-            })
-          } else {
-            that.setData({
-              radioW: mradioW
-            })
-          }
-        }
-      }
-    });
-  },
-
-  /**
-   * 按下按钮开始录音
-   */
-  streamRecord: function(e) {
-    // 先清空背景音
-    wx.stopBackgroundAudio()
-
-    let detail = e.detail || {}
-    
-    manager.start({
-      lang: "zh_CN",
-    })
-
-    this.setData({
-      recordStatus: 0,
-      recording: true,
-      voiceURL:'../../imgs/accredit/voice2.png',
-      isPopDis: true
-
-    })
-
-  },
-
-  /**
-   * 松开按钮结束录音
-   */
-  endStreamRecord: function(e) {
-    let detail = e.detail || {}  // 自定义组件触发事件时提供的detail对象
-
-    // 防止重复触发stop函数
-    if (!this.data.recording || this.data.recordStatus != 0) {
-      console.warn("has finished!")
-      return
-    }
-
-    manager.stop()
-
-    this.setData({
-      voiceURL: '../../imgs/accredit/voice.png',
-      isPopDis: false
-    })
-  },
-
-
-  /**
-   * 识别内容为空时的反馈
-   */
-  showRecordEmptyTip: function () {
-    this.setData({
-      recording: false,
-    })
-    wx.showToast({
-      title: '亲，请说话哦~',
-      icon: 'success',
-      image: '../../imgs/accredit/no_voice.png',
-      duration: 2000,
-      success: function (res) {
-
-      },
-      fail: function (res) {
-        console.log(res);
-      }
-    });
-  },
-
-  /**
-   * 初始化语音识别回调
-   * 绑定语音播放开始事件
-   */
-  initRecord: function () {
-    //有新的识别内容返回，则会调用此事件
-    manager.onRecognize = (res) => {
-      let text = res.result
-
-      console.log('startText', text)
-
-      this.setData({
-        Name: text,
-      })
-    }
-
-    // 识别结束事件
-    manager.onStop = (res) => {
-      let text = res.result
-
-      console.log('endText',text)
-
-      if (text == '') {
-        this.showRecordEmptyTip()
-        return
-      }
-
-      let currentData = Object.assign({}, {
-        text: res.result,
-      })
-
-      this.setData({
-        Name: text,
-        recordStatus: 1,
-      })
-
-    }
-
-    // 识别错误事件
-    manager.onError = (res) => {
-
-      this.setData({
-        recording: false,
-      })
-
-    }
-
-  },
-
-
+  }, setTabW: function (Bl17, seprUEB18) { let that = this; wx["\x67\x65\x74\x53\x79\x73\x74\x65\x6d\x49\x6e\x66\x6f"]({ success: function (BOUWvA$yP19) { mradioW = (BOUWvA$yP19["\x77\x69\x6e\x64\x6f\x77\x57\x69\x64\x74\x68"] - 20 - 30) / 3 - 2; if (!!Bl17) { that["\x73\x65\x74\x44\x61\x74\x61"]({ ID: Bl17["\x49\x44"], seprUEB18: seprUEB18, HeadPortrait: !!Bl17["\x48\x65\x61\x64\x50\x6f\x72\x74\x72\x61\x69\x74"] ? Bl17["\x48\x65\x61\x64\x50\x6f\x72\x74\x72\x61\x69\x74"] : that["\x64\x61\x74\x61"]["\x48\x65\x61\x64\x50\x6f\x72\x74\x72\x61\x69\x74"], Name: !!Bl17["\x4e\x61\x6d\x65"] ? Bl17["\x4e\x61\x6d\x65"] : '', Birthday: !!Bl17["\x42\x69\x72\x74\x68\x64\x61\x79"] ? Bl17["\x42\x69\x72\x74\x68\x64\x61\x79"] : that["\x64\x61\x74\x61"]["\x42\x69\x72\x74\x68\x64\x61\x79"], Sex: Bl17["\x53\x65\x78"] === null ? that["\x64\x61\x74\x61"]["\x53\x65\x78"] : Bl17["\x53\x65\x78"], Background: !!Bl17["\x42\x61\x63\x6b\x67\x72\x6f\x75\x6e\x64"] ? Bl17["\x42\x61\x63\x6b\x67\x72\x6f\x75\x6e\x64"] : '\x23\x35\x34\x63\x62\x66\x30', radioW: mradioW }) } else { if (!!seprUEB18) { that["\x73\x65\x74\x44\x61\x74\x61"]({ seprUEB18: seprUEB18, radioW: mradioW }) } else { that["\x73\x65\x74\x44\x61\x74\x61"]({ radioW: mradioW }) } } } }); }, streamRecord: function (j20) { wx["\x73\x74\x6f\x70\x42\x61\x63\x6b\x67\x72\x6f\x75\x6e\x64\x41\x75\x64\x69\x6f"]()    
+  let detail = j20["\x64\x65\x74\x61\x69\x6c"] || {}    
+  manager["\x73\x74\x61\x72\x74"]({ lang: "\x7a\x68\x5f\x43\x4e", })    
+  this["\x73\x65\x74\x44\x61\x74\x61"]({ recordStatus: 0, recording: true, voiceURL: '\x2e\x2e\x2f\x2e\x2e\x2f\x69\x6d\x67\x73\x2f\x61\x63\x63\x72\x65\x64\x69\x74\x2f\x76\x6f\x69\x63\x65\x32\x2e\x70\x6e\x67', isPopDis: true }) }, endStreamRecord: function (YAVHMJPa21) { let detail = YAVHMJPa21["\x64\x65\x74\x61\x69\x6c"] || {}    
+  if (!this["\x64\x61\x74\x61"]["\x72\x65\x63\x6f\x72\x64\x69\x6e\x67"] || this["\x64\x61\x74\x61"]["\x72\x65\x63\x6f\x72\x64\x53\x74\x61\x74\x75\x73"] != 0) { return } manager["\x73\x74\x6f\x70"]()    
+  this["\x73\x65\x74\x44\x61\x74\x61"]({ voiceURL: '\x2e\x2e\x2f\x2e\x2e\x2f\x69\x6d\x67\x73\x2f\x61\x63\x63\x72\x65\x64\x69\x74\x2f\x76\x6f\x69\x63\x65\x2e\x70\x6e\x67', isPopDis: false }) }, showRecordEmptyTip: function () { this["\x73\x65\x74\x44\x61\x74\x61"]({ recording: false, })    
+  wx["\x73\x68\x6f\x77\x54\x6f\x61\x73\x74"]({ title: '\u4eb2\uff0c\u8bf7\u8bf4\u8bdd\u54e6\x7e', icon: '\x73\x75\x63\x63\x65\x73\x73', image: '\x2e\x2e\x2f\x2e\x2e\x2f\x69\x6d\x67\x73\x2f\x61\x63\x63\x72\x65\x64\x69\x74\x2f\x6e\x6f\x5f\x76\x6f\x69\x63\x65\x2e\x70\x6e\x67', duration: 2000, success: function (GOhAED22) { }, fail: function (KrfEut23) { } }); }, initRecord: function () {
+  manager["\x6f\x6e\x52\x65\x63\x6f\x67\x6e\x69\x7a\x65"] = (res) => {
+    let text = res["\x72\x65\x73\x75\x6c\x74"]
+    this["\x73\x65\x74\x44\x61\x74\x61"]({ Name: text, })
+  }    
+  manager["\x6f\x6e\x53\x74\x6f\x70"] = (res) => {
+    let text = res["\x72\x65\x73\x75\x6c\x74"]
+    if (text == '') { this["\x73\x68\x6f\x77\x52\x65\x63\x6f\x72\x64\x45\x6d\x70\x74\x79\x54\x69\x70"]()        
+    return } let currentData = window["\x4f\x62\x6a\x65\x63\x74"]["\x61\x73\x73\x69\x67\x6e"]({}, { text: res["\x72\x65\x73\x75\x6c\x74"], })      
+    this["\x73\x65\x74\x44\x61\x74\x61"]({ Name: text, recordStatus: 1, })
+  }    
+  manager["\x6f\x6e\x45\x72\x72\x6f\x72"] = (res) => { this["\x73\x65\x74\x44\x61\x74\x61"]({ recording: false, }) }
+  }
 })
-
-function upload(that, path) {
-  wx.showToast({
-      icon: "loading",
-      title: "正在上传"
-    }),
-    wx.uploadFile({
-      url: app.globalData.url + '/FileUpload/HandleFileSave',
-      filePath: path[0],
-      name: 'file',
-      header: {
-        "Content-Type": "multipart/form-data"
-      },
-      formData: {
-        //和服务器约定的token, 一般也可以放在header中
-        'session_token': wx.getStorageSync('session_token'),
-        domainName: app.globalData.url
-      },
-      success: function(res) {
-        if (res.statusCode != 200) {
-          wx.showModal({
-            title: '提示',
-            content: '上传失败',
-            showCancel: false
-          })
-          return;
-        }
-        var filePath = JSON.parse(res.data).Data.filePath
-
-        that.setData({ //上传成功修改显示头像
-          HeadPortrait: filePath //path[0]
-        })
-      },
-      fail: function(e) {
-        console.log(e);
-        wx.showModal({
-          title: '提示',
-          content: '上传失败',
-          showCancel: false
-        })
-      },
-      complete: function() {
-        wx.hideToast(); //隐藏Toast
-      }
-    })
+function upload(wGKYXTW24, qdimZf25) {
+  wx["\x73\x68\x6f\x77\x54\x6f\x61\x73\x74"]({ icon: "\x6c\x6f\x61\x64\x69\x6e\x67", title: "\u6b63\u5728\u4e0a\u4f20" }), wx["\x75\x70\x6c\x6f\x61\x64\x46\x69\x6c\x65"]({
+    url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x46\x69\x6c\x65\x55\x70\x6c\x6f\x61\x64\x2f\x48\x61\x6e\x64\x6c\x65\x46\x69\x6c\x65\x53\x61\x76\x65', filePath: qdimZf25[0], name: '\x66\x69\x6c\x65', header: { "\x43\x6f\x6e\x74\x65\x6e\x74\x2d\x54\x79\x70\x65": "\x6d\x75\x6c\x74\x69\x70\x61\x72\x74\x2f\x66\x6f\x72\x6d\x2d\x64\x61\x74\x61" }, formData: {
+      '\x73\x65\x73\x73\x69\x6f\x6e\x5f\x74\x6f\x6b\x65\x6e': wx["\x67\x65\x74\x53\x74\x6f\x72\x61\x67\x65\x53\x79\x6e\x63"]('\x73\x65\x73\x73\x69\x6f\x6e\x5f\x74\x6f\x6b\x65\x6e'), domainName: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"]
+    }, success: function (E26) {
+      if (E26["\x73\x74\x61\x74\x75\x73\x43\x6f\x64\x65"] != 200) { wx["\x73\x68\x6f\x77\x4d\x6f\x64\x61\x6c"]({ title: '\u63d0\u793a', content: '\u4e0a\u4f20\u5931\u8d25', showCancel: false })          
+      return; } var D27 = JSON["\x70\x61\x72\x73\x65"](E26["\x64\x61\x74\x61"])["\x44\x61\x74\x61"]["\x66\x69\x6c\x65\x50\x61\x74\x68"]
+      wGKYXTW24["\x73\x65\x74\x44\x61\x74\x61"]({ HeadPortrait: D27 })
+    }, fail: function (FpQhN28) { wx["\x73\x68\x6f\x77\x4d\x6f\x64\x61\x6c"]({ title: '\u63d0\u793a', content: '\u4e0a\u4f20\u5931\u8d25', showCancel: false }) }, complete: function () { wx["\x68\x69\x64\x65\x54\x6f\x61\x73\x74"](); }
+  })
 }

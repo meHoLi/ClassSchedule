@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.0.4",
 	"appid": "wx694ef3488ec1381b",
-	"projectname": "ClassSchedule",
+	"projectname": "noClass",
 	"condition": {
 		"search": {
 			"current": -1,

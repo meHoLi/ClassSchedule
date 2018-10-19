@@ -1,127 +1,30 @@
 // pages/addNewCommonClass/addNewCommonClass.js
 const app = getApp()
-
 Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
-    comClassName: '', //公共课程表类型名称
-  },
-  onLoad: function(options) {debugger
-    let that = this
-
-    wx.hideShareMenu()
-
-    if(!!options.id){
-      this.tempData(options.id);
-    }
-  },
-
-  //设置数据
-  tempData: function (id) {
-    let that = this;
-
-    wx.request({
-      url: app.globalData.url + '/PublicCourseType/GetPublicCourseTypeByID',
-      data: {
-        id: id
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {debugger
-        let list = res.data.Data
-
-        that.setData({
-          comClassName: list.Name,
-          id: id
-        })
+  data: { url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] ? app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] : '\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x78\x69\x61\x6f\x73\x68\x61\x6e\x67\x62\x61\x6e\x67\x2e\x63\x6f\x6d', comClassName: '', }, onLoad: function ($lZUpuZm1) { let that = this    
+  wx["\x68\x69\x64\x65\x53\x68\x61\x72\x65\x4d\x65\x6e\x75"]()    
+  if (!!$lZUpuZm1["\x69\x64"]) { this["\x74\x65\x6d\x70\x44\x61\x74\x61"]($lZUpuZm1["\x69\x64"]); } }, tempData: function (ysGwdX2) {
+    let that = this; wx["\x72\x65\x71\x75\x65\x73\x74"]({
+      url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x50\x75\x62\x6c\x69\x63\x43\x6f\x75\x72\x73\x65\x54\x79\x70\x65\x2f\x47\x65\x74\x50\x75\x62\x6c\x69\x63\x43\x6f\x75\x72\x73\x65\x54\x79\x70\x65\x42\x79\x49\x44', data: { ysGwdX2: ysGwdX2 }, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (HJAH3) {
+        let list = HJAH3["\x64\x61\x74\x61"]["\x44\x61\x74\x61"]
+        that["\x73\x65\x74\x44\x61\x74\x61"]({ comClassName: list["\x4e\x61\x6d\x65"], ysGwdX2: ysGwdX2 })
       }
     })
-  },
-
-  //录入课程表类型名称
-  setClassNameInput: function(e) {
-    this.setData({
-      comClassName: e.detail.value
+  }, setClassNameInput: function (eGRd4) {
+    this["\x73\x65\x74\x44\x61\x74\x61"]({
+      comClassName: eGRd4["\x64\x65\x74\x61\x69\x6c"]["\x76\x61\x6c\x75\x65"]
     })
-  },
-
-  //取消
-  cancel: function() {
-    wx.navigateBack({
-      delta: 1
+  }, cancel: function () { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) }, del: function (MK_5) {
+    let that = this; wx["\x72\x65\x71\x75\x65\x73\x74"]({
+      url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x50\x75\x62\x6c\x69\x63\x43\x6f\x75\x72\x73\x65\x54\x79\x70\x65\x2f\x44\x65\x6c\x65\x74\x65', data: {
+        id: that["\x64\x61\x74\x61"]["\x69\x64"]
+      }, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (ZbynQo6) { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) }
     })
-  },
-  //删除
-  del: function(e) {
-    let that = this;
-
-    wx.request({
-      url: app.globalData.url + '/PublicCourseType/Delete', //仅为示例，并非真实的接口地址
-      data: {
-        id: that.data.id
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function(res) {
-        wx.navigateBack({
-          delta: 1
-        })
-      }
-    })
-  },
-  //保存
-  save: function() {
-    let that = this,
-      data = this.data,
-      query = {
-        ID:data.id,
-        OpenID: app.globalData.openID,
-        Name: data.comClassName
-      }
-
-    if (!query.Name) {
-      wx.showToast({
-        title: '请填写课程表名称',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      })
-      return
-    } 
-
-    if (!!data.id) {
-      wx.request({
-        url: app.globalData.url + '/PublicCourseType/Update',
-        data: query,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function(res) {
-          wx.navigateBack({
-            delta: 1
-          })
-        }
-      })
-    } else {
-      wx.request({
-        url: app.globalData.url + '/PublicCourseType/Add', //仅为示例，并非真实的接口地址
-        data: query,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function(res) {
-          wx.navigateBack({
-            delta: 1
-          })
-        }
-      })
-    }
+  }, save: function () {
+    let that = this, data = this["\x64\x61\x74\x61"], query = {
+      ID: data["\x69\x64"], OpenID: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x6f\x70\x65\x6e\x49\x44"], Name: data["\x63\x6f\x6d\x43\x6c\x61\x73\x73\x4e\x61\x6d\x65"]
+    }    
+    if (!query["\x4e\x61\x6d\x65"]) { wx["\x73\x68\x6f\x77\x54\x6f\x61\x73\x74"]({ title: '\u8bf7\u586b\u5199\u8bfe\u7a0b\u8868\u540d\u79f0', icon: '\x6e\x6f\x6e\x65', duration: 1000, mask: true })      
+    return } if (!!data["\x69\x64"]) { wx["\x72\x65\x71\x75\x65\x73\x74"]({ url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x50\x75\x62\x6c\x69\x63\x43\x6f\x75\x72\x73\x65\x54\x79\x70\x65\x2f\x55\x70\x64\x61\x74\x65', data: query, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (Kc7) { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) } }) } else { wx["\x72\x65\x71\x75\x65\x73\x74"]({ url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x50\x75\x62\x6c\x69\x63\x43\x6f\x75\x72\x73\x65\x54\x79\x70\x65\x2f\x41\x64\x64', data: query, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (sw8) { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) } }) }
   }
-
 })

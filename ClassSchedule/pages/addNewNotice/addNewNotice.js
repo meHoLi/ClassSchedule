@@ -8,259 +8,53 @@ let day = myDate.getDate()
 let currentDate = '' + year + '-' + (month < 10 ? '0' + Number(month) : month) + '-' + (day < 10 ? '0' + Number(day) : day)//myDate.toLocaleDateString(); //获取当前日期
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
-    dates: currentDate.split('/').join('-'),//currentDate,
-    currentDate: currentDate,
-    remark: ''//备注
-  },
-  onLoad: function (options) {
-    let that = this;
-
-    wx.hideShareMenu()
-
-    if (!!options.id) {
-      that.setRemark(options)
-    }
-  },
-
-  //点击日期组件确定事件  
-  bindDateChange: function (e) {
-    this.setData({
-      dates: e.detail.value
+  data: { url: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] ? app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x75\x72\x6c"] : '\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x78\x69\x61\x6f\x73\x68\x61\x6e\x67\x62\x61\x6e\x67\x2e\x63\x6f\x6d', dates: currentDate["\x73\x70\x6c\x69\x74"]('\x2f')["\x6a\x6f\x69\x6e"]('\x2d'), currentDate: currentDate, remark: '' }, onLoad: function (HsjYTuoeH1) { let that = this; wx["\x68\x69\x64\x65\x53\x68\x61\x72\x65\x4d\x65\x6e\x75"]()    
+  if (!!HsjYTuoeH1["\x69\x64"]) { that["\x73\x65\x74\x52\x65\x6d\x61\x72\x6b"](HsjYTuoeH1) } }, bindDateChange: function (tJhbfQm2) {
+    this["\x73\x65\x74\x44\x61\x74\x61"]({
+      dates: tJhbfQm2["\x64\x65\x74\x61\x69\x6c"]["\x76\x61\x6c\x75\x65"]
     })
-  },
-
-  //录入备注
-  setRemarkInput: function (e) {
-    this.setData({
-      remark: e.detail.value
+  }, setRemarkInput: function (PWrNZhj3) {
+    this["\x73\x65\x74\x44\x61\x74\x61"]({
+      remark: PWrNZhj3["\x64\x65\x74\x61\x69\x6c"]["\x76\x61\x6c\x75\x65"]
     })
-  },
-
-  //取消
-  cancel: function () {
-    wx.navigateBack({
-      delta: 1
-    })
-  },
-  //删除
-  del: function () {
-    let id = this.data.id,
-      that = this;
-
-    if (!id) return
-
-    wx.request({
-      url: that.data.url + '/Memorandum/Delete', //仅为示例，并非真实的接口地址
-      data: {
-        id: id
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-
-        let data = res.data.Data
-
-        that.setData({
-          ID: null,
-          dates: currentDate.split('/').join('-'),
-          remark: ''
-        })
-
-        wx.showToast({
-          title: '删除成功',
-          icon: 'none',
-          duration: 1000,
-          mask: true
-        })
+  }, cancel: function () { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) }, del: function () {
+    let id = this["\x64\x61\x74\x61"]["\x69\x64"], that = this; if (!id) return wx["\x72\x65\x71\x75\x65\x73\x74"]({
+      url: that["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x4d\x65\x6d\x6f\x72\x61\x6e\x64\x75\x6d\x2f\x44\x65\x6c\x65\x74\x65', data: { id: id }, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (zjrtErc4) {
+        let data = zjrtErc4["\x64\x61\x74\x61"]["\x44\x61\x74\x61"]
+        that["\x73\x65\x74\x44\x61\x74\x61"]({ ID: null, dates: currentDate["\x73\x70\x6c\x69\x74"]('\x2f')["\x6a\x6f\x69\x6e"]('\x2d'), remark: '' })        
+        wx["\x73\x68\x6f\x77\x54\x6f\x61\x73\x74"]({ title: '\u5220\u9664\u6210\u529f', icon: '\x6e\x6f\x6e\x65', duration: 1000, mask: true })
       }
     })
-  },
-  //保存
-  save: function (e) {
-    let that = this,
-      data = this.data,
-      query = {
-        Id: data.id,
-        openID: app.globalData.openID,
-        startTime: data.dates+' 00:00:00',
-        endTime: data.dates + ' 23:59:59',
-        MemorandumContent: data.remark,
-        RemindTime: 0
-      }
-
-    if (!query.MemorandumContent) {
-      wx.showToast({
-        title: '请填写事项',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      })
-      return
-    }
-
-    if (!!data.id) {
-      wx.request({
-        url: that.data.url + '/Memorandum/Update',
-        data: query,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function (res) {
-          if (res.data.Result == '500') {
-            wx.showToast({
-              title: '当前服务器异常，请稍后再试',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            return
-          }
-
-          // wx.navigateBack({
-          //   delta: 1
-          // })
-
-          wx.request({
-            url: that.data.url + '/WeChatAppAuthorize/GetToken',
-            data: {},
-            success: function (res) {
-              
-              let data = JSON.parse(res.data.Data)
-
-              if (that.data.RemindTime != '-9999') {
-                that.setInfoTemplate(e.detail.formId, data.access_token)
-                
-                wx.navigateBack({
-                  delta: 1
-                })
-              } else {
-                wx.navigateBack({
-                  delta: 1
-                })
-              }
-            }
-          })
-        }
-      })
-    } else {
-      wx.request({
-        url: that.data.url + '/Memorandum/Add', //仅为示例，并非真实的接口地址
-        data: query,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function (res) {
-          if (res.data.Result == '500') {
-            wx.showToast({
-              title: '当前服务器异常，请稍后再试',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            return
-          }
-
-          // wx.navigateBack({
-          //   delta: 1
-          // })
-
-          wx.request({
-            url: that.data.url + '/WeChatAppAuthorize/GetToken',
-            data: {},
-            success: function (res) {
-
-              let data = JSON.parse(res.data.Data)
-
-              if (that.data.RemindTime != '-9999') {
-                that.setInfoTemplate(e.detail.formId, data.access_token)
-
-                wx.navigateBack({
-                  delta: 1
-                })
-              } else {
-                wx.navigateBack({
-                  delta: 1
-                })
-              }
-            }
-          })
-        }
-      })
-    }
-  },
-
-  //设置消息提醒模板
-  setInfoTemplate: function (formId, access_token) {
-    var that = this;
-    var openId = app.globalData.openID;
-    var messageDemo = {
-      touser: openId,//openId   
-      template_id: '4EB4NYbFc6hvSyEofy3kKeYhBejiyJ1nEOpw_D9oCm0',//模板消息id，  
-      form_id: formId,//formId
-      data: {//下面的keyword*是设置的模板消息的关键词变量  
-        "keyword1": {
-          "value": this.data.remark
-        },
-        "keyword2": {
-          "value": this.data.dates
+  }, save: function (Nn5) { let that = this, data = this["\x64\x61\x74\x61"], query = { Id: data["\x69\x64"], openID: app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x6f\x70\x65\x6e\x49\x44"], startTime: data["\x64\x61\x74\x65\x73"] + ' \x30\x30\x3a\x30\x30\x3a\x30\x30', endTime: data["\x64\x61\x74\x65\x73"] + ' \x32\x33\x3a\x35\x39\x3a\x35\x39', MemorandumContent: data["\x72\x65\x6d\x61\x72\x6b"], RemindTime: 0 }    
+  if (!query["\x4d\x65\x6d\x6f\x72\x61\x6e\x64\x75\x6d\x43\x6f\x6e\x74\x65\x6e\x74"]) { wx["\x73\x68\x6f\x77\x54\x6f\x61\x73\x74"]({ title: '\u8bf7\u586b\u5199\u4e8b\u9879', icon: '\x6e\x6f\x6e\x65', duration: 1000, mask: true })      
+  return } if (!!data["\x69\x64"]) { wx["\x72\x65\x71\x75\x65\x73\x74"]({ url: that["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x4d\x65\x6d\x6f\x72\x61\x6e\x64\x75\x6d\x2f\x55\x70\x64\x61\x74\x65', data: query, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (RlDKO6) { if (RlDKO6["\x64\x61\x74\x61"]["\x52\x65\x73\x75\x6c\x74"] == '\x35\x30\x30') { wx["\x73\x68\x6f\x77\x54\x6f\x61\x73\x74"]({ title: '\u5f53\u524d\u670d\u52a1\u5668\u5f02\u5e38\uff0c\u8bf7\u7a0d\u540e\u518d\u8bd5', icon: '\x6e\x6f\x6e\x65', duration: 1500, mask: true })            
+  return } wx["\x72\x65\x71\x75\x65\x73\x74"]({ url: that["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x57\x65\x43\x68\x61\x74\x41\x70\x70\x41\x75\x74\x68\x6f\x72\x69\x7a\x65\x2f\x47\x65\x74\x54\x6f\x6b\x65\x6e', data: {}, success: function (UE7) { let data = JSON["\x70\x61\x72\x73\x65"](UE7["\x64\x61\x74\x61"]["\x44\x61\x74\x61"])              
+  if (that["\x64\x61\x74\x61"]["\x52\x65\x6d\x69\x6e\x64\x54\x69\x6d\x65"] != '\x2d\x39\x39\x39\x39') { that["\x73\x65\x74\x49\x6e\x66\x6f\x54\x65\x6d\x70\x6c\x61\x74\x65"](Nn5["\x64\x65\x74\x61\x69\x6c"]["\x66\x6f\x72\x6d\x49\x64"], data["\x61\x63\x63\x65\x73\x73\x5f\x74\x6f\x6b\x65\x6e"])                                
+  wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) } else { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) } } }) } }) } else { wx["\x72\x65\x71\x75\x65\x73\x74"]({ url: that["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x4d\x65\x6d\x6f\x72\x61\x6e\x64\x75\x6d\x2f\x41\x64\x64', data: query, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (_8) { if (_8["\x64\x61\x74\x61"]["\x52\x65\x73\x75\x6c\x74"] == '\x35\x30\x30') { wx["\x73\x68\x6f\x77\x54\x6f\x61\x73\x74"]({ title: '\u5f53\u524d\u670d\u52a1\u5668\u5f02\u5e38\uff0c\u8bf7\u7a0d\u540e\u518d\u8bd5', icon: '\x6e\x6f\x6e\x65', duration: 1500, mask: true })            
+  return } wx["\x72\x65\x71\x75\x65\x73\x74"]({ url: that["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x57\x65\x43\x68\x61\x74\x41\x70\x70\x41\x75\x74\x68\x6f\x72\x69\x7a\x65\x2f\x47\x65\x74\x54\x6f\x6b\x65\x6e', data: {}, success: function (zzKn9) { let data = JSON["\x70\x61\x72\x73\x65"](zzKn9["\x64\x61\x74\x61"]["\x44\x61\x74\x61"])              
+  if (that["\x64\x61\x74\x61"]["\x52\x65\x6d\x69\x6e\x64\x54\x69\x6d\x65"] != '\x2d\x39\x39\x39\x39') { that["\x73\x65\x74\x49\x6e\x66\x6f\x54\x65\x6d\x70\x6c\x61\x74\x65"](Nn5["\x64\x65\x74\x61\x69\x6c"]["\x66\x6f\x72\x6d\x49\x64"], data["\x61\x63\x63\x65\x73\x73\x5f\x74\x6f\x6b\x65\x6e"])                
+  wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) } else { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) } } }) } }) } }, setInfoTemplate: function (HpjOdB10, fR11) {
+    var R12 = this; var GfsNlViUb13 = app["\x67\x6c\x6f\x62\x61\x6c\x44\x61\x74\x61"]["\x6f\x70\x65\x6e\x49\x44"]; var DogZwi14 = {
+      touser: GfsNlViUb13, template_id: '\x34\x45\x42\x34\x4e\x59\x62\x46\x63\x36\x68\x76\x53\x79\x45\x6f\x66\x79\x33\x6b\x4b\x65\x59\x68\x42\x65\x6a\x69\x79\x4a\x31\x6e\x45\x4f\x70\x77\x5f\x44\x39\x6f\x43\x6d\x30', form_id: HpjOdB10, data: {
+        "\x6b\x65\x79\x77\x6f\x72\x64\x31": {
+          "\x76\x61\x6c\x75\x65": this["\x64\x61\x74\x61"]["\x72\x65\x6d\x61\x72\x6b"]
+        }, "\x6b\x65\x79\x77\x6f\x72\x64\x32": {
+          "\x76\x61\x6c\x75\x65": this["\x64\x61\x74\x61"]["\x64\x61\x74\x65\x73"]
         }
       }
-    }
-
-    wx.request({
-      url: that.data.url + '/WeChatAppAuthorize/SendMsgAsync',
-      data: {
-        accessToken: access_token,
-        data: messageDemo,
-        StartTime: that.data.dates + ' 00:00:00',
-        RemindTime: 0
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        wx.navigateBack({
-          delta: 1
-        })
-      },
-      fail: function (err) {
-        console.log("push err")
-        wx.navigateBack({
-          delta: 1
-        })
-      }
-    });
-  },
-
-  //初始化查询数据
-  setRemark: function (options) {
-    let that = this
-
-    wx.request({
-      url: that.data.url + '/Memorandum/GetMemorandumByID', //仅为示例，并非真实的接口地址
-      data: {
-        id: options.id
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        let data = res.data.Data
-
-        that.setData({
-          id: data.ID,
-          dates: data.StartTime.split(' ')[0],
-          remark: data.MemorandumContent
+    }    
+    wx["\x72\x65\x71\x75\x65\x73\x74"]({ url: R12["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x57\x65\x43\x68\x61\x74\x41\x70\x70\x41\x75\x74\x68\x6f\x72\x69\x7a\x65\x2f\x53\x65\x6e\x64\x4d\x73\x67\x41\x73\x79\x6e\x63', data: { accessToken: fR11, data: DogZwi14, StartTime: R12["\x64\x61\x74\x61"]["\x64\x61\x74\x65\x73"] + ' \x30\x30\x3a\x30\x30\x3a\x30\x30', RemindTime: 0 }, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (cb15) { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) }, fail: function (GR16) { wx["\x6e\x61\x76\x69\x67\x61\x74\x65\x42\x61\x63\x6b"]({ delta: 1 }) } });
+  }, setRemark: function (q17) {
+    let that = this    
+    wx["\x72\x65\x71\x75\x65\x73\x74"]({
+      url: that["\x64\x61\x74\x61"]["\x75\x72\x6c"] + '\x2f\x4d\x65\x6d\x6f\x72\x61\x6e\x64\x75\x6d\x2f\x47\x65\x74\x4d\x65\x6d\x6f\x72\x61\x6e\x64\x75\x6d\x42\x79\x49\x44', data: {
+        id: q17["\x69\x64"]
+      }, header: { '\x63\x6f\x6e\x74\x65\x6e\x74\x2d\x74\x79\x70\x65': '\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e' }, success: function (ahQ18) {
+        let data = ahQ18["\x64\x61\x74\x61"]["\x44\x61\x74\x61"]
+        that["\x73\x65\x74\x44\x61\x74\x61"]({
+          id: data["\x49\x44"], dates: data["\x53\x74\x61\x72\x74\x54\x69\x6d\x65"]["\x73\x70\x6c\x69\x74"](' ')[0], remark: data["\x4d\x65\x6d\x6f\x72\x61\x6e\x64\x75\x6d\x43\x6f\x6e\x74\x65\x6e\x74"]
         })
       }
     })
   }
-
 })
