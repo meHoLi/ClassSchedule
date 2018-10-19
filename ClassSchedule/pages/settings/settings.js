@@ -7,12 +7,14 @@ Page({
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
-    wx.hideShareMenu()
+    // wx.hideShareMenu()
 
     // this.initEleWidth();
     this.tempData();
   },
   onShow() { //返回显示页面状态函数
+    // wx.hideShareMenu()
+    
     this.onLoad()//再次加载，实现返回上一页页面刷新
   },
   
@@ -81,5 +83,18 @@ Page({
     wx.navigateTo({
       url: '../usingHelp/usingHelp'
     })
+  },
+
+  //分享
+  onShareAppMessage: function () {
+    let data = this.data,
+      query = data.query
+
+    return {
+      title: '',
+      desc: '',
+      path: '/pages/login/login',
+      imageUrl: '/imgs/accredit/pic2.jpg'
+    }
   }
 })

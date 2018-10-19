@@ -73,7 +73,7 @@
                     <view class="class-item-inner">
                       <text class="class-item-inner-time">{{item.startTime}} - {{item.endTime}}</text>
                       <text class="class-item-inner-school">
-                        <text class='schoolName'>{{item.SchoolName}}</text>
+                        <text class='schoolName'>{{!!item.SchoolName?item.SchoolName:''}}</text>
                       <text class='className'> {{item.CourseName}}</text>
                       </text>
                       <view class="class-item-inner-isRemind">

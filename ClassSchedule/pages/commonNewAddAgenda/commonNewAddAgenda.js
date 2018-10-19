@@ -297,15 +297,16 @@ Page({
         mask: true
       })
       return
-    } else if (!query.SchoolName) {
-      wx.showToast({
-        title: '请填写学校名称',
-        icon: 'none',
-        duration: 1000,
-        mask: true
-      })
-      return
-    }
+    } 
+    // else if (!query.SchoolName) {
+    //   wx.showToast({
+    //     title: '请填写学校名称',
+    //     icon: 'none',
+    //     duration: 1000,
+    //     mask: true
+    //   })
+    //   return
+    // }
 
     if (!!data.ID) {
       wx.request({

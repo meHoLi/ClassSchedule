@@ -35,7 +35,7 @@ Page({
   },
 
   onLoad: function (options) {
-    wx.hideShareMenu()
+    // wx.hideShareMenu()
 
     if (!!options && options.openID) {
       this.setTabData(options.openID);
@@ -46,7 +46,7 @@ Page({
   onShow() { //返回显示页面状态函数
     let query = this.data.query
 
-    wx.hideShareMenu()
+    // wx.hideShareMenu()
 
     // this.setClassData(query)//再次加载，实现返回上一页页面刷新
     // this.setData({
@@ -516,7 +516,9 @@ Page({
     return {
       title: '',
       desc: '',
-      path: '/pages/calendar/calendar?activeIndex=' + data.activeIndex + '&childrenID=' + query.childrenID + '&page=' + query.page + '&pageSize=' + query.pageSize + '&openID=' + app.globalData.openID
+      // path: '/pages/calendar/calendar?activeIndex=' + data.activeIndex + '&childrenID=' + query.childrenID + '&page=' + query.page + '&pageSize=' + query.pageSize + '&openID=' + app.globalData.openID
+      path:'/pages/login/login',
+      imageUrl: '/imgs/accredit/pic2.jpg'
     }
   },
 

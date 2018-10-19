@@ -84,7 +84,7 @@ Page({
   onLoad: function(options) {
     let that = this;
 
-    wx.hideShareMenu()
+    //wx.hideShareMenu()
 
     wx.request({
       url: app.globalData.url + '/Memorandum/Index', //仅为示例，并非真实的接口地址
@@ -126,7 +126,7 @@ Page({
     let that = this,
       query = this.data.query
 
-    wx.hideShareMenu()
+    // wx.hideShareMenu()
 
     wx.request({
       url: app.globalData.url + '/Memorandum/Index', //仅为示例，并非真实的接口地址
@@ -422,13 +422,15 @@ Page({
     return {
       title: '',
       desc: '',
-      path: '/pages/calendar/calendar?activeIndex=' + data.activeIndex + '&childrenID=' + query.childrenID + '&page=' + query.page + '&pageSize=' + query.pageSize + '&openID=' + app.globalData.openID
+      // path: '/pages/calendar/calendar?activeIndex=' + data.activeIndex + '&childrenID=' + query.childrenID + '&page=' + query.page + '&pageSize=' + query.pageSize + '&openID=' + app.globalData.openID
+      path: '/pages/login/login',
+      imageUrl: '/imgs/accredit/pic2.jpg'
     }
   },
 
 })
 
-function setDataLocation(list) {debugger
+function setDataLocation(list) {
   if (!!list) {
     for (let i = 0; i < list.length; i++) {
       let item = list[i],

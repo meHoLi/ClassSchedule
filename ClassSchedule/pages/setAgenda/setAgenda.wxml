@@ -23,7 +23,7 @@
 
         <view class="info-items">
           <view class="title">
-            <text class="asterisk">*</text>
+            <!-- <text class="asterisk">*</text> -->
             <text>学校名称(或目的地)</text>
           </view>
           <view class="infotext">
