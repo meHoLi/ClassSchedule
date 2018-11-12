@@ -1,2 +1,102 @@
 <!--pages/usingHelp/usingHelp.wxml-->
-<text>稍后呈现~~</text>
+<view class="container">
+  <view class='body'>
+    <text class='titleLarge'>帮 助</text>
+    <text class='titleSmall'>首次使用必看！</text>
+
+    <view class='textContent'>
+      感谢您使用“儿童课程表”，第一次使用时，您需要填写您孩子的基本信息，基本信息在“设置”中，可以通过“添加用户”来添加需要安排课程和日程的人员名单，如下图所示：
+    </view>
+    <view class='helpImgBody'>
+      <image src="../../imgs/setting/help1.jpg" mode='widthFix' class='helpImg'></image>
+    </view>
+
+    <view class='textContent'>
+      设置完成后，点击底部的“当日”，可以看到已经设置好的三个课程（日程）表（豆豆，花花和妈妈的课程（日程）表），可以点击不同的人来切换课程（日程）表：
+    </view>
+    <view class='helpImgBody'>
+      <image src="../../imgs/setting/help2.jpg" mode='widthFix' class='helpImg'></image>
+    </view>
+
+    <view class='textContent redContent'>
+      这时请不要急着在日程中点击“新增课程（日程）”来添加课程（或日程），请注意有个“导入课程表”的按钮！
+    </view>
+
+    <view class='textContent noTopContent'>
+      假设豆豆的老师，或者班级群中有家长已经设置好了班级的公共课程表，并给你用户名和密码，那么你只需要在豆豆的课程表中点击“导入课程表”，然后填上用户名和密码，则豆豆的班级课程表就可以顺利导入，之后你只需要在这个课程表的基础上加上你自己个性化的课外课程和日程安排就可以了！
+    </view>
+
+    <view class='textContent redContent noTopContent'>
+      如果你和班级所有成员都是第一次使用“儿童课程表”，那么你可以当一个好人，在这个小程序中设置一个班级的公共课程表，并把用户名密码告诉班里的所有家长，让他们直接导入你做好的课程表即可！
+    </view>
+
+    <view class='textContent noTopContent'>
+      步骤如下：
+    </view>
+
+    <view class='textContent noTopContent'>
+      1）点击底部的“设置”：可以看到有一个“公共课程表”的按钮。
+    </view>
+    <view class='helpImgBody'>
+      <image src="../../imgs/setting/help3.jpg" mode='widthFix' class='helpImg'></image>
+    </view>
+
+    <view class='textContent'>
+      2）点击“公共课程表”，并进入“班级课程表”，界面如下：
+    </view>
+    <view class='helpImgBody'>
+      <image src="../../imgs/setting/help4.png" mode='widthFix' class='helpImg'></image>
+    </view>
+
+    <view class='textContent'>
+      3）图4中，点击“注册”之后，进入的界面如下：
+    </view>
+    <view class='helpImgBody'>
+      <image src="../../imgs/setting/help5.jpg" mode='widthFix' class='helpImg'></image>
+    </view>
+
+    <view class='textContent'>
+      在图5中，给你要设置的课程表取一个名字，一般以班级名来命名，比如“牛大附小101班课程表”、“精英06班课程表”等。输入用户名密码之后，完成注册
+    </view>
+
+    <view class='textContent noTopContent'>
+      4）完成注册后，你可以看到在登陆界面的最下方出现了你创建的课程表，直接点击进去，就可以编辑这个课程表，如下图所示：
+    </view>
+    <view class='helpImgBody'>
+      <image src="../../imgs/setting/help6.jpg" mode='widthFix' class='helpImg'></image>
+    </view>
+
+    <view class='textContent'>
+      5）比如点击“牛大附小101班”的课程表，就可以进去编辑这个班级的课程表（只有创建者可以看到并编辑，其他人看不到，只能导入）：
+    </view>
+    <view class='helpImgBody'>
+      <image src="../../imgs/setting/help7.jpg" mode='widthFix' class='helpImg'></image>
+    </view>
+
+    <view class='textContent'>
+      6）点击“新增课程（日程）”，添加当日课程（日程）
+    </view>
+    <view class='helpImgBody'>
+      <image src="../../imgs/setting/help8.jpg" mode='widthFix' class='helpImg'></image>
+    </view>
+
+    <view class='textContent'>
+      按照学校每周的课程安排和时间安排填好后，你的班级课程表就可以制作完成了。接下来你可以回到“当日”界面下，通过“导入课程表”的方式，输入用户名密码，导入你刚才制作的课程表了！
+    </view>
+
+    <view class='textContent noTopContent'>
+      然后，您就可以将小程序分享到班级群中，并告知大家用户名密码，让其他家长都能导入课程表，并在此基础上制作各自个性化的课程表。（如下图9箭头所示，点击后有“转发”按钮，可以分享到班级群，或分享给好友。）
+    </view>
+    <view class='helpImgBody'>
+      <image src="../../imgs/setting/help9.jpg" mode='widthFix' class='helpImg'></image>
+    </view>
+
+    <view class='textContent'>
+      班级课程表和家庭课程表的各项功能还在升级中，如果您有好的建议和意见，或者您需要什么样的功能，欢迎发邮件：myongc@163.com进行反馈，我们会认真对待每一个合理的意见和建议，持续为家长开发更多实用的功能。
+    </view>
+
+
+
+  </view>
+  
+</view>

@@ -202,7 +202,8 @@ Page({
     var openId = app.globalData.openID;
     var messageDemo = {
       touser: openId,//openId   
-      template_id: '4EB4NYbFc6hvSyEofy3kKeYhBejiyJ1nEOpw_D9oCm0',//模板消息id，  
+      template_id: '4EB4NYbFc6hvSyEofy3kKeYhBejiyJ1nEOpw_D9oCm0',//模板消息id， 
+      page: 'pages/login/login',//点击详情时跳转的主页 
       form_id: formId,//formId
       data: {//下面的keyword*是设置的模板消息的关键词变量  
         "keyword1": {

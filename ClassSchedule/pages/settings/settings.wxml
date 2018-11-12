@@ -48,5 +48,15 @@
         </view>
       </view>
     </view>
+
+    <view class="common-item">
+      <view bindtap='consult' class="common">
+        <text class="common-text">意见反馈</text>
+        <view class="common-edit">
+          <image mode="widthFix" src="../../imgs/setting/next.png"></image>
+        </view>
+      </view>
+    </view>
+
   </view>
 </view>

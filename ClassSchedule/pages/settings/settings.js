@@ -84,6 +84,12 @@ Page({
       url: '../usingHelp/usingHelp'
     })
   },
+  //反馈
+  consult: function () {
+    wx.navigateTo({
+      url: '../consult/consult'
+    })
+  },
 
   //分享
   onShareAppMessage: function () {

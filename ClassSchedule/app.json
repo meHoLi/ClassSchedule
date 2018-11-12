@@ -19,7 +19,8 @@
     "pages/addNewCommonClass/addNewCommonClass",
     "pages/commonNewAddAgenda/commonNewAddAgenda",
     "pages/importLogin/importLogin",
-    "pages/importClass/importClass"
+    "pages/importClass/importClass",
+    "pages/consult/consult"
   ],
   "window": {
     "backgroundTextStyle": "light",

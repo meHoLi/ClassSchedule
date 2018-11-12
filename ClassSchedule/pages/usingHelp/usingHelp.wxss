@@ -1,1 +1,31 @@
 /* pages/usingHelp/usingHelp.wxss */
+.container{
+  text-align: center;
+}
+.body{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.titleLarge{
+  font-size:40rpx;
+}
+.titleSmall{
+  font-size:30rpx;
+}
+.titleLarge, .titleSmall{
+  font-weight:bold;
+  margin-bottom: 12rpx;
+}
+.textContent{
+  text-align: left;
+  text-indent: 2em;
+  line-height:60rpx;
+  margin:10rpx 0;
+}
+.noTopContent{
+  margin-top: 0;
+}
+.redContent{
+  color: red;
+}
