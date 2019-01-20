@@ -1,0 +1,165 @@
+<!--pages/punchTheClock/punchTheClock.wxml-->
+<view class="container">
+  <view class="containerBody">
+
+    <view class="punchTheClock">
+      <view class='weui-navbar-body'>
+        <scroll-view scroll-x="true" class="weui-navbar">
+          <block wx:for-items="{{nameList}}">
+            <view id="{{index}}" class="{{activeIndex == index ?'item_on':''}} default-item" data-id="{{item.ID}}" bindtap="tabClick" style="width:{{tabW}}px">
+              {{item.Name}}
+            </view>
+          </block>
+          <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
+        </scroll-view>
+      </view>
+
+      <view current="{{activeIndex}}" class="swiper-box" duration="100" style='height:{{swiperHeight}}px'>
+        <!--swiper bindchange="bindChange" -->
+        <swiper-item class="swiper-item" wx:for="{{nameList}}">
+          <view class="slide-view">
+
+            <scroll-view scroll-y="true" enable-back-to-top="true" class="tab-scroll" style='height:{{bodyHeight}}px'>
+              <view class='noClassTable' style="display:{{!!haveDate?'none':'block'}}">
+                <view class='noClassTableBody'>
+                  <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+                  <text class="login-accredit-text">当前还没有打卡任务，请先添加哦~</text>
+                </view>
+              </view>
+
+              <view class="haveClassBody" style="display:{{!!haveDate?'block':'none'}}">
+                <view class="haveClassTable">
+                  <view class='haveDataItem'>
+                    <view class='haveDataItemTitle'>今日任务列表（左滑可删除当前打卡项目）</view>
+                    <view class='dataBody'>
+                      <view wx:for="{{todayClockList}}" wx:key="index" class="list">
+                        <view style="{{item.shows}}" class="listItem" 
+                        data-type='day' data-index="{{index}}" data-item="{{item}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" catchtap='editClock'>
+                          <view class='listItemBody' data-type='day' data-index="{{index}}" data-item="{{item}}">
+                            <view class='top' data-type='day' data-index="{{index}}" data-item="{{item}}">
+                              <view class='listName' data-type='day' data-index="{{index}}" data-item="{{item}}">{{item.Name}} </view>
+                              <view class='picBody'>
+                                <image catchtap='punchCard' data-type='day' data-index="{{index}}" data-item="{{item}}" class="punchCardPic" mode="widthFix" src="../../imgs/accredit/punchCard.png" style='display:{{!item.IsLimit?"inline-block":"none"}}'></image>
+                                <image catchtap='cancelCard' data-type='day' data-index="{{index}}" data-item="{{item}}" class="cancelCardPic" mode="widthFix" src="../../imgs/accredit/cancel.png"></image>
+                              </view>
+                            </view>
+                            <view class='middle'>
+                              (总计打卡{{item.ExecuteNum}}次，已打卡{{item.ExecutedNum}}次，还需打卡{{item.ExecuteNum-item.ExecutedNum}}次）
+                            </view>
+                            <view class='bottom'>
+                              <!-- <image data-type='day' data-index="{{index}}" data-item="{{item}}" class="rightGreenPic" mode="widthFix" src="../../imgs/accredit/rightGreen.png"></image> -->
+                              <view class='limitPunchCard' style='display:{{!!item.IsLimit?"inline-block":"none"}}' data-type='day' catchtap='limitPunchCard' data-index="{{index}}" data-item="{{item}}">点击开始倒计时</view>
+                            </view>
+                          </view>
+
+                          <progress active active-mode='forwards' percent="{{item.percent}}" stroke-width='3' activeColor='#54cbf0' backgroundColor='#f3f4f6' />
+
+                        </view>
+                        <!-- 删除 -->
+                        <view class='editBtn'>
+                          <!-- <view data-type='day' data-index="{{index}}" data-item="{{item}}" catchtap="editItem" class="itemEdit">
+                            <image data-type='day' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+                          </view> -->
+                          <view data-type='day' data-index="{{index}}" data-item="{{item}}" catchtap="delItem" class="itemDel">删除</view>
+                        </view>
+                      </view>
+
+                    </view>
+                  </view>
+
+                  <view class='haveDataItem'>
+                    <view class='haveDataItemTitle'>本周任务列表（左滑可删除当前打卡项目）</view>
+                    <view class='dataBody'>
+                      <view wx:for="{{weekList}}" data-type='week' wx:key="index" class="list">
+                        <view style="{{item.shows}}" class="listItem" data-type='week' data-index="{{index}}" data-item="{{item}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" catchtap='editClock'>
+                          <view class='listItemBody' data-type='week' data-index="{{index}}" data-item="{{item}}">
+                            <view class='top' data-type='week' data-index="{{index}}" data-item="{{item}}">
+                              <view class='listName' data-type='week' data-index="{{index}}" data-item="{{item}}">{{item.Name}} </view>
+                              <view class='picBody'>
+                                <image catchtap='punchCard' data-type='week' data-index="{{index}}" data-item="{{item}}" class="punchCardPic" mode="widthFix" src="../../imgs/accredit/punchCard.png" style='display:{{!item.IsLimit?"inline-block":"none"}}'></image>
+                                <image catchtap='cancelCard' data-type='week' data-index="{{index}}" data-item="{{item}}" class="cancelCardPic" mode="widthFix" src="../../imgs/accredit/cancel.png"></image>
+                              </view>
+                            </view>
+                            <view class='middle'>
+                              (总计打卡{{item.ExecuteNum}}次，已打卡{{item.ExecutedNum}}次，还需打卡{{item.ExecuteNum-item.ExecutedNum}}次）
+                            </view>
+                            <view class='bottom'>
+                              <!-- <image data-type='week' data-index="{{index}}" data-item="{{item}}" class="rightGreenPic" mode="widthFix" src="../../imgs/accredit/rightGreen.png"></image> -->
+                              <view class='limitPunchCard' style='display:{{!!item.IsLimit?"inline-block":"none"}}' data-type='week' catchtap='limitPunchCard' data-index="{{index}}" data-item="{{item}}">点击开始倒计时</view>
+                            </view>
+                          </view>
+
+                          <progress active active-mode='forwards' percent="{{item.percent}}" stroke-width='3' activeColor='#54cbf0' backgroundColor='#f3f4f6' />
+
+                        </view>
+                        <!-- 删除 -->
+                        <view class='editBtn'>
+                          <!-- <view data-type='week' data-index="{{index}}" data-item="{{item}}" catchtap="editItem" class="itemEdit">
+                            <image data-type='week' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+                          </view> -->
+                          <view data-type='week' data-index="{{index}}" data-item="{{item}}" catchtap="delItem" class="itemDel">删除</view>
+                        </view>
+                      </view>
+
+                    </view>
+                  </view>
+
+                  <view class='haveDataItem'>
+                    <view class='haveDataItemTitle'>本月任务列表（左滑可删除当前打卡项目）</view>
+                    <view class='dataBody'>
+                      <view wx:for="{{mouthClockList}}" wx:key="index" class="list">
+                        <view style="{{item.shows}}" class="listItem" data-type='month' data-index="{{index}}" data-item="{{item}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" catchtap='editClock'>
+                          <view class='listItemBody' data-type='month' data-index="{{index}}" data-item="{{item}}">
+                            <view class='top' data-type='month' data-index="{{index}}" data-item="{{item}}">
+                              <view class='listName' data-type='month' data-index="{{index}}" data-item="{{item}}">{{item.Name}} </view>
+                              <view class='picBody'>
+                                <image catchtap='punchCard' data-type='month' data-index="{{index}}" data-item="{{item}}" class="punchCardPic" mode="widthFix" src="../../imgs/accredit/punchCard.png" style='display:{{!item.IsLimit?"inline-block":"none"}}'></image>
+                                <image catchtap='cancelCard' data-type='month' data-index="{{index}}" data-item="{{item}}" class="cancelCardPic" mode="widthFix" src="../../imgs/accredit/cancel.png"></image>
+                              </view>
+                            </view>
+                            <view class='middle'>
+                              (总计打卡{{item.ExecuteNum}}次，已打卡{{item.ExecutedNum}}次，还需打卡{{item.ExecuteNum-item.ExecutedNum}}次）
+                            </view>
+                            <view class='bottom'>
+                              <!-- <image data-type='month' data-index="{{index}}" data-item="{{item}}" class="rightGreenPic" mode="widthFix" src="../../imgs/accredit/rightGreen.png"></image> -->
+                              <view class='limitPunchCard' style='display:{{!!item.IsLimit?"inline-block":"none"}}' data-type='month' catchtap='limitPunchCard' data-index="{{index}}" data-item="{{item}}">点击开始倒计时</view>
+                            </view>
+                          </view>
+
+                          <progress active active-mode='forwards' percent="{{item.percent}}" stroke-width='3' activeColor='#54cbf0' backgroundColor='#f3f4f6' />
+
+                        </view>
+                        <!-- 删除 -->
+                        <view class='editBtn'>
+                          <!-- <view data-type='month' data-index="{{index}}" data-item="{{item}}" catchtap="editItem" class="itemEdit">
+                            <image data-type='month' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+                          </view> -->
+                          <view data-type='month' data-index="{{index}}" data-item="{{item}}" catchtap="delItem" class="itemDel">删除</view>
+                        </view>
+                      </view>
+
+                    </view>
+                  </view>
+
+                </view>
+              </view>
+
+
+            </scroll-view>
+
+            <view class='editBody'>
+              <view class='editLeft' bindtap='toIntegral'>
+                <image class="pig" src="../../imgs/accredit/treasureChest.png" mode="widthFix"></image>
+              </view>
+              <view class='editRight' bindtap='addClock'>
+                <image class="addBtn" src="../../imgs/accredit/greenPlus.png" mode="widthFix"></image>
+              </view>
+            </view>
+
+          </view>
+        </swiper-item>
+
+      </view>
+    </view>
+  </view>
+</view>

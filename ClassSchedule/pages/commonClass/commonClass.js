@@ -243,7 +243,8 @@ Page({
 
     if (!e.currentTarget.dataset.item) {
       wx.navigateTo({
-        url: '../commonNewAddAgenda/commonNewAddAgenda?publicCourseInfoID=' + publicCourseInfoID + '&publicCourseTypeID=' + publicCourseTypeID + '&date=' + date,
+        // url: '../commonNewAddAgenda/commonNewAddAgenda?publicCourseInfoID=' + publicCourseInfoID + '&publicCourseTypeID=' + publicCourseTypeID + '&date=' + date,
+        url: '../commonClassAddClass/commonClassAddClass?publicCourseInfoID=' + publicCourseInfoID + '&publicCourseTypeID=' + publicCourseTypeID + '&date=' + date
       })
     } else {
       wx.navigateTo({

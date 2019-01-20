@@ -1,6 +1,9 @@
 <!--pages/curDayClass/curDayClass.wxml-->
 <view class="container">
-  <view class="calendar">
+  <movable-area class="calendar">
+    <movable-view class='moveView' x='600' y='0' direction="all">
+      <image class="moveImg" src="../../imgs/accredit/unfold1.png" mode="scaleToFill" catchtap='toWeekClass'></image>
+    </movable-view>
 
     <view class="classBody">
       <view class='weui-navbar-body'>
@@ -99,7 +102,7 @@
               </button>
             </view>
 
-            <view class='memo' bindtap="toNotice">
+            <!-- <view class='memo' bindtap="toNotice">
               <image src="../../imgs/accredit/notice2.png" class='memo-img'></image>
               <swiper wx:if="{{!!inforList&&!!inforList[0]}}" class="swiper_container" vertical="true" autoplay="true" circular="true" interval="2000">
                 <block wx:for="{{inforList}}">
@@ -109,12 +112,12 @@
                 </block>
               </swiper>
               <view class='memo-info' wx:else>每日重要事情备忘，请点击添加</view>
-            </view>
+            </view> -->
 
           </view>
         </swiper-item>
 
       </swiper>
     </view>
-  </view>
+  </movable-area>
 </view>

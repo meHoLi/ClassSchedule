@@ -4,17 +4,17 @@
 
     <view class='info'>
       <view class="head">
-        课程表注册
+        账户注册
       </view>
 
       <view class="infoMain">
         <view class="info-items">
           <view class="title">
             <text class="asterisk">*</text>
-            <text>课程表名称</text>
+            <text>账户名称</text>
           </view>
           <view class="infotext">
-            <input class="info-motto" value='{{comClassName}}' type='text' bindinput="setClassNameInput" placeholder="请输入课程表名称"/>
+            <input class="info-motto" value='{{comClassName}}' type='text' bindinput="setClassNameInput" placeholder="请输入账户名称"/>
           </view>
         </view>
 
@@ -35,6 +35,16 @@
           </view>
           <view class="infotext">
             <input class="info-motto" value='{{passWord}}' type='text' bindinput="setPassWord" placeholder="请输入密码"/>
+          </view>
+        </view>
+
+        <view class="info-items">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>确认密码</text>
+          </view>
+          <view class="infotext">
+            <input class="info-motto" value='{{repeatPassWord}}' type='text' bindinput="setRepeatPassWord" placeholder="请输入密码"/>
           </view>
         </view>
 

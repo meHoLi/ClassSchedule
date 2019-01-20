@@ -1,0 +1,49 @@
+<!--pages/limitProject/limitProject.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <!-- <view class="head">
+        编辑打卡项目
+      </view> -->
+
+      <view class="infoMain">
+        <view class='clockName'>
+          <input class="clockNameInput" value='{{clockName}}' type='text' bindinput="setClockNameInput" placeholder="请输入新任务名称" />
+        </view>
+
+        <view class='clockDetails'>
+          <view class="isLimitTime detailItem">
+            <view class="isLimitTimeTitle detailTitle">任务限时：</view>
+
+            <view class='detailEdit'>
+              <view class="limitTime">
+                <image src="../../imgs/accredit/minus.png" bindtap='minus' background-size="cover"></image>
+                <text>限时</text>
+                <input type="number" value="{{limitTime}}" maxlength="3" bindinput="setLimitTimeNum" />
+                <text>分钟</text>
+                <image src="../../imgs/accredit/plus.png" bindtap='plus' background-size="cover"></image>
+              </view>
+            </view>
+          </view>
+
+          <view class="isJoin detailItem">
+            <view class="isJoinTitle detailTitle">是否加入打卡任务：</view>
+
+            <view class='detailEdit'>
+              <switch class="switchBtn" color='#54cbf0' bindchange="switchChange" checked='{{isJoin}}' />
+            </view>
+          </view>
+
+        </view>
+
+      </view>
+    </view>
+
+    <view class="btn">
+      <button bindtap="cancel" class="cancelBtn"> 取消 </button>
+      <button bindtap="save" class="saveBtn"> 保存 </button>
+    </view>
+
+  </view>
+</view>

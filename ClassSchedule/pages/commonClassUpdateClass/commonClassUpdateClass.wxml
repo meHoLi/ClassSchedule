@@ -1,0 +1,32 @@
+<!--pages/commonClassUpdateClass/commonClassUpdateClass.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        设置课程
+      </view>
+
+      <view class="infoMain">
+        <view class="info-items">
+          <view class="title">
+            <text class="asterisk">*</text>
+            <text>课程(日程)名称</text>
+          </view>
+          <view class="infotext">
+            <input class="info-motto" value='{{CourseName}}' type='text' bindinput="setClassNameInput" placeholder="如：英语课，或 逛公园"/>
+          </view>
+        </view>
+
+      </view>
+    </view>
+
+    <view class="btn">
+      <button bindtap="cancel" class="cancelBtn"> 取消 </button>
+      <button bindtap="del" class='delBtn' style="display:{{!!ID?'block':'none'}}"> 删除 </button>
+      <button bindtap="save" class="saveBtn"> 保存 </button>
+    </view>
+
+  </view>
+
+</view>

@@ -1,0 +1,43 @@
+<!--pages/bonusPointsExchange/bonusPointsExchange.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        积分兑换
+      </view>
+
+      <view class="infoMain">
+        <!-- <view class='clockName'>
+          <input class="clockNameInput" value='{{clockName}}' type='text' bindinput="setClockNameInput" placeholder="请输入新任务名称" />
+        </view> -->
+
+        <view class='clockDetails'>
+          <view class="exchangeName detailItem">
+            <view class="exchangeNameTitle detailTitle">兑换项目：</view>
+
+            <view class='detailEdit'>
+              <input class="exchangeNameInput" value='{{exchangeName}}' type='text' bindinput="setExchangeNameInput" placeholder="例如：吃肯德基，买书"/>
+            </view>
+          </view>
+
+          <view class="bonusPoints detailItem">
+            <view class="bonusPointsTitle detailTitle">兑换积分数额：</view>
+
+            <view class='detailEdit'>
+              <input class="bonusPointsInput" value='{{bonusPointsValue}}' type='number' bindinput="setBonusPointsInput" placeholder="例如：900（相当于90元）"/>
+            </view>
+          </view>
+
+        </view>
+
+      </view>
+    </view>
+
+    <view class="btn">
+      <button bindtap="cancel" class="cancelBtn"> 取消 </button>
+      <button bindtap="save" class="saveBtn">确定兑换</button>
+    </view>
+
+  </view>
+</view>

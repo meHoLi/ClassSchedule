@@ -11,16 +11,17 @@ Page({
     comClassName: '', //公共课程表名称
     comClassUserName: '', //公共课程表用户名
     passWord: '', //公共课程表密码
+    repeatPassWord: '',//公共课程表确认密码
   },
   onLoad: function(options) {
     let that = this,
-      publicCourseTypeID = options.publicCourseTypeID,
+      publicBoxType = options.publicBoxType,
       id = options.id
 
     wx.hideShareMenu()
 
     that.setData({
-      publicCourseTypeID: publicCourseTypeID
+      publicBoxType: publicBoxType
     })
 
     if (!!id) {
@@ -46,6 +47,12 @@ Page({
       passWord: e.detail.value
     })
   },
+  //录入密码
+  setRepeatPassWord: function (e) {
+    this.setData({
+      repeatPassWord: e.detail.value
+    })
+  },
 
   //取消
   cancel: function () {
@@ -61,7 +68,7 @@ Page({
     if (!id) return
 
     wx.request({
-      url: that.data.url + '/PublicCourseInfo/Delete', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/PublicBox/Delete', //仅为示例，并非真实的接口地址
       data: {
         id: id
       },
@@ -80,12 +87,13 @@ Page({
   signUp: function(e) {
     let that = this,
       data = this.data,
+      repeatPassWord = data.repeatPassWord,
       query = {
         ID: data.id,
         Name: data.comClassName,
         LoginName: data.comClassUserName,
         Password: data.passWord,
-        PublicCourseTypeID: data.publicCourseTypeID,
+        PublicBoxType: data.publicBoxType,
         OpenID: app.globalData.openID
       }
 
@@ -113,11 +121,29 @@ Page({
         mask: true
       })
       return
+    } else if (!repeatPassWord) {
+      wx.showToast({
+        title: '请确认密码',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      })
+      return
+    }
+
+    if (repeatPassWord != query.Password){
+      wx.showToast({
+        title: '两次输入的密码不同，请修改',
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
+      return
     }
 
     if (!!data.id) {
       wx.request({
-        url: that.data.url + '/PublicCourseInfo/Update',
+        url: that.data.url + '/PublicBox/Update',
         data: query,
         header: {
           'content-type': 'application/json' // 默认值
@@ -134,14 +160,14 @@ Page({
           }
 
           wx.navigateBack({
-            url: '../commonClassLogin/commonClassLogin?publicCourseTypeID=' + data.publicCourseTypeID
+            url: '../commonClassLogin/commonClassLogin?publicBoxType=' + data.publicBoxType
           })
 
         }
       })
     } else {
       wx.request({
-        url: that.data.url + '/PublicCourseInfo/Add',
+        url: that.data.url + '/PublicBox/Add',
         data: query,
         header: {
           'content-type': 'application/json' // 默认值
@@ -158,7 +184,7 @@ Page({
           }
 
           wx.navigateBack({
-            url: '../commonClassLogin/commonClassLogin?publicCourseTypeID=' + data.publicCourseTypeID
+            url: '../commonClassLogin/commonClassLogin?publicBoxType=' + data.publicBoxType
           })
         }
       })
@@ -170,7 +196,7 @@ Page({
     let that = this;
 
     wx.request({
-      url: app.globalData.url + '/PublicCourseInfo/GetPublicCourseInfoByID', //仅为示例，并非真实的接口地址
+      url: app.globalData.url + '/PublicBox/GetPublicBoxByID', //仅为示例，并非真实的接口地址
       data: {
         id: id
       },
@@ -184,7 +210,8 @@ Page({
           comClassName: data.Name, //公共课程表名称
           comClassUserName: data.LoginName, //公共课程表用户名
           passWord: data.Password, //公共课程表密码
-          publicCourseTypeID: data.PublicCourseTypeID, //公共课程表类型Id
+          repeatPassWord: data.Password,//公共课程表确认密码
+          publicBoxType: data.PublicBoxType, //公共课程表类型Id
           id: data.ID //当前公共课程表的id
         })
       }

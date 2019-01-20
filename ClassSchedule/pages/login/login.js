@@ -23,9 +23,21 @@ Page({
             app.globalData.openID = data.openid,
             app.globalData.session_key = data.session_key
 
-            if (!!data.openid) {
-              that.accredit()
-            }
+            wx.getSystemInfo({
+              success: function (res) {
+                
+                app.globalData.pxRate = Number((750 / res.windowWidth).toFixed(2))
+                app.globalData.windowWidth = res.windowWidth
+                app.globalData.windowHeight = res.windowHeight * (750/res.windowWidth)
+                app.globalData.screenHeight = res.screenHeight * (750/res.screenWidth)
+
+                if (!!data.openid) {
+                  that.accredit()
+                }
+
+              }
+            });
+
           }
         })
       }

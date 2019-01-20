@@ -1,0 +1,174 @@
+<!--pages/pomodoro/pomodoro.wxml-->
+<view class="container">
+  <view class="containerBody">
+
+    <view class="punchTheClock">
+      <view class='head'>
+        番茄钟
+      </view>
+
+      <view class='weui-navbar-body'>
+        <scroll-view scroll-x="true" class="weui-navbar">
+          <block wx:for-items="{{nameList}}">
+            <view id="{{index}}" class="{{activeIndex == index ?'item_on':''}} default-item" data-id="{{item.ID}}" bindtap="tabClick" style="width:{{tabW}}px">
+              {{item.Name}}
+            </view>
+          </block>
+          <view class="weui-navbar-slider" style="transform:translateX({{slideOffset}}px);"></view>
+        </scroll-view>
+      </view>
+
+      <view current="{{activeIndex}}" class="swiper-box" duration="100" style='height:{{swiperHeight}}px'>
+        <!--swiper bindchange="bindChange" -->
+        <swiper-item class="swiper-item" wx:for="{{nameList}}">
+          <view class="slide-view">
+
+            <scroll-view scroll-y="true" enable-back-to-top="true" class="tab-scroll" style='height:{{bodyHeight}}px'>
+              <view class='noClassTable' style="display:{{!!haveDate?'none':'block'}}">
+                <view class='noClassTableBody'>
+                  <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+                  <text class="login-accredit-text">当前还没有打卡任务，请先添加哦~</text>
+                </view>
+              </view>
+
+              <view class="haveClassBody" style="display:{{!!haveDate?'block':'none'}}">
+                <view class="haveClassTable">
+                  <view class='haveDataItem'>
+                    <view class='haveDataItemTitle'>今日任务列表</view>
+                    <view class='dataBody'>
+                      <view wx:for="{{todayClockList}}" wx:key="index" class="list">
+                        <view style="{{item.shows}}" class="listItem" data-type='day' data-index="{{index}}" data-item="{{item}}" catchtap='countDown' bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE">
+                          <view class='listItemBody' data-type='day' data-index="{{index}}" data-item="{{item}}">
+                            <view class='top' data-type='day' data-index="{{index}}" data-item="{{item}}">
+                              <view class='listName' data-type='day' data-index="{{index}}" data-item="{{item}}">{{item.Name}} </view>
+                              <view class='picBody'>限时：{{item.LimitedTime}}分钟</view>
+                            </view>
+                            <view class='middle'>
+                              (本日共需打卡{{item.ExecuteNum}}次，已打卡{{item.ExecutedNum}}次）
+                            </view>
+                          </view>
+
+                          <progress active active-mode='forwards' percent="{{item.percent}}" stroke-width='3' activeColor='#54cbf0' backgroundColor='#f3f4f6' />
+
+                        </view>
+                        <!-- 删除 -->
+                        <view class='editBtn'>
+                          <!-- <view data-type='day' data-index="{{index}}" data-item="{{item}}" catchtap="editItem" class="itemEdit">
+                            <image data-type='day' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+                          </view> -->
+                          <view data-type='day' data-index="{{index}}" data-item="{{item}}" catchtap="delItem" class="itemDel">删除</view>
+                        </view>
+                      </view>
+
+                    </view>
+                  </view>
+
+                  <view class='haveDataItem'>
+                    <view class='haveDataItemTitle'>本周任务列表</view>
+                    <view class='dataBody'>
+                      <view wx:for="{{weekList}}" data-type='week' wx:key="index" class="list">
+                        <view style="{{item.shows}}" class="listItem" data-type='week' data-index="{{index}}" data-item="{{item}}" catchtap='countDown' bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE">
+                          <view class='listItemBody' data-type='week' data-index="{{index}}" data-item="{{item}}">
+                            <view class='top' data-type='week' data-index="{{index}}" data-item="{{item}}">
+                              <view class='listName' data-type='week' data-index="{{index}}" data-item="{{item}}">{{item.Name}} </view>
+                              <view class='picBody'>限时：{{item.LimitedTime}}分钟</view>
+                            </view>
+                            <view class='middle'>
+                              (本周共需打卡{{item.ExecuteNum}}次，已打卡{{item.ExecutedNum}}次）
+                            </view>
+                          </view>
+
+                          <progress active active-mode='forwards' percent="{{item.percent}}" stroke-width='3' activeColor='#54cbf0' backgroundColor='#f3f4f6' />
+
+                        </view>
+                        <!-- 删除 -->
+                        <view class='editBtn'>
+                          <!-- <view data-type='week' data-index="{{index}}" data-item="{{item}}" catchtap="editItem" class="itemEdit">
+                            <image data-type='week' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+                          </view> -->
+                          <view data-type='week' data-index="{{index}}" data-item="{{item}}" catchtap="delItem" class="itemDel">删除</view>
+                        </view>
+                      </view>
+
+                    </view>
+                  </view>
+
+                  <view class='haveDataItem'>
+                    <view class='haveDataItemTitle'>本月任务列表</view>
+                    <view class='dataBody'>
+                      <view wx:for="{{mouthClockList}}" wx:key="index" class="list">
+                        <view style="{{item.shows}}" class="listItem" data-type='month' data-index="{{index}}" data-item="{{item}}" catchtap='countDown' bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE">
+                          <view class='listItemBody' data-type='month' data-index="{{index}}" data-item="{{item}}">
+                            <view class='top' data-type='month' data-index="{{index}}" data-item="{{item}}">
+                              <view class='listName' data-type='month' data-index="{{index}}" data-item="{{item}}">{{item.Name}} </view>
+                              <view class='picBody'>限时：{{item.LimitedTime}}分钟</view>
+                            </view>
+                            <view class='middle'>
+                              (本月共需打卡{{item.ExecuteNum}}次，已打卡{{item.ExecutedNum}}次）
+                            </view>
+                          </view>
+
+                          <progress active active-mode='forwards' percent="{{item.percent}}" stroke-width='3' activeColor='#54cbf0' backgroundColor='#f3f4f6' />
+
+                        </view>
+                        <!-- 删除 -->
+                        <view class='editBtn'>
+                          <!-- <view data-type='month' data-index="{{index}}" data-item="{{item}}" catchtap="editItem" class="itemEdit">
+                            <image data-type='month' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+                          </view> -->
+                          <view data-type='month' data-index="{{index}}" data-item="{{item}}" catchtap="delItem" class="itemDel">删除</view>
+                        </view>
+                      </view>
+
+                    </view>
+                  </view>
+
+                  <view class='haveDataItem'>
+                    <view class='haveDataItemTitle'>今日自定义打卡任务</view>
+                    <view class='dataBody'>
+                      <view wx:for="{{todayAddList}}" wx:key="index" class="list">
+                        <view style="{{item.shows}}" class="listItem" data-type='todayAdd' data-index="{{index}}" data-item="{{item}}" catchtap='countDown' bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE">
+                          <view class='listItemBody' data-type='todayAdd' data-index="{{index}}" data-item="{{item}}">
+                            <view class='top' data-type='todayAdd' data-index="{{index}}" data-item="{{item}}">
+                              <view class='listName' data-type='todayAdd' data-index="{{index}}" data-item="{{item}}">{{item.Name}} </view>
+                              <view class='picBody'>限时：{{item.LimitedTime}}分钟</view>
+                            </view>
+                            <view class='middle'>
+                              (本日共需打卡{{item.ExecuteNum}}次，已打卡{{item.ExecutedNum}}次）
+                            </view>
+                          </view>
+
+                          <progress active active-mode='forwards' percent="{{item.percent}}" stroke-width='3' activeColor='#54cbf0' backgroundColor='#f3f4f6' />
+
+                        </view>
+                        <!-- 删除 -->
+                        <view class='editBtn'>
+                          <!-- <view data-type='todayAdd' data-index="{{index}}" data-item="{{item}}" catchtap="editItem" class="itemEdit">
+                            <image data-type='todayAdd' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+                          </view> -->
+                          <view data-type='todayAdd' data-index="{{index}}" data-item="{{item}}" catchtap="delItem" class="itemDel">删除</view>
+                        </view>
+                      </view>
+
+                    </view>
+                  </view>
+
+                </view>
+              </view>
+
+
+            </scroll-view>
+
+            <view class='editBody'>
+              <view class='editLeft' bindtap='toIntegral'>
+                <image class="pig" src="../../imgs/accredit/tomatoPlus.png" mode="widthFix"></image>
+              </view>
+            </view>
+
+          </view>
+        </swiper-item>
+
+      </view>
+    </view>
+  </view>
+</view>

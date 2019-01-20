@@ -1,0 +1,125 @@
+<!--pages/setClock/setClock.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        打卡项目
+      </view>
+
+      <view class="infoMain">
+        <view class='clockName'>
+          <input class="clockNameInput" value='{{clockName}}' type='text' bindinput="setClockNameInput" placeholder="请输入习惯名称" />
+        </view>
+
+        <view class='repetitionPeriodBody'>
+          <view class='titleBody'>
+            <view class='left'>重复周期</view>
+            <view class='right'>
+              <view class='titleBtn {{repetitionPeriodtype == "1" ? "isChecked" : ""}}' bindtap='setRepetitionPeriod' data-type='1'>固定</view>
+              <view class='titleBtn {{repetitionPeriodtype == "2" ? "isChecked" : ""}}' bindtap='setRepetitionPeriod' data-type='2'>按周</view>
+              <view class='titleBtn {{repetitionPeriodtype == "3" ? "isChecked" : ""}}' bindtap='setRepetitionPeriod' data-type='3'>按月</view>
+            </view>
+          </view>
+
+          <view class='weekBody' style='display: {{repetitionPeriodtype == "1" ? "flex" : "none"}}'>
+            <view wx:for="{{weekList}}" wx:key="*this" class="day {{!!item.isChecked?'blueItem':''}}" style='height:{{dayHeight}}px' bindtap='selectWeek' data-index="{{index}}" data-item="{{item}}">{{item.name}}</view>
+          </view>
+
+          <view class='dayNumBody'>
+            <view class='titleBody'>
+              <view class='leftTitle'>
+                {{repetitionPeriodtype == "1" ? "每日执行次数" : (repetitionPeriodtype == "2" ? "每周打卡次数" : "每月打卡次数")}}
+              </view>
+              <view class='rightPlus'>
+              
+              </view>
+            </view>
+            <view class='dayNumListBody'>
+              <view wx:for="{{dayNumList}}" bindtap='selectNum' data-index="{{index}}" data-item="{{item}}" wx:key="*this" class="num {{!!item.isChecked?'blueItem':''}}">{{item.name}}</view>
+            </view>
+          </view>
+        </view>
+
+        <view class='clockDetails'>
+          <view class="durationTime detailItem">
+            <view class="durationTimeTitle detailTitle">持续时间：</view>
+
+            <view class='detailEdit'>
+              <picker class='durationTimePicker' mode="multiSelector" value="{{dateTimeStart}}" bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" data-type='start' range="{{dateTimeArray}}">
+                <view class="tui-picker-detail" style='display:{{!!durationTimeStart ? "block" : "none"}}'>
+                  {{durationTimeStart}}
+                </view>
+                <view class="placeholder" style='display:{{durationTimeStart ? "none" : "block"}}'>
+                  从几月几日起
+                </view>
+              </picker>
+              <view style='margin: 0 20rpx;'> — </view>
+              <picker class='durationTimePicker durationTimePickerEnd' mode="multiSelector" value="{{dateTimeEnd}}" bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" data-type='end' range="{{dateTimeArray}}">
+                <view class="tui-picker-detail" style='display:{{!!durationTimeEnd ? "block" : "none"}}'>
+                  {{durationTimeEnd}}
+                </view>
+                <view class="placeholder" style='display:{{durationTimeEnd ? "none" : "block"}}'>
+                  几月几日结束
+                </view>
+              </picker>
+            </view>
+          </view>
+
+          <view class="isLimitTime detailItem">
+            <view class="isLimitTimeTitle detailTitle">每次是否限时：</view>
+
+            <view class='detailEdit'>
+              <switch class="switchBtn" color='#54cbf0' bindchange="switchChange" checked='{{isLimitTime}}' />
+              <view class="limitTime" style='display:{{!!isLimitTime ? "flex" : "none"}}'>
+                <image src="../../imgs/accredit/minus.png" bindtap='minus' background-size="cover"></image>
+                <text>限时</text>
+                <input type="number" value="{{limitTime}}" maxlength="3" bindinput="setLimitTimeNum" />
+                <text>分钟</text>
+                <image src="../../imgs/accredit/plus.png" bindtap='plus' background-size="cover"></image>
+              </view>
+            </view>
+          </view>
+
+          <!-- <view class="remind detailItem">
+            <view class="remindTitle detailTitle">提醒设置：</view>
+
+            <view class='detailEdit'>
+              <picker bindchange="bindRemindPickerChange" value="{{remindValue}}" range="{{remind}}" class="info-motto">
+              <view class="picker">
+                {{remind[remindValue]}}
+              </view>
+            </picker>
+            </view>
+          </view> -->
+          <view class="projectType detailItem">
+            <view class="projectTypeTitle detailTitle">项目类别：</view>
+
+            <view class='detailEdit'>
+              <radio-group class="radio-group" bindchange="radioChange">
+                <label class="radio" wx:for="{{radioList}}">
+                  <radio value="{{item.value}}" checked="{{item.checked}}" /> {{item.name}}
+                </label>
+              </radio-group>
+            </view>
+          </view>
+
+          <view class="bonusPoints detailItem">
+            <view class="bonusPointsTitle detailTitle">每次完成打卡奖励积分数：</view>
+
+            <view class='detailEdit'>
+              <input class="bonusPointsInput" value='{{bonusPointsValue}}' type='number' bindinput="setBonusPointsInput" placeholder="十积分等于一元"/>
+            </view>
+          </view>
+        </view>
+
+      </view>
+    </view>
+
+    <view class="btn">
+      <button bindtap="cancel" class="cancelBtn"> 取消 </button>
+      <button bindtap="save" class="saveBtn"> 保存 </button>
+    </view>
+
+  </view>
+</view>

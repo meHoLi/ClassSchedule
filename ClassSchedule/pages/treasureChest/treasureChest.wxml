@@ -1,0 +1,12 @@
+<!--pages/treasureChest/treasureChest.wxml-->
+<view class="container">
+  <view class="list">
+    <view class="listBody">
+      <view wx:for="{{list}}" wx:key="{{index}}" class="item '{{'item'+index}}'" catchtap='editInfo' data-index="{{index}}" data-item="{{item}}">
+          <image class='img' mode='scaleToFill' data-index="{{index}}" data-item="{{item}}" src="{{item.picUrl}}" style="width:{{itemW}}px;height:{{itemW}}px;"></image>
+          <text class='name'>{{item.name}}</text>
+      </view>
+    </view>
+
+  </view>
+</view>

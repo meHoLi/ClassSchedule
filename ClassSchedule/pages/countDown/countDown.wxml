@@ -1,0 +1,23 @@
+<!--pages/countDown/countDown.wxml-->
+<view class="container">
+  <view class='top'>
+    <view class='head'>当前任务：{{name}}</view>
+    <view class='progress_box'>
+      <canvas class="progress_bg" canvas-id="canvasProgressbg"> </canvas>
+      <canvas class="progress_canvas" canvas-id="canvasProgress"> </canvas>
+      <view class="progress_text">
+        <text class='progress_info'> {{progress_txt}}</text>
+      </view>
+    </view>
+
+    <view class='editBtn'>
+      <button bindtap="pauseCount" class="pauseBtn" style="display:{{isRunning?'block':'none'}}"> 暂停 </button>
+      <button bindtap="continueCount" class="continueBtn" style="display:{{isRunning?'none':'block'}}"> 继续 </button>
+    </view>
+  </view>
+
+  <view class="btn">
+    <button bindtap="unfinished" class="unfinishedBtn"> 未完成 </button>
+    <button bindtap="finish" class="finishBtn"> 完成 </button>
+  </view>
+</view>

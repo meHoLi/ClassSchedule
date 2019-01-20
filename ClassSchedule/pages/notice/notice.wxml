@@ -1,6 +1,6 @@
 <!--pages/notice/notice.wxml-->
 <view class="container">
-  <view class="classList">
+  <scroll-view scroll-y="true" enable-back-to-top="true" class="classList notice" style="display:{{!!noticeDis?'block':'none'}};height:{{bodyHeight}}rpx">
 
     <view class='noClassTable' style="display:{{noClassDis}}">
       <view class='noClassTableBody'>
@@ -20,7 +20,7 @@
 
             <image data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
           </view>
-        
+
         </view>
       </view>
     </view>
@@ -29,6 +29,69 @@
       <image class="addNewClass-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
       <text>添加重要事项</text>
     </button>
-    
+
+    <view class="haveClassBody" style="display:{{!!pastDueList[0]?'block':'none'}}">
+      <view class="haveClassTable">
+        <view wx:for="{{pastDueList}}" wx:key="{{index}}" class="item '{{'item'+index}}' pastDueItem">
+
+          <view class="inner txt">
+            <view class='line'></view>
+
+            <!-- <text class='item-num'>{{index+1}}、</text> -->
+            <view class="item-text">{{item.eventTime}} {{item.MemorandumContent}}</view>
+          </view>
+
+        </view>
+      </view>
+    </view>
+
+  </scroll-view>
+
+  <scroll-view scroll-y="true" enable-back-to-top="true" class="classList detailedList" style="display:{{!!noticeDis?'none':'block'}};height:{{bodyHeight}}rpx">
+
+    <view class='noClassTable' style="display:{{noClassDis2}}">
+      <view class='noClassTableBody'>
+        <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+        <text class="login-accredit-text">当前还没有清单，请先添加哦~</text>
+      </view>
+    </view>
+
+    <view class="haveClassBody" style="display:{{haveClassDis2}}">
+      <view class="haveClassTable">
+        <view wx:for="{{detailedList}}" wx:key="{{index}}" class="item '{{'item'+index}}'">
+
+          <view bindtap='addDetailedDetails' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
+
+            <text class='item-num' data-index="{{index}}" data-item="{{item}}">{{index+1}}、</text>
+            <view class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.Name}}</view>
+          </view>
+          <image bindtap='editDetaileInfo' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+
+        </view>
+      </view>
+    </view>
+
+    <button class="addNewClass" bindtap='addNewDetailed'>
+      <image class="addNewClass-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
+      <text>添加清单名称</text>
+    </button>
+
+  </scroll-view>
+
+  <view class='tabBar'>
+    <view class="noticeListBtn" bindtap='changeToNotice' style="background:{{!!noticeDis?'#54cbf0':'#fff'}};color:{{!!noticeDis?'#fff':'#000'}};">
+      <text>本周备忘</text>
+    </view>
+    <view class="detailedListBtn" bindtap='detailedList' style="background:{{!!noticeDis?'#fff':'#54cbf0'}};color:{{!!noticeDis?'#000':'#fff'}};">
+      <text>清单</text>
+    </view>
   </view>
+
+  <modal hidden="{{hiddenmodalput}}" title="保存清单名称" cancel-text="取消" confirm-text="保存" bindconfirm="handleConfirm" bindcancel="handleCancel">
+    <view class="modal">
+        <text>清单名称：</text>
+          <input type="text" data-index="{{index}}" placeholder="请输入清单名称" bindinput="detailedName" value='{{detailedName}}'/>
+      </view>
+  </modal>
+
 </view>

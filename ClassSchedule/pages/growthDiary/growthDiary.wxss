@@ -1,0 +1,255 @@
+/* pages/growthDiary /growthDiary .wxss */
+.container {
+  flex-direction:column;
+  padding: 0;
+}
+
+/************* 成长日记 **************/
+.growthDiaryBody .infoMain{
+  padding: 0 20rpx;
+}
+.info-items{
+  height:80rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding:0 40rpx; */
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.info-items:nth-child(1){
+  border-top: 2rpx solid #f0f0f0;
+}
+.info-items:nth-last-child(2){
+  border-bottom:2rpx solid #f0f0f0;
+}
+.title{
+  display: flex;
+  width: 262rpx;
+  height: 100%;
+  flex-direction: row;
+  align-items: center; 
+}
+.asterisk{
+  color: red;
+  font-size: 30rpx;
+  padding-top: 8rpx;
+  padding-right: 6rpx;
+}
+
+.infotext{
+  display: flex;
+  flex: 1;
+  height: 100%;
+  text-align: right;
+  line-height: 90rpx;
+}
+.infotext.faceBody,.infotext.weatherBody{
+ position: relative;
+}
+.info-motto{
+  width: 100%;
+  height: 100%;
+}
+
+.faceBody, .weatherBody{
+  justify-content:flex-end;
+  align-items: center;
+}
+
+.faceBody .text, .weatherBody .text{
+  color:#808080;
+}
+
+.faceBody .img, .faceBody .faceItem, .weatherBody .img, .weatherBody .weatherItem{
+  width: 60rpx;
+}
+.faceBody .positionList, .weatherBody .positionList{
+  position: absolute;
+  right: 0;
+  background: #fff;
+  display: none;
+}
+.faceBody .positionList{
+  width: 130%;
+}
+.weatherBody .positionList{
+  width: 100%;
+}
+
+.faceBody .positionList.width0, .weatherBody .positionList.width0{
+  display: none;
+}
+.faceBody .positionList.width100, .weatherBody .positionList.width100{
+  display: block;
+}
+
+.faceBody .positionList .faceList, .weatherBody .positionList .weatherList{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.diaryInput{
+  /* height:152rpx;  */
+  font-size: 30rpx;
+  padding: 28rpx;
+  margin: 0 auto;
+  margin-top: 20rpx;
+  border:2rpx solid #e4e4e4;
+  border-radius: 10rpx;
+  overflow: hidden;   
+}
+
+.detailEdit{
+  padding-top: 30rpx;
+}
+.radio-group .radio:nth-child(1){
+  padding-right: 30rpx;
+}
+
+.diaryImg{
+  position: relative;
+  margin-top:20rpx;
+}
+.imgList{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom:20rpx
+}
+.imgItemBody{
+  margin: 10rpx;
+}
+.imgItemBody, .imgItem{
+  width: 200rpx;
+  height: 200rpx;
+}
+.releaseBtn{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 150rpx;
+  height: 150rpx;
+  line-height: 150rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 40rpx;
+  border-radius: 50%;
+  background-color: #ff5555;
+}
+
+.uploadImg{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:150rpx;
+  height:150rpx;
+  border:2rpx solid #cccccc;
+  border-radius: 10rpx;
+}
+.uploadImg .plusIco{
+  width:70rpx;
+  height:70rpx;
+}
+
+/************* 美好时光 **************/
+/* 无数据 */
+.noClassTable {
+  margin-bottom: 80rpx; 
+}
+.noClassTableBody {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.noClassTable .noClass-img {
+  width: 400rpx;
+  height: 400rpx;
+  margin: 50rpx 0;
+}
+
+/* 有数据 */
+.haveClassBody {
+  width: 100%;
+  margin: 0auto;
+}
+.haveClassTable {
+  width: 100%;
+}
+.item {
+  display: flex;
+  align-items:center;
+  height: 236rpx;
+  font-size: 36rpx;
+  overflow: hidden;
+  border-top: 20rpx solid #eee;
+  padding: 10rpx 0;
+}
+.item:last-child {
+  border-bottom: 20rpx solid #eee;
+}
+
+.item .itemLeft{
+  width: 50%;
+  /* height: 100%; */
+  border: 10rpx solid #fff;
+}
+.item .itemLeft .item-icon{
+  width: 100%;
+  height: 230rpx；
+}
+
+.item .itemRight{
+  width: 50%;
+  height:100%;
+  overflow-wrap:break-word;
+}
+
+.itemRight .itemRightTop{
+  padding-bottom: 10rpx; 
+  margin-bottom: 10rpx;
+  border-bottom: 2rpx solid #eee;
+}
+.itemRight .itemRightBottom{
+  width: 100%;
+}
+
+/* tabBar */
+.tabBar{
+  display: flex;
+  border-top: 2rpx solid #d1d1d1;
+}
+.tabBar view{
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  text-align:center;
+  font-size:30rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border: 2rpx solid #d1d1d1;
+  border-top: none;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  margin-right: 6rpx;
+}
+
+.modal{
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #000;
+  padding: 50rpx 0;
+  /* border-top: 2rpx solid #d1d1d1; */
+  /* border-bottom: 2rpx solid #d1d1d1; */
+}
+.modal input{
+  flex: 1;
+  padding: 0 10rpx;
+  border: 2rpx solid #d1d1d1;
+  margin: 0 10rpx;
+}

@@ -7,19 +7,19 @@
 
         <view class="item noChanged">
           <view bindtap='commonLogin' data-type="-1" style="{{item.txtStyle}}" class="inner txt">
-            <text class="item-text" data-type="-1" >家庭课程表</text>
+            <text class="item-text" data-type="-1" >家庭账户</text>
             <image class="item-next" data-type="-1"  mode="widthFix" src="../../imgs/setting/next.png"></image>
           </view>
         </view>
 
         <view class="item noChanged">
           <view bindtap='commonLogin' data-type="-2"  style="{{item.txtStyle}}" class="inner txt">
-            <text class="item-text" data-type="-2" >班级课程表</text>
+            <text class="item-text" data-type="-2" >班级账户</text>
             <image class="item-next" data-type="-2"  mode="widthFix" src="../../imgs/setting/next.png"></image>
           </view>
         </view>
 
-        <view wx:for="{{list}}" wx:key="{{index}}" class="item isChanged '{{'item'+index}}'">
+        <!-- <view wx:for="{{list}}" wx:key="{{index}}" class="item isChanged '{{'item'+index}}'">
 
           <view bindtap='commonLogin' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
             <text class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.Name}}</text>
@@ -29,14 +29,14 @@
           <view class='item-edit' bindtap='editInfo' data-index="{{index}}" data-item="{{item}}">
             <image bindtap='editInfo' data-index="{{index}}" data-item="{{item}}" class="item-edit-png" mode="widthFix" src="../../imgs/setting/edit.png"></image>
           </view>
-        </view>
+        </view> -->
       </view>
     </view>
 
-    <button class="addNewClass" bindtap='addNewClass'>
+    <!-- <button class="addNewClass" bindtap='addNewClass'>
       <image class="addNewClass-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
       <text>新建公共课程表</text>
-    </button>
+    </button> -->
 
   </view>
 </view>

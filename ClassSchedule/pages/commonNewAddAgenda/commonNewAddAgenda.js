@@ -38,8 +38,8 @@ Page({
         name: '每周这个时段'
       }
     ],
-    frequencyValue: 2,
-    frequencyId: 3,
+    frequencyValue: 0,
+    frequencyId: 1,
 
     //课程类型
     typeD: ['学校正课 ', '课外班', '其他'],
@@ -67,35 +67,35 @@ Page({
     //提醒时间
     remind: ['无', '准时', '提前十分钟', '提前半小时', '提前两小时', '提前一天'],
     remindList: [{
-      id: 0,
-      name: '无',
-      time: '-9999'
-    },
-    {
-      id: 1,
-      name: '准时',
-      time: '0'
-    },
-    {
-      id: 2,
-      name: '提前十分钟',
-      time: '10'
-    },
-    {
-      id: 3,
-      name: '提前半小时',
-      time: '30'
-    },
-    {
-      id: 4,
-      name: '提前两小时',
-      time: '120'
-    },
-    {
-      id: 5,
-      name: '提前一天',
-      time: '1440'
-    }
+        id: 0,
+        name: '无',
+        time: '-9999'
+      },
+      {
+        id: 1,
+        name: '准时',
+        time: '0'
+      },
+      {
+        id: 2,
+        name: '提前十分钟',
+        time: '10'
+      },
+      {
+        id: 3,
+        name: '提前半小时',
+        time: '30'
+      },
+      {
+        id: 4,
+        name: '提前两小时',
+        time: '120'
+      },
+      {
+        id: 5,
+        name: '提前一天',
+        time: '1440'
+      }
     ],
     remindValue: 0,
     RemindTime: '-9999',
@@ -106,8 +106,9 @@ Page({
     voiceURL: '../../imgs/accredit/voice.png',
     recording: false,  // 正在录音
     recordStatus: 0,
-    isPopDis: false,
+    isPopDis: false
   },
+  
   onLoad: function (options) {
     let that = this;
 
@@ -119,12 +120,27 @@ Page({
       let classTime = options.date.split('-').join('/') + ' ' + this.data.startTime,
         classTimestamp = Date.parse(classTime)
 
-      that.setData({
-        date: options.date,
-        publicCourseInfoID: options.publicCourseInfoID,
-        publicCourseTypeID: options.publicCourseTypeID,
-        isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
-      })
+      if (!!options.isFrom && options.isFrom == 'BatchAdd') {
+        that.setData({
+          date: options.date,
+          publicCourseInfoID: options.publicCourseInfoID,
+          publicCourseTypeID: options.publicCourseTypeID,
+          isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false,
+          isFrom: options.isFrom,
+          className: options.courseName,
+          index: options.index,
+          classindex: options.classindex,
+          listName: options.listName
+        })
+      } else {
+        that.setData({
+          date: options.date,
+          publicCourseInfoID: options.publicCourseInfoID,
+          publicCourseTypeID: options.publicCourseTypeID,
+          isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false,
+          isFrom: options.isFrom
+        })
+      }
     }
 
     this.initRecord()
@@ -144,6 +160,7 @@ Page({
       schoolName: e.detail.value
     })
   },
+     
   //点击开始时间组件确定事件  
   bindStartTimeChange: function (e) {
     let startTime = e.detail.value,
@@ -265,7 +282,8 @@ Page({
       }
     })
   },
-  //保存
+
+    //保存
   save: function (e) {
     let that = this,
       data = this.data,
@@ -308,105 +326,122 @@ Page({
     //   return
     // }
 
-    if (!!data.ID) {
-      wx.request({
-        url: that.data.url + '/Course/Update',
-        data: query,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function (res) {
-          if (res.data.Result == '800') {
-            wx.showToast({
-              title: '当前时间已经有其他安排，请重新选择时间',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            return
-          } else if (res.data.Result == '500') {
-            wx.showToast({
-              title: '当前服务器异常，请稍后再试',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            return
-          }
+    if (!!data.isFrom && data.isFrom == 'BatchAdd') {
+      query.index = data.index
+      query.classindex = data.classindex
+      query.listName = data.listName
 
-          wx.request({
-            url: that.data.url + '/WeChatAppAuthorize/GetToken',
-            data: {},
-            success: function (res) {
+      let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
+      let prevPage = pages[pages.length - 2];
 
-              let data = JSON.parse(res.data.Data)
+      prevPage.setData({
+        tempObj: query
+      })
 
-              if (that.data.RemindTime != '-9999') {
-                // that.setInfoTemplate(e.detail.formId, data.access_token)
-
-                wx.navigateBack({
-                  delta: 1
-                })
-              } else {
-                wx.navigateBack({
-                  delta: 1
-                })
-              }
-            }
-          })
-        }
+      wx.navigateBack({
+        delta: 1
       })
     } else {
-      wx.request({
-        url: that.data.url + '/Course/Add', //仅为示例，并非真实的接口地址
-        data: query,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function (res) {
-          if (res.data.Result == '800') {
-            wx.showToast({
-              title: '当前时间已经有其他安排，请重新选择时间',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            return
-          } else if (res.data.Result == '500') {
-            wx.showToast({
-              title: '当前服务器异常，请稍后再试',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            return
-          }
-
-          wx.request({
-            url: that.data.url + '/WeChatAppAuthorize/GetToken',
-            data: {},
-            success: function (res) {
-
-              let data = JSON.parse(res.data.Data)
-
-              if (that.data.RemindTime != '-9999') {
-                // that.setInfoTemplate(e.detail.formId, data.access_token)
-
-                wx.navigateBack({
-                  delta: 1
-                })
-              } else {
-                wx.navigateBack({
-                  delta: 1
-                })
-              }
+      if (!!data.ID) {
+        wx.request({
+          url: that.data.url + '/Course/Update',
+          data: query,
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function (res) {
+            if (res.data.Result == '800') {
+              wx.showToast({
+                title: '当前时间已经有其他安排，请重新选择时间',
+                icon: 'none',
+                duration: 1500,
+                mask: true
+              })
+              return
+            } else if (res.data.Result == '500') {
+              wx.showToast({
+                title: '当前服务器异常，请稍后再试',
+                icon: 'none',
+                duration: 1500,
+                mask: true
+              })
+              return
             }
-          })
-        }
-      })
+
+            wx.request({
+              url: that.data.url + '/WeChatAppAuthorize/GetToken',
+              data: {},
+              success: function (res) {
+
+                let data = JSON.parse(res.data.Data)
+
+                if (that.data.RemindTime != '-9999') {
+                  // that.setInfoTemplate(e.detail.formId, data.access_token)
+
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                } else {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
+              }
+            })
+          }
+        })
+      } else {
+        wx.request({
+          url: that.data.url + '/Course/Add', //仅为示例，并非真实的接口地址
+          data: query,
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function (res) {
+            if (res.data.Result == '800') {
+              wx.showToast({
+                title: '当前时间已经有其他安排，请重新选择时间',
+                icon: 'none',
+                duration: 1500,
+                mask: true
+              })
+              return
+            } else if (res.data.Result == '500') {
+              wx.showToast({
+                title: '当前服务器异常，请稍后再试',
+                icon: 'none',
+                duration: 1500,
+                mask: true
+              })
+              return
+            }
+
+            wx.request({
+              url: that.data.url + '/WeChatAppAuthorize/GetToken',
+              data: {},
+              success: function (res) {
+
+                let data = JSON.parse(res.data.Data)
+
+                if (that.data.RemindTime != '-9999') {
+                  // that.setInfoTemplate(e.detail.formId, data.access_token)
+
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                } else {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
+              }
+            })
+          }
+        })
+      }
     }
   },
-
+  
   //设置消息提醒模板
   setInfoTemplate: function (formId, access_token) {
     var that = this;
@@ -414,7 +449,8 @@ Page({
     var messageDemo = {
       touser: openId,//openId   
       template_id: '1fubB0p5PAMlP_o5P1R93-35W_TCa2plZTpPogGn87w',//模板消息id，  
-      // page: 'pages/setAgenda/setAgenda?childrenID=' + this.data.childrenID + '&date=' + this.data.date + '&ID=' + this.data.ID,//点击详情时跳转的主页
+      //page: 'pages/setAgenda/setAgenda?childrenID=' + this.data.childrenID + '&date=' + this.data.date + '&ID=' + this.data.ID,//点击详情时跳转的主页 失败原因是此时无法获取课程ID
+      page: 'pages/login/login',//点击详情时跳转的主页
       form_id: formId,//formId
       data: {//下面的keyword*是设置的模板消息的关键词变量  
         "keyword1": {
@@ -474,30 +510,38 @@ Page({
           remindList = that.data.remindList,
           remindItem = remindList.filter(o => { return o.time == data.RemindTime }),
           classTime = options.date.split('-').join('/') + ' ' + data.StartTime.split(' ')[1],
-          classTimestamp = Date.parse(classTime)
+          classTimestamp = Date.parse(classTime),
+          obj = {
+            date: options.date,
+            publicCourseInfoID: options.publicCourseInfoID,
+            publicCourseTypeID: options.publicCourseTypeID,
+            ID: options.ID,
+            BatchID: data.BatchID,
+            className: data.CourseName ? data.CourseName : '', //课程名称
+            schoolName: data.SchoolName ? data.SchoolName : '', //学校名称
+            startTime: data.StartTime.split(' ')[1], //开始时间
+            endTime: data.EndTime.split(' ')[1], //结束时间
+            frequencyValue: Number(data.Frequency) - 1,//课程频率
+            frequencyId: data.Frequency,//课程频率id
+            typeValue: Number(data.CourseType) - 1,//课程类型
+            typeId: data.CourseType,//课程类型id
+            address: data.Address ? data.Address : '', //地址
+            teacher: data.Teacher ? data.Teacher : '', //老师姓名
+            phone: data.Phone ? data.Phone : '', //联系方式
+            remindValue: !!remindItem[0] ? remindItem[0].id : 0,//提醒
+            RemindTime: !!data.RemindTime ? data.RemindTime : -9999,//提醒
+            remark: !!data.Remarks ? data.Remarks : '',//备注
+            isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
+          }
 
-        that.setData({
-          date: options.date,
-          publicCourseInfoID: options.publicCourseInfoID,
-          publicCourseTypeID: options.publicCourseTypeID,
-          ID: options.ID,
-          BatchID: data.BatchID,
-          className: data.CourseName, //课程名称
-          schoolName: data.SchoolName, //学校名称
-          startTime: data.StartTime.split(' ')[1], //开始时间
-          endTime: data.EndTime.split(' ')[1], //结束时间
-          frequencyValue: Number(data.Frequency) - 1,//课程频率
-          frequencyId: data.Frequency,//课程频率id
-          typeValue: Number(data.CourseType) - 1,//课程类型
-          typeId: data.CourseType,//课程类型id
-          address: data.Address ? data.Address : '', //地址
-          teacher: data.Teacher ? data.Teacher : '', //老师姓名
-          phone: data.Phone ? data.Phone : '', //联系方式
-          remindValue: remindItem[0].id,//提醒
-          RemindTime: data.RemindTime,//提醒
-          remark: !!data.Remarks ? data.Remarks : '',//备注
-          isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
-        })
+        if (!!options.isFrom && options.isFrom == 'BatchAdd') {
+          obj.isFrom = options.isFrom
+          obj.index = options.index
+          obj.classindex = options.classindex
+          obj.listName = options.listName
+        }
+
+        that.setData(obj)
       }
     })
   },

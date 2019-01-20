@@ -1,0 +1,330 @@
+/* pages/commonClassAddClass/commonClassAddClass.wxss */
+.container{
+  padding: 0;
+}
+.calendarBody {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.classTop{
+  padding: 10rpx;
+}
+.classList{
+  display:flex;
+  flex:1;
+  flex-wrap:wrap;
+}
+.class-item{
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  margin: 10rpx;
+  border: 2rpx solid #d1d1d1;
+  border-radius: 12rpx;
+}
+.commonColor{
+  background-color: #54cbf0;
+  color: #fff;
+}
+.specialColor1{
+  background-color: #782878;
+  color: #ffffff;
+}
+.specialColor2{
+  background-color: #c00000;
+  color: #ffffff;
+}
+.specialColor3{
+  background-color:  #538035;
+  color: #ffffff;
+}
+.tips{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+}
+
+.tips .class-item{
+  color:#fff;
+  background:#782878;
+}
+
+
+.calendar-week{
+  display: flex;
+  align-items: center;
+  border-top: 2rpx solid #d1d1d1;
+  border-bottom: 2rpx solid #d1d1d1;
+}
+.month{
+  width: 52rpx;
+  text-align: center;
+  /* height: 20rpx; */
+}
+
+.week-list {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.week-list .week-item {
+  display: flex;
+  /* flex-grow:1; */
+  border-right: 2rpx solid #d1d1d1;
+}
+.week-list .week-item:nth-child(1){
+  border-left: 2rpx solid #d1d1d1;
+}
+.week-list .week-item:nth-last-child(1){
+  border-right: none;
+}
+
+/* .lastDate {
+  color: #000 !important;
+  background: #f5f5f5 !important;
+} */
+
+.isToday {
+  color: #fff !important;
+  background: #54cbf0 !important;
+}
+
+.week-list .week-item .week-item-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.week-item-body text {
+  width: 100%;
+  padding: 10rpx 0;
+  text-align: center;
+}
+
+.week-item-body text:nth-child(1){
+  border-bottom: 2rpx solid #d1d1d1;
+}
+
+.week-item-body .today {
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #fff;
+  border: 2rpx solid #fff;
+  border-radius: 50%;
+}
+
+.week-selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20rpx;
+}
+
+
+.tab-scroll {
+  display: flex;
+  flex: 1;
+  z-index: 10;
+  background-color: #fff;
+}
+
+.tab-container {
+  display:flex;
+  flex:1;
+  flex-direction: row;
+  /* position: relative; */
+}
+
+.tab-divide {
+  background-color:#f6f6f6;
+  color:#7A7D80;
+}
+
+.tab-divide-item {
+  width: 52rpx;
+  height: 120rpx;/* 80rpx; */
+  font-size: 24rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2rpx solid #d1d1d1;
+  border-right: 2rpx solid #d1d1d1;
+  box-sizing: border-box;
+}
+
+.tab-divide .tab-divide-item:nth-last-child(1){
+  border-bottom: none;
+}
+
+.tab-divide-item text {
+  width: 24rpx;
+  line-height: 1.5;
+}
+
+.tab-body{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  position: relative;
+  /* border-bottom:2rpx solid #d1d1d1; */
+}
+
+.morning, .afternoon, .night{
+  display: flex;
+  /* flex: 1; */
+  flex-direction: column;
+}
+
+.morningClass, .afternoonClass, .nightClass{
+  display: flex;
+}
+
+.morningClassBody, .afternoonClassBody, .nightClassBody{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.rowClass{
+  display: flex;
+  flex-direction: row;
+}
+.cloumnClass{
+  height: 120rpx;/* 80rpx; */
+  text-align: center;
+}
+.courseBody{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height: 100rpx;/* 60rpx; */
+  /* line-height: 100rpx;60rpx; */
+  margin: 10rpx;
+  border-radius: 10rpx;
+}
+.courseBody.plus{
+  font-size: 36rpx;
+}
+
+/* 课程操作按钮 */
+.classEdit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx 20rpx;
+  border-top: 2rpx solid #d1d1d1;
+  border-bottom: 2rpx solid #d1d1d1;
+}
+
+.classEdit button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  height: 50rpx;
+  background: #f5f5f5;
+  margin: 0 10rpx;
+}
+
+/* .tab-section {
+  background-color:#f6f6f6;
+  color:#18191A;
+} */
+
+/* .tab-section-divide {
+  width: 53rpx;
+  height: 400rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2rpx solid #d1d1d1;
+  box-sizing: border-box;
+} */
+
+/* .tab-section-item {
+  width: 53rpx;
+  height: 100rpx;
+  font-size: 24rpx;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+} */
+
+.tab-line-column {
+  display:flex;
+  flex-grow:1;
+  border-right:2rpx solid #d1d1d1;
+}
+.tab-line-column:nth-child(7){
+  border-right: none;
+}
+
+.tab-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2rpx;
+  background-color:#d1d1d1;
+  /* margin-top: -2rpx; */
+}
+
+.course-item {
+  position: absolute;
+  width: 96rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.course-item-inner {
+  width: 100%;
+}
+.course-item-inner-body{
+  width: 100%;
+  border-radius: 6rpx;
+  font-size: 24rpx;
+  color: #fff;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+}
+.course-item-inner-body text{
+  width: 100%;
+}
+.course-item-inner-body text:not(:last-child) {
+  margin-bottom: 6rpx;
+}
+
+
+/* 操作按钮 */
+.editBtn {
+  display: flex;
+  padding: 10rpx 0;
+}
+
+.editBtn button {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  height: 60rpx;
+  background: #f5f5f5;
+  margin: 0 10rpx;
+}
+
+.editBtn button.save{
+  color: #fff;
+  background-color: #54cbf0;
+}

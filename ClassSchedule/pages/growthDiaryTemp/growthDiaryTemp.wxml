@@ -1,0 +1,34 @@
+<!--pages/growthDiaryTemp/growthDiaryTemp.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="img">
+        <image class="pic" src="{{!!query.Img[0]?query.Img[0].url:'/imgs/accredit/pic4.jpg'}}" mode="scaleToFill"></image>
+      </view>
+
+      <view class="details">
+        <view class="date">
+          {{query.CreateTime || currentDate}}
+        </view>
+        <view class="mood">
+          <image class="img" src="{{query.Mood}}" mode="widthFix"></image>
+        </view>
+        <view class="wether">
+          <image class="img" src="{{query.Weather}}" mode="widthFix"></image>
+        </view>
+      </view>
+
+      <view class="diaryContent">
+        {{query.Content}}
+      </view>
+
+    </view>
+
+    <view class="btn">
+      <button bindtap="update" class="updateBtn"> 修改 </button>
+      <button bindtap="save" class="saveBtn"> 保存 </button>
+    </view>
+
+  </view>
+</view>

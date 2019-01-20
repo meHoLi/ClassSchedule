@@ -1,0 +1,51 @@
+<!--pages/addDetailedDetails/addDetailedDetails.wxml-->
+<view class="container">
+  <view class="classList detailedList">
+    
+    <view class='detailedListName'>
+      {{name}}
+    </view>
+
+    <view class='noClassTable' style="display:{{noClassDis}}">
+      <view class='noClassTableBody'>
+        <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+        <text class="login-accredit-text">当前还没有清单明细，请先添加哦~</text>
+      </view>
+    </view>
+
+    <view class="haveClassBody" style="display:{{haveClassDis}}">
+      <view class="haveClassTable">
+        <view wx:for="{{detailedList}}" wx:key="{{index}}" class="item '{{'item'+index}}'">
+
+          <view data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
+
+            <text class='item-num' data-index="{{index}}" data-item="{{item}}">{{index+1}}、</text>
+            <view class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.MemorandumContent}}</view>
+          </view>
+          <image bindtap='editDetaileInfo' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+
+        </view>
+      </view>
+    </view>
+
+    <view class='editBtn'>
+      <button class="addNewClass" bindtap='addNewDetailed'>
+        <image class="addSchedule-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
+        <text>添加一行</text>
+      </button>
+      <button class="import-class" bindtap='delAllDetailed'>
+        <text>删除整个清单</text>
+      </button>
+    </view>
+
+
+  </view>
+
+  <modal hidden="{{hiddenmodalput}}" title="保存清单" cancel-text="取消" confirm-text="保存" bindconfirm="handleConfirm" bindcancel="handleCancel">
+    <view class="modal">
+      <text>清单明细：</text>
+      <input type="text" data-index="{{index}}" placeholder="请输入清单明细" bindinput="detailedName" value='{{detailedName}}' />
+    </view>
+  </modal>
+
+</view>

@@ -1,0 +1,74 @@
+/* pages/bonusPointsExchange/bonusPointsExchange.wxss */
+.container{
+  /* background: #f3f4f6; */
+}
+.info-cont {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between;
+}
+
+.head{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-bottom: 20rpx;
+}
+
+.clockDetails{
+  background: #fff;
+  padding: 16rpx;
+  border-radius:6rpx;
+  margin: 20rpx 0;
+}
+
+.clockDetails .detailItem{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.clockDetails .detailItem:nth-last-child(1){
+  margin-bottom: 0;
+}
+.detailItem{
+  padding: 10rpx 0;
+}
+.detailTitle{
+  width: 250rpx;
+}
+.detailEdit{
+  display: flex;
+  flex: 1;
+}
+
+.detailEdit input{
+  flex: 1;
+  padding:0 16rpx;
+  border:1px solid #c3c3c3;
+  border-radius:3px;
+}
+
+.switchBtn{
+  margin-right: 10rpx;
+}
+
+/* 编辑按钮 */
+.btn{
+  display: flex;
+  flex-direction: row;
+  margin: 20rpx 0;
+}
+ .btn>button,.btn .saveBtn{
+  flex-grow: 1;
+} 
+.btn .cancelBtn,.btn .delBtn{
+  background: #fff;
+  margin-right: 16rpx;
+}
+.btn .saveBtn{
+  color: #fff;
+  background: #54cbf0;
+}

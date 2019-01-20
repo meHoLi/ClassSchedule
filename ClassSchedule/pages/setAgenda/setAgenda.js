@@ -16,11 +16,11 @@ Page({
     url: app.globalData.url ? app.globalData.url : 'https://www.xiaoshangbang.com',
     date: '',//currentDate,
 
-    className: '', //课程名称
-    schoolName: '', //学校名称
+    CourseName: '', //课程名称
+    SchoolName: '', //学校名称
 
-    startTime: '07:00', //开始时间
-    endTime: '08:00', //结束时间
+    StartTime: '07:00', //开始时间
+    EndTime: '08:00', //结束时间
 
     //课程频率
     frequency: ['仅今天', '每天这个时段', '每周这个时段'],
@@ -31,11 +31,11 @@ Page({
       },
       {
         id: 2,
-        name: '准时'
+        name: '每天这个时段'
       },
       {
         id: 3,
-        name: '提前十分钟'
+        name: '每周这个时段'
       }
     ],
     frequencyValue: 0,
@@ -60,9 +60,9 @@ Page({
     typeValue: 0,
     typeId: 1,
 
-    address: '', //地址
-    teacher: '', //老师姓名
-    phone: '', //联系方式
+    Address: '', //地址
+    Teacher: '', //老师姓名
+    Phone: '', //联系方式
 
     //提醒时间
     remind: ['无', '准时', '提前十分钟', '提前半小时', '提前两小时', '提前一天'],
@@ -100,7 +100,7 @@ Page({
     remindValue: 0,
     RemindTime: '-9999',
 
-    remark: '', //备注
+    Remarks: '', //备注
     isShowEditBtn: true,
 
     voiceURL: '../../imgs/accredit/voice.png',
@@ -109,22 +109,60 @@ Page({
     isPopDis: false
   },
   onLoad: function(options) {
-    console.log('onLoad113:',options)
     let that = this;
 
     wx.hideShareMenu()
 
-    if (!!options.ID) {
-      that.setAgendaData(options)
-    } else {
-      let classTime = options.date.split('-').join('/') + ' ' + this.data.startTime,
-        classTimestamp = Date.parse(classTime) 
+    if (!!options.isFrom && options.isFrom == 'BatchAdd'){debugger
+      let classTime = options.date.split('-').join('/') + ' ' + this.data.StartTime,
+        classTimestamp = Date.parse(classTime),
+        classItem = JSON.parse(options.classItem)
 
-      that.setData({
-        date: options.date,
-        childrenID: options.childrenID,
-        isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
-      })
+
+      let remindList = that.data.remindList,
+        remindItem = remindList.filter(o => { return o.time == classItem.RemindTime }),
+
+        obj = {
+          date: options.date,
+          childrenID: options.childrenID,
+          ID: classItem.ID,
+          BatchID: classItem.BatchID,
+          CourseName: classItem.CourseName ? classItem.CourseName : '', //课程名称
+          SchoolName: classItem.SchoolName ? classItem.SchoolName : '', //学校名称
+          StartTime: classItem.StartTime.split(' ')[1], //开始时间
+          EndTime: classItem.EndTime.split(' ')[1], //结束时间
+          frequencyValue: Number(classItem.Frequency) - 1,//课程频率
+          frequencyId: classItem.Frequency,//课程频率id
+          typeValue: Number(classItem.CourseType) - 1,//课程类型
+          typeId: classItem.CourseType,//课程类型id
+          Address: classItem.Address ? classItem.Address : '', //地址
+          Teacher: classItem.Teacher ? classItem.Teacher : '', //老师姓名
+          Phone: classItem.Phone ? classItem.Phone : '', //联系方式
+          remindValue: !!remindItem[0] ? remindItem[0].id : 0,//提醒
+          RemindTime: !!classItem.RemindTime ? classItem.RemindTime : -9999,//提醒
+          Remarks: !!classItem.Remarks ? classItem.Remarks : '',//备注
+          isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false,
+
+          isFrom: options.isFrom,
+          index: options.index,
+          classindex: options.classindex,
+          listName: options.listName
+        };
+      that.setData(obj)
+    }else{
+      if (!!options.ID){
+        that.setAgendaData(options)
+      }else{
+        let classTime = options.date.split('-').join('/') + ' ' + this.data.StartTime,
+          classTimestamp = Date.parse(classTime) 
+          
+        that.setData({
+          date: options.date,
+          childrenID: options.childrenID,
+          isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false,
+          isFrom: options.isFrom
+        })
+      }
     }
 
     this.initRecord()
@@ -133,35 +171,35 @@ Page({
   },
 
   //录入课程
-  setClassNameInput: function(e) {
+  setCourseNameInput: function(e) {
     this.setData({
-      className: e.detail.value
+      CourseName: e.detail.value
     })
   },
   //录入学校
   setSchoolNameInput: function(e) {
     this.setData({
-      schoolName: e.detail.value
+      SchoolName: e.detail.value
     })
   },
   //点击开始时间组件确定事件  
   bindStartTimeChange: function(e) {
-    let startTime = e.detail.value,
-      strtHour = Number(startTime.split(':')[0]) + 1,
-      endTime = strtHour < 10 ? '0' + strtHour + ':00' : (strtHour == 24 ? '23:59' : strtHour + ':00'),
-      classTime = this.data.date.split('-').join('/') + ' ' + startTime,
+    let StartTime = e.detail.value,
+      strtHour = Number(StartTime.split(':')[0]) + 1,
+      EndTime = strtHour < 10 ? '0' + strtHour + ':00' : (strtHour == 24 ? '23:59' : strtHour + ':00'),
+      classTime = this.data.date.split('-').join('/') + ' ' + StartTime,
       classTimestamp = Date.parse(classTime)
 
     this.setData({
-      startTime: e.detail.value,
-      endTime: endTime,
+      StartTime: e.detail.value,
+      EndTime: EndTime,
       isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
     })
   },
   //点击结束时间组件确定事件  
   bindEndTimeChange: function(e) {
     this.setData({
-      endTime: e.detail.value
+      EndTime: e.detail.value
     })
   },
   //选择课程频率
@@ -185,19 +223,19 @@ Page({
   //录入地址
   setAddressInput: function(e) {
     this.setData({
-      address: e.detail.value
+      Address: e.detail.value
     })
   },
   //录入老师
   setTeacherInput: function(e) {
     this.setData({
-      teacher: e.detail.value
+      Teacher: e.detail.value
     })
   },
   //录入联系方式
   setTelPhoneInput: function(e) {
     this.setData({
-      phone: e.detail.value
+      Phone: e.detail.value
     })
   },
   //选择提醒方式
@@ -212,7 +250,7 @@ Page({
   //录入备注
   setRemarkInput: function(e) {
     this.setData({
-      remark: e.detail.value
+      Remarks: e.detail.value
     })
   },
 
@@ -247,20 +285,20 @@ Page({
 
         that.setData({
           ID: null,
-          className: '', //课程名称
-          schoolName: '', //学校名称
-          startTime: '07:00', //开始时间
-          endTime: '08:00', //结束时间
+          CourseName: '', //课程名称
+          SchoolName: '', //学校名称
+          StartTime: '07:00', //开始时间
+          EndTime: '08:00', //结束时间
           frequencyValue: 0,//课程频率
           frequencyId: 1,//课程频率id
           typeValue: 0,//课程类型
           typeId: 1,//课程类型id
-          address: '', //地址
-          teacher: '', //老师姓名
-          phone: '', //联系方式
+          Address: '', //地址
+          Teacher: '', //老师姓名
+          Phone: '', //联系方式
           remindValue: 0,
           RemindTime: '-9999',
-          remark: '' //备注
+          Remarks: '' //备注
         })
 
         wx.showToast({
@@ -284,17 +322,17 @@ Page({
         ID: data.ID,
         BatchID: data.BatchID,
         ChildrenID: data.childrenID,
-        CourseName: data.className,
-        SchoolName: data.schoolName,
-        StartTime: data.date + ' ' + data.startTime,
-        EndTime: data.date + ' ' + data.endTime,
+        CourseName: data.CourseName,
+        SchoolName: data.SchoolName,
+        StartTime: data.date + ' ' + data.StartTime,
+        EndTime: data.date + ' ' + data.EndTime,
         Frequency: 1,
         CourseType: data.typeId,
-        Address: data.address,
-        Teacher: data.teacher,
-        Phone: data.phone,
+        Address: data.Address,
+        Teacher: data.Teacher,
+        Phone: data.Phone,
         RemindTime: data.RemindTime,
-        Remarks: data.remark
+        Remarks: data.Remarks
       }
 
     wx.request({
@@ -338,20 +376,20 @@ Page({
 
             that.setData({
               ID: null,
-              className: '', //课程名称
-              schoolName: '', //学校名称
-              startTime: '07:00', //开始时间
-              endTime: '08:00', //结束时间
+              CourseName: '', //课程名称
+              SchoolName: '', //学校名称
+              StartTime: '07:00', //开始时间
+              EndTime: '08:00', //结束时间
               frequencyValue: 0,//课程频率
               frequencyId: 1,//课程频率id
               typeValue: 0,//课程类型
               typeId: 1,//课程类型id
-              address: '', //地址
-              teacher: '', //老师姓名
-              phone: '', //联系方式
+              Address: '', //地址
+              Teacher: '', //老师姓名
+              Phone: '', //联系方式
               remindValue: 0,
               RemindTime: '-9999',
-              remark: '' //备注
+              Remarks: '' //备注
             })
 
             wx.showToast({
@@ -370,7 +408,7 @@ Page({
 
 
   //保存
-  save: function(e) {
+  save: function(e) {debugger
     let that = this,
       data = this.data,
       query = {
@@ -380,17 +418,17 @@ Page({
         ID: data.ID,
         BatchID: data.BatchID,
         ChildrenID: data.childrenID,
-        CourseName: data.className,
-        SchoolName: data.schoolName,
-        StartTime: data.date + ' ' +data.startTime,
-        EndTime: data.date + ' ' +data.endTime,
+        CourseName: data.CourseName,
+        SchoolName: data.SchoolName,
+        StartTime: data.date + ' ' + data.StartTime,
+        EndTime: data.date + ' ' + data.EndTime,
         Frequency: data.frequencyId,
         CourseType: data.typeId,
-        Address: data.address,
-        Teacher: data.teacher,
-        Phone: data.phone,
+        Address: data.Address,
+        Teacher: data.Teacher,
+        Phone: data.Phone,
         RemindTime: data.RemindTime,
-        Remarks: data.remark
+        Remarks: data.Remarks
       }
     
     if (!query.CourseName){
@@ -402,112 +440,119 @@ Page({
       })
       return
     } 
-    // else if (!query.SchoolName) {
-    //   wx.showToast({
-    //     title: '请填写学校名称',
-    //     icon: 'none',
-    //     duration: 1000,
-    //     mask: true
-    //   })
-    //   return
-    // }
+    if (!!data.isFrom && data.isFrom == 'BatchAdd'){
+      query.index = data.index
+      query.classindex = data.classindex
+      query.listName = data.listName
 
-    if (!!data.ID) {
-      wx.request({
-        url: that.data.url + '/Course/Update',
-        data: query,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function (res) {
-          if (res.data.Result == '800') {
-            wx.showToast({
-              title: '当前时间已经有其他安排，请重新选择时间',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            return
-          } else if (res.data.Result == '500') {
-            wx.showToast({
-              title: '当前服务器异常，请稍后再试',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            return
-          }
+      let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
+      let prevPage = pages[pages.length - 2];
 
-          wx.request({
-            url: that.data.url + '/WeChatAppAuthorize/GetToken',
-            data: {},
-            success: function (res) {
-              
-              let data = JSON.parse(res.data.Data)
-
-              if (that.data.RemindTime != '-9999') {
-                that.setInfoTemplate(e.detail.formId, data.access_token)
-
-                wx.navigateBack({
-                  delta: 1
-                })
-              } else {
-                wx.navigateBack({
-                  delta: 1
-                })
-              }
-            }
-          })
-        }
+      prevPage.setData({  
+        tempObj: query
       })
-    } else {
-      wx.request({
-        url: that.data.url + '/Course/Add', //仅为示例，并非真实的接口地址
-        data: query,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function (res) {
-          if (res.data.Result == '800'){
-            wx.showToast({
-              title: '当前时间已经有其他安排，请重新选择时间',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            return
-          } else if (res.data.Result == '500'){
-            wx.showToast({
-              title: '当前服务器异常，请稍后再试',
-              icon: 'none',
-              duration: 1500,
-              mask: true
-            })
-            return
-          }
-
-          wx.request({
-            url: that.data.url + '/WeChatAppAuthorize/GetToken',
-            data: {},
-            success: function (res) {
-              
-              let data = JSON.parse(res.data.Data)
-              
-              if (that.data.RemindTime != '-9999'){
-                that.setInfoTemplate(e.detail.formId, data.access_token)
-
-                wx.navigateBack({
-                  delta: 1
-                })
-              }else{
-                wx.navigateBack({
-                  delta: 1
-                })
-              }
-            }
-          })
-        }
+      
+      wx.navigateBack({
+        delta: 1
       })
+    }else{
+      if (!!data.ID) {
+        wx.request({
+          url: that.data.url + '/Course/Update',
+          data: query,
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function (res) {
+            if (res.data.Result == '800') {
+              wx.showToast({
+                title: '当前时间已经有其他安排，请重新选择时间',
+                icon: 'none',
+                duration: 1500,
+                mask: true
+              })
+              return
+            } else if (res.data.Result == '500') {
+              wx.showToast({
+                title: '当前服务器异常，请稍后再试',
+                icon: 'none',
+                duration: 1500,
+                mask: true
+              })
+              return
+            }
+
+            wx.request({
+              url: that.data.url + '/WeChatAppAuthorize/GetToken',
+              data: {},
+              success: function (res) {
+
+                let data = JSON.parse(res.data.Data)
+
+                if (that.data.RemindTime != '-9999') {
+                  that.setInfoTemplate(e.detail.formId, data.access_token)
+
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                } else {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
+              }
+            })
+          }
+        })
+      } else {
+        wx.request({
+          url: that.data.url + '/Course/Add', //仅为示例，并非真实的接口地址
+          data: query,
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function (res) {
+            if (res.data.Result == '800') {
+              wx.showToast({
+                title: '当前时间已经有其他安排，请重新选择时间',
+                icon: 'none',
+                duration: 1500,
+                mask: true
+              })
+              return
+            } else if (res.data.Result == '500') {
+              wx.showToast({
+                title: '当前服务器异常，请稍后再试',
+                icon: 'none',
+                duration: 1500,
+                mask: true
+              })
+              return
+            }
+
+            wx.request({
+              url: that.data.url + '/WeChatAppAuthorize/GetToken',
+              data: {},
+              success: function (res) {
+
+                let data = JSON.parse(res.data.Data)
+
+                if (that.data.RemindTime != '-9999') {
+                  that.setInfoTemplate(e.detail.formId, data.access_token)
+
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                } else {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
+              }
+            })
+          }
+        })
+      }
     }
   },
 
@@ -523,16 +568,16 @@ Page({
       form_id: formId,//formId
       data: {//下面的keyword*是设置的模板消息的关键词变量  
         "keyword1": {
-          "value": this.data.date + ' ' + this.data.startTime
+          "value": this.data.date + ' ' + this.data.StartTime
         },
         "keyword2": {
-          "value": this.data.className
+          "value": this.data.CourseName
         },
         "keyword3": {
-          "value": this.data.teacher
+          "value": this.data.Teacher
         },
         "keyword4": {
-          "value": this.data.address
+          "value": this.data.Address
         }
       }
     }
@@ -542,7 +587,7 @@ Page({
       data: {
         accessToken: access_token,
         data: messageDemo,
-        StartTime: that.data.date + ' ' + that.data.startTime + ':00',
+        StartTime: that.data.date + ' ' + that.data.StartTime + ':00',
         RemindTime: that.data.RemindTime
       },
       header: {
@@ -579,29 +624,30 @@ Page({
           remindList = that.data.remindList,
           remindItem = remindList.filter(o =>{return o.time == data.RemindTime}),
           classTime = options.date.split('-').join('/') + ' ' + data.StartTime.split(' ')[1],
-          classTimestamp = Date.parse(classTime) 
-        
-        that.setData({
-          date: options.date,
-          childrenID: options.childrenID,
-          ID: options.ID,
-          BatchID: data.BatchID,
-          className: data.CourseName, //课程名称
-          schoolName: data.SchoolName, //学校名称
-          startTime: data.StartTime.split(' ')[1], //开始时间
-          endTime: data.EndTime.split(' ')[1], //结束时间
-          frequencyValue: Number(data.Frequency) - 1,//课程频率
-          frequencyId: data.Frequency,//课程频率id
-          typeValue: Number(data.CourseType) - 1,//课程类型
-          typeId: data.CourseType,//课程类型id
-          address: data.Address ? data.Address : '', //地址
-          teacher: data.Teacher ? data.Teacher : '', //老师姓名
-          phone: data.Phone ? data.Phone : '', //联系方式
-          remindValue: remindItem[0].id,//提醒
-          RemindTime: data.RemindTime,//提醒
-          remark: !!data.Remarks ? data.Remarks : '',//备注
-          isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
-        })
+          classTimestamp = Date.parse(classTime),
+          obj = {
+            date: options.date,
+            childrenID: options.childrenID,
+            ID: options.ID,
+            BatchID: data.BatchID,
+            CourseName: data.CourseName ? data.CourseName : '', //课程名称
+            SchoolName: data.SchoolName ? data.SchoolName : '', //学校名称
+            StartTime: data.StartTime.split(' ')[1], //开始时间
+            EndTime: data.EndTime.split(' ')[1], //结束时间
+            frequencyValue: Number(data.Frequency) - 1,//课程频率
+            frequencyId: data.Frequency,//课程频率id
+            typeValue: Number(data.CourseType) - 1,//课程类型
+            typeId: data.CourseType,//课程类型id
+            Address: data.Address ? data.Address : '', //地址
+            Teacher: data.Teacher ? data.Teacher : '', //老师姓名
+            Phone: data.Phone ? data.Phone : '', //联系方式
+            remindValue: !!remindItem[0] ? remindItem[0].id : 0,//提醒
+            RemindTime: !!data.RemindTime ? data.RemindTime : -9999,//提醒
+            Remarks: !!data.Remarks ? data.Remarks : '',//备注
+            isShowEditBtn: classTimestamp > timestamp || classTimestamp == timestamp ? true : false
+          }
+
+        that.setData(obj)
       }
     })
   },
@@ -690,16 +736,16 @@ Page({
 
       console.log('startText', text)
 
-      if (voiceType == 'className'){
+      if (voiceType == 'CourseName'){
         setTimeout(()=>{
           this.setData({
-            className: text,
+            CourseName: text,
           })
         },2000)
-      } else if (voiceType == 'schoolName'){
+      } else if (voiceType == 'SchoolName'){
         setTimeout(() => {
           this.setData({
-            schoolName: text,
+            SchoolName: text,
           })
         }, 2000)
       }
@@ -717,17 +763,17 @@ Page({
         return
       }
 
-      if (voiceType == 'className') {
+      if (voiceType == 'CourseName') {
         setTimeout(() => {
           this.setData({
-            className: text,
+            CourseName: text,
             recordStatus: 1,
           })
         }, 2000)
-      } else if (voiceType == 'schoolName') {
+      } else if (voiceType == 'SchoolName') {
         setTimeout(() => {
           this.setData({
-            schoolName: text,
+            SchoolName: text,
             recordStatus: 1,
           })
         }, 2000)

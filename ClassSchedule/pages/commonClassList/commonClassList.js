@@ -39,12 +39,12 @@ Page({
 
   // 点击课程表
   commonLogin: function (e) {
-    let publicCourseType = e.currentTarget.dataset.type,
+    let publicBoxType = e.currentTarget.dataset.type,
       item = e.currentTarget.dataset.item,
       name = item ? item.Name : ''
       
     wx.navigateTo({
-      url: '../commonClassLogin/commonClassLogin?publicCourseTypeID=' + (publicCourseType || item.ID) + '&commonClassName=' + name
+      url: '../commonClassLogin/commonClassLogin?publicBoxType=' + (publicBoxType || item.ID) + '&commonClassName=' + name
     })
   },
 

@@ -14,10 +14,12 @@ Page({
   },
   onLoad: function (options) {
     let that = this,
-      childrenID = options.childrenID
+      childrenID = options.childrenID,
+      toPublicCourseInfoID = !!options.toPublicCourseInfoID ? options.toPublicCourseInfoID : 0
 
     that.setData({
-      childrenID: childrenID
+      childrenID: childrenID,
+      toPublicCourseInfoID: toPublicCourseInfoID
     })
 
     wx.hideShareMenu()
@@ -68,15 +70,13 @@ Page({
     }
 
     wx.request({
-      url: that.data.url + '/PublicCourseInfo/GetPublicCourseInfoByLoginNameAndPassword', //仅为示例，并非真实的接口地址
+      url: that.data.url + '/PublicBox/GetPublicBoxByLoginNameAndPassword', //仅为示例，并非真实的接口地址
       data: query,
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
+      success: function (res) {debugger
         let obj = res.data.Data
-
-        console.log(obj)
 
         if (!obj){
           wx.showToast({
@@ -89,8 +89,12 @@ Page({
         }
 
         wx.navigateTo({
-          url: '../importClass/importClass?id=' + obj.ID + '&comonClassTitle=' + obj.Name + '&publicCourseTypeID=' + obj.PublicCourseTypeID + '&childrenID=' + data.childrenID
+          url: '../importClassList/importClassList?id=' + obj.model.ID + '&name=' + obj.model.Name + '&publicBoxType=' + obj.model.publicBoxType + '&outOpenId=' + obj.model.OpenID + '&childrenID=' + data.childrenID + '&toPublicCourseInfoID=' + data.toPublicCourseInfoID
         })
+
+        // wx.navigateTo({
+        //   url: '../importClass/importClass?id=' + obj.ID + '&comonClassTitle=' + obj.Name + '&publicCourseTypeID=' + obj.PublicCourseTypeID + '&childrenID=' + data.childrenID
+        // })
       }
     })
   },

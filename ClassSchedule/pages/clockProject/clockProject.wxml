@@ -1,0 +1,56 @@
+<!--pages/clockProject/clockProject.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        推荐打卡项目
+      </view>
+      <view class='projectListBody'>
+        <view class='typeList typeList1'>
+          <view class='title'>习惯养成</view>
+          <view class='typeListBody'>
+            <view wx:for="{{type1List}}" wx:key="{{index}}" class="item '{{'item'+index}}'" style="width:{{itemW}}px;height:{{itemW}}px;" bindtap='setClock' data-index="{{index}}"  data-item="{{item}}">
+
+              <view data-index="{{index}}" data-item="{{item}}" class="inner">
+                {{item.Name}}
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class='typeList typeList2'>
+          <view class='title'>学习打卡</view>
+          <view class='typeListBody'>
+            <view wx:for="{{type2List}}" wx:key="{{index}}" class="item '{{'item'+index}}'" style="width:{{itemW}}px;height:{{itemW}}px;" bindtap='setClock' data-index="{{index}}"  data-item="{{item}}">
+
+              <view data-index="{{index}}" data-item="{{item}}" class="inner">
+                {{item.Name}}
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class='typeList typeList3'>
+          <view class='title'>其他打卡</view>
+          <view class='typeListBody'>
+            <view wx:for="{{type3List}}" wx:key="{{index}}" class="item '{{'item'+index}}'" style="width:{{itemW}}px;height:{{itemW}}px;" bindtap='setClock' data-index="{{index}}"  data-item="{{item}}">
+
+              <view data-index="{{index}}" data-item="{{item}}" class="inner">
+                {{item.Name}}
+              </view>
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+    </view>
+
+    <button class="addClock" bindtap='addClock'>
+      <image class="addClock-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
+      <text>自定义</text>
+    </button>
+
+  </view>
+</view>

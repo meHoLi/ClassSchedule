@@ -1,0 +1,137 @@
+<!--pages/growthDiary /growthDiary .wxml-->
+<view class="container">
+  <scroll-view scroll-y="true" enable-back-to-top="true" class="body growthDiaryBody" style="display:{{!!growthDiaryDis?'block':'none'}};height:{{bodyHeight}}rpx">
+    <view class="infoMain">
+      <view class="info-items">
+        <view class="title">
+          <!-- <text class="asterisk">*</text> -->
+          <text>我的心情</text>
+        </view>
+    
+        <view class="infotext faceBody" catchtap='unfoldFaceList'>
+          <block wx:if="{{!myMood}}">
+            <view class="text">请选择心情</view>
+          </block>
+          <block wx:else>
+            <image class="img" src="{{myMood}}" mode="widthFix"></image>
+          </block>
+
+          <view class='positionList {{faceClassName}}'>
+            <view class='faceList'>
+              <image wx:for="{{faceList}}" wx:key="{{index}}" class="faceItem" src="{{item}}" mode="widthFix" catchtap='selectFace' data-item='{{item}}'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="info-items">
+        <view class="title">
+          <!-- <text class="asterisk">*</text> -->
+          <text>天气</text>
+        </view>
+        <view class="infotext weatherBody" catchtap='unfoldWeatherList'>
+          <block wx:if="{{!weather}}">
+            <view class="text">请选择天气</view>
+          </block>
+          <block wx:else>
+            <image class="img" src="{{weather}}" mode="widthFix"></image>
+          </block>
+
+          <view class='positionList {{weatherClassName}}'>
+            <view class='weatherList'>
+              <image wx:for="{{weatherList}}" wx:key="{{index}}" class="weatherItem" src="{{item}}" mode="widthFix" catchtap='selectWeather' data-item='{{item}}'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="diaryContent">
+        <textarea class="diaryInput" value='{{diary}}' type='text' bindinput="setDiaryInput" maxlength='200' placeholder="亲爱的，写点什么吧~" style="height:{{diaryInputHeight}}rpx" />
+      </view>
+
+      <view class='detailEdit'>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio" wx:for="{{radioList}}">
+            <radio value="{{item.value}}" checked="{{item.checked}}" /> {{item.name}}
+          </label>
+        </radio-group>
+      </view>
+
+      <view class='diaryImg'>
+        <view class='imgList'>
+          <view class='imgItemBody' wx:for="{{imgList}}" wx:key="{{url}}" style="height:{{diaryInputHeight}}rpx">
+            <image class="imgItem" src="{{item.url}}" mode="widthFix"></image>
+          </view>
+        </view>
+        <view class="uploadImg" bindtap="setUploadImg">
+          <image class="plusIco" src="../../imgs/setting/plus.png"></image>
+        </view>
+
+        <view class='releaseBtn' bindtap='release'>发布</view>
+      </view>
+
+    </view>
+  </scroll-view>
+
+  <scroll-view scroll-y="true" enable-back-to-top="true" class="body happyTimeBody" style="display:{{!!growthDiaryDis?'none':'block'}};height:{{bodyHeight}}rpx">
+
+    <view class='noClassTable' style="display:{{noClassDis}}">
+      <view class='noClassTableBody'>
+        <image class="noClass-img" src="../../imgs/setting/nodata.png" mode="scaleToFill"></image>
+        <text class="login-accredit-text">请先去成长日记添加哦~</text>
+      </view>
+    </view>
+
+    <view class="haveClassBody" style="display:{{haveClassDis}}">
+      <view class="haveClassTable">
+        <view wx:for="{{happyTimeList}}" wx:key="{{index}}" class="item '{{'item'+index}}'" bindtap='editHappyTime' data-index="{{index}}" data-item="{{item}}">
+
+          <view data-index="{{index}}" data-item="{{item}}" class="itemLeft">
+            <image data-index="{{index}}" data-item="{{item}}" class="item-icon" src="{{!!item.Img[0]?item.Img[0].url:'/imgs/accredit/pic4.jpg'}}" mode="widthFix"></image>
+          </view>
+
+          <view data-index="{{index}}" data-item="{{item}}" class="itemRight">
+            <view class='itemRightTop'>{{item.time}}</view>
+            <view class='itemRightBottom'>{{item.Content}}</view>
+          </view>
+
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class='tabBar'>
+    <view class="growthDiary" bindtap='toGrowthDiary' style="background:{{!!growthDiaryDis?'#54cbf0':'#fff'}};color:{{!!growthDiaryDis?'#fff':'#000'}};">
+      <text>成长日记</text>
+    </view>
+    <view class="happyTime" bindtap='toHappyTime' style="background:{{!!growthDiaryDis?'#fff':'#54cbf0'}};color:{{!!growthDiaryDis?'#000':'#fff'}};">
+      <text>美好时光</text>
+    </view>
+  </view>
+
+  <modal hidden="{{hiddenmodalput}}" title="空间登陆" no-cancel confirm-text="登陆" bindconfirm="handleConfirm">
+    <view class="infoMain">
+      <view class="info-items">
+        <view class="title">
+          <text class="asterisk">*</text>
+          <text>用户名</text>
+        </view>
+        <view class="infotext">
+          <input class="info-motto" value='{{comClassUserName}}' type='text' bindinput="setClassUserNameInput" placeholder="请输入用户名"/>
+        </view>
+      </view>
+
+      <view class="info-items">
+        <view class="title">
+          <text class="asterisk">*</text>
+          <text>密码</text>
+        </view>
+        <view class="infotext">
+          <input class="info-motto" value='{{passWord}}' type='text' bindinput="setPassWord" placeholder="请输入密码"/>
+        </view>
+      </view>
+
+    </view>
+  </modal>
+
+</view>

@@ -175,7 +175,7 @@ Page({
   //查询课程，设置课程
   setClassBodyData: function (dateList, query) {
     let that = this,
-      startDate = dateList[0].StartTime +' 00:00:00',
+      startDate = dateList[0].StartTime +' 00:00',
       endDate = dateList[dateList.length - 1].StartTime +' 23:59:59'
 
     wx.request({
@@ -489,6 +489,13 @@ Page({
     })
 
     return dateList
+  },
+
+  //切换日课程表
+  toDayClass: function(){
+    wx.switchTab({ //跳转到tabBar页面，并关闭其他所有tabBar页面
+      url: "/pages/curDayClass/curDayClass"
+    })
   },
 
   //上一周

@@ -78,10 +78,11 @@ Page({
     hiddenmodalput2: true
   },
 
-  onLoad: function(options) {
+  onLoad: function(options) {debugger
     let that = this,
       publicCourseInfoID = options.id,
       publicCourseTypeID = options.publicCourseTypeID,
+      toPublicCourseInfoID = options.toPublicCourseInfoID,
       title = options.comonClassTitle,
       childrenID = options.childrenID
 
@@ -89,6 +90,7 @@ Page({
       title: title,
       publicCourseInfoID: publicCourseInfoID,
       publicCourseTypeID: publicCourseTypeID,
+      toPublicCourseInfoID: toPublicCourseInfoID,
       childrenID: childrenID
     })
 
@@ -227,15 +229,23 @@ Page({
 
   //确定
   save: function() {
-    let query = {
-        publicCourseInfoID: this.data.publicCourseInfoID,
-        childrenID: this.data.childrenID,
+    let data = this.data,
+      query = {
+        publicCourseInfoID: data.publicCourseInfoID,
+        childrenID: data.childrenID,
         isOverlap:false
       },
       that = this;
+
     that.setData({
       hiddenmodalput2: false,
     })
+
+    if (!!Number(data.toPublicCourseInfoID)){
+      query.toPublicCourseInfoID = data.toPublicCourseInfoID
+      query.importChildrenCourse = false
+    }
+    
     wx.request({
       url: that.data.url + '/Course/ImportCourse', //仅为示例，并非真实的接口地址
       data: query,
@@ -260,10 +270,10 @@ Page({
           duration: 1000,
           mask: true
         })
-
+      
         setTimeout(() => {
           wx.navigateBack({
-            delta: 2
+            delta: 3
           })
         }, 300)
       }
@@ -271,9 +281,10 @@ Page({
   },
 
   handleConfirm: function() {//确认覆盖
-    let query = {
-        publicCourseInfoID: this.data.publicCourseInfoID,
-        childrenID: this.data.childrenID,
+    let data = this.data,
+      query = {
+        publicCourseInfoID: data.publicCourseInfoID,
+        childrenID: data.childrenID,
         isOverlap: true
       },
       that = this;
@@ -282,6 +293,11 @@ Page({
       hiddenmodalput: true,
       hiddenmodalput2: false,
     })
+
+    if (!!Number(data.toPublicCourseInfoID)) {
+      query.toPublicCourseInfoID = data.toPublicCourseInfoID
+      query.importChildrenCourse = false
+    }
 
     wx.request({
       url: that.data.url + '/Course/ImportCourse', //仅为示例，并非真实的接口地址
@@ -303,7 +319,7 @@ Page({
 
         setTimeout(()=>{
           wx.navigateBack({
-            delta: 2
+            delta: 3
           })
         },300)
       }

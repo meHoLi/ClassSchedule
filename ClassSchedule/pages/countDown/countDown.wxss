@@ -1,0 +1,84 @@
+/* pages/countDown/countDown.wxss */
+.container{
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fb9126;
+}
+.head{
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 150rpx;
+}
+
+/* 倒计时 */
+.progress_box {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  /* 这里的宽高是必须大于等于canvas圆环的直径 否则绘制到盒子外面就看不见了 */
+  /* 一开始设置 width:440rpx; height:440rpx; 发现 在360X640分辨率的设备，下绘制的圆环跑盒子外去了 */
+  /* 小程序使用rpx单位适配 ，但是canvas绘制的是px单位的。所以只能用px单位绘制的圆环在盒子内显示 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+}
+
+.progress_bg {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+}
+
+.progress_canvas {
+  width: 220px;
+  height: 220px;
+}
+
+.progress_text {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress_info {
+  font-size: 80rpx;
+  letter-spacing: 2rpx;
+  color: #ffffff;
+}
+
+
+
+
+
+
+
+.editBtn{
+  display: flex;
+}
+.pauseBtn, .continueBtn {
+  width: 200rpx;
+  border-radius: 50rpx;
+}
+
+.btn{
+  display: flex;
+  flex-direction: row;
+}
+.btn button{
+  flex-grow: 1;
+  border-radius: 50rpx;
+}
+.btn .unfinishedBtn, .pauseBtn{
+  color:#ffffff;
+  background:#fb9126;
+  border:1px solid #ffffff;
+}
+.btn .unfinishedBtn{
+  margin-right: 16rpx;
+}
+.btn .finishBtn, .continueBtn{
+  color: #fb9126;
+  background: #ffffff;
+}

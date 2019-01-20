@@ -1,0 +1,326 @@
+<!-- pages/commonClassAddClass/commonClassAddClass.wxml -->
+<!-- <view class="container">
+  <view class="calendarBody">
+
+    <view class='classTop'>
+      <view class='classList'>
+        <view wx:for="{{comClassList}}" class="class-item {{item.className}}" style="width:{{classWidth}}rpx" bindtap='pressTap' bindlongpress="handleLongPress" data-item="{{item}}" data-index="{{index}}">
+          {{item.CourseName}}
+        </view>
+      </view>
+
+      <view class='tips'>
+        <view class="class-item" style="width:{{classWidth}}rpx" bindtap='addClass'>添加课程</view>
+        <view>长按课程名称可修改课程信息</view>
+      </view>
+
+    </view>
+
+    <view class="calendar-week">
+      <view class='month'>{{month}}月</view>
+      <view class="week-list">
+        <view wx:for="{{dateList}}" class="week-item '{{item.className}}'" style="background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}};width:{{weekWidth}}rpx" data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}">
+
+          <view class="week-item-body">
+            <text>{{item.curWeek}}</text>
+            <text>{{item.curDay}}</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
+    <scroll-view scroll-y="true" class="tab-scroll" enable-back-to-top="true" style='height:{{bodyHeight}}rpx'>
+      <view class="tab-container">
+
+        <view class='tab-body'>
+          <view class='morning'>
+            <view class='morningClass'>
+              <view class="tab-divide">
+                <view wx:for="{{morningList}}" class='tab-divide-item'>
+                  {{index+1}}
+                </view>
+              </view>
+
+              <view class='morningClassBody'>
+
+                <view wx:for="{{morningList}}" class='rowClass' wx:key="{{item}}">
+                  <view wx:for="{{item}}" class='cloumnClass' style="width:{{weekWidth+1}}rpx" wx:for-item="classItem" wx:for-index="classindex">
+                    <block wx:if="{{!!classItem.CourseName}}">
+                      <view class="courseBody {{!model || !model.IsOpen?'commonColor':('specialColor' + model.CourseType)}}" bindtap='calssClick' bindlongpress="classLongPress" data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='morning'>
+                        {{classItem.CourseName}}
+                      </view>
+                    </block>
+                    <block wx:else>
+                      <view class="courseBody plus" bindtap='calssClick' data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='morning'>
+                        +
+                      </view>
+                    </block>
+                  </view>
+                </view>
+
+              </view>
+            </view>
+
+            <view class='classEdit'>
+              <view>长按课（日）程进行设置</view>
+            </view>
+          </view>
+
+          <view class='afternoon'>
+            <view class='afternoonClass'>
+              <view class="tab-divide">
+                <view wx:for="{{afternoonList}}" class='tab-divide-item'>
+                  {{index+1}}
+                </view>
+              </view>
+
+              <view class='afternoonClassBody'>
+
+                <view wx:for="{{afternoonList}}" class='rowClass' wx:key="{{item}}">
+                  <view wx:for="{{item}}" class='cloumnClass' style="width:{{weekWidth+1}}rpx" wx:for-item="classItem" wx:for-index="classindex">
+                    <block wx:if="{{!!classItem.CourseName}}">
+                      <view class="courseBody {{!model || !model.IsOpen?'commonColor':('specialColor' + model.CourseType)}}" bindtap='calssClick' bindlongpress="classLongPress" data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='afternoon'>
+                        {{classItem.CourseName}}
+                      </view>
+                    </block>
+                    <block wx:else>
+                      <view class="courseBody plus" bindtap='calssClick' data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='afternoon'>
+                        +
+                      </view>
+                    </block>
+                  </view>
+                </view>
+
+              </view>
+            </view>
+
+            <view class='classEdit'>
+              <view>长按课（日）程进行设置</view>
+            </view>
+          </view>
+
+          <view class='night'>
+            <view class='nightClass'>
+              <view class="tab-divide">
+                <view wx:for="{{nightList}}" class='tab-divide-item'>
+                  {{index+1}}
+                </view>
+              </view>
+
+              <view class='nightClassBody'>
+
+                <view wx:for="{{nightList}}" class='rowClass' wx:key="{{item}}">
+                  <view wx:for="{{item}}" class='cloumnClass' style="width:{{weekWidth+1}}rpx" wx:for-item="classItem" wx:for-index="classindex">
+                    <block wx:if="{{!!classItem.CourseName}}">
+                      <view class="courseBody {{!model || !model.IsOpen?'commonColor':('specialColor' + model.CourseType)}}" bindtap='calssClick' bindlongpress="classLongPress" data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='night'>
+                        {{classItem.CourseName}}
+                      </view>
+                    </block>
+                    <block wx:else>
+                      <view class="courseBody plus" bindtap='calssClick' data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='night'>
+                        +
+                      </view>
+                    </block>
+                  </view>
+                </view>
+
+              </view>
+            </view>
+
+            <view class='classEdit'>
+              <view>长按课（日）程进行设置</view>
+            </view>
+          </view>
+        </view>
+
+
+      </view>
+    </scroll-view>
+
+    <view class='editBtn'>
+      <button class="defaultSetting" bindtap='defaultSetting'>
+        <text>课程默认设置</text>
+      </button>
+      <button class="save" bindtap='save'>
+        <text>保存</text>
+      </button>
+    </view>
+
+  </view>
+</view> -->
+
+<view class="container">
+  <view class="calendarBody">
+
+    <view class='classTop'>
+      <view class='classList'>
+        <view wx:for="{{comClassList}}" class="class-item {{item.className}}" style="width:{{classWidth}}rpx" bindtap='pressTap' bindlongpress="handleLongPress" data-item="{{item}}" data-index="{{index}}">
+          {{item.CourseName}}
+        </view>
+      </view>
+
+      <view class='tips'>
+        <view class="class-item" style="width:{{classWidth}}rpx" bindtap='addClass'>添加课程</view>
+        <view>长按课程名称可修改课程信息</view>
+      </view>
+
+    </view>
+
+    <view class="calendar-week">
+      <view class='month'>{{month}}月</view>
+      <view class="week-list">
+        <view wx:for="{{dateList}}" class="week-item '{{item.className}}'" style="background:{{!!item.BackgroundColor?item.BackgroundColor:'#fff'}};color:{{!!item.BackgroundColor?'#fff':'#000'}};width:{{weekWidth}}rpx" data-time="{{item.StartTime}}" data-week="{{item.DayOfWeek}}">
+
+          <view class="week-item-body">
+            <text>{{item.curWeek}}</text>
+            <text>{{item.curDay}}</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
+    <scroll-view scroll-y="true" class="tab-scroll" enable-back-to-top="true" style='height:{{bodyHeight}}rpx'>
+      <view class="tab-container">
+        <!--分节-->
+
+        <view class='tab-body'>
+          <view class='morning'>
+            <view class='classEdit'>
+              <!-- <button class="addNewRow" bindtap='addNewRow'>
+                添加一行
+              </button>
+              <button class="delRow" bindtap='delRow'>
+                删除一行
+              </button> -->
+              <view>上午课程（日程）安排</view>
+              <view>长按课（日）程进行设置</view>
+
+            </view>
+
+            <view class='morningClass'>
+              <view class="tab-divide">
+                <view wx:for="{{morningList}}" class='tab-divide-item'>
+                  {{index+1}}
+                </view>
+              </view>
+
+              <view class='morningClassBody'>
+
+                <view wx:for="{{morningList}}" class='rowClass' wx:key="{{item}}">
+                  <view wx:for="{{item}}" class='cloumnClass' style="width:{{weekWidth+1}}rpx" wx:for-item="classItem" wx:for-index="classindex">
+                    <block wx:if="{{!!classItem.CourseName}}">
+                      <view class="courseBody {{!model || !model.IsOpen?(!!classItem.CourseType?'specialColor'+classItem.CourseType:'commonColor'):('specialColor' + (!!classItem.CourseType?classItem.CourseType:model.CourseType))}}" bindtap='classClick' bindlongpress="classLongPress" data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='morning'>
+                        {{classItem.CourseName}}
+                      </view>
+                    </block>
+                    <block wx:else>
+                      <view class="courseBody plus" bindtap='classClick' data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='morning'>
+                        +
+                      </view>
+                    </block>
+                  </view>
+                </view>
+
+              </view>
+            </view>
+          </view>
+
+          <view class='afternoon'>
+            <view class='classEdit'>
+              <!-- <button class="addNewRow" bindtap='addNewRow'>
+                添加一行
+              </button>
+              <button class="delRow" bindtap='delRow'>
+                删除一行
+              </button> -->
+              <view>下午课程（日程）安排</view>
+              <view>长按课（日）程进行设置</view>
+
+            </view>
+
+            <view class='afternoonClass'>
+              <view class="tab-divide">
+                <view wx:for="{{afternoonList}}" class='tab-divide-item'>
+                  {{index+1}}
+                </view>
+              </view>
+
+              <view class='afternoonClassBody'>
+
+                <view wx:for="{{afternoonList}}" class='rowClass' wx:key="{{item}}">
+                  <view wx:for="{{item}}" class='cloumnClass' style="width:{{weekWidth+1}}rpx" wx:for-item="classItem" wx:for-index="classindex">
+                    <block wx:if="{{!!classItem.CourseName}}">
+                      <view class="courseBody {{!model || !model.IsOpen?(!!classItem.CourseType?'specialColor'+classItem.CourseType:'commonColor'):('specialColor' + (!!classItem.CourseType?classItem.CourseType:model.CourseType))}}" bindtap='classClick' bindlongpress="classLongPress" data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='afternoon'>
+                        {{classItem.CourseName}}
+                      </view>
+                    </block>
+                    <block wx:else>
+                      <view class="courseBody plus" bindtap='classClick' data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='afternoon'>
+                        +
+                      </view>
+                    </block>
+                  </view>
+                </view>
+
+              </view>
+            </view>
+
+          </view>
+
+          <view class='night'>
+            <view class='classEdit'>
+              <!-- <button class="addNewRow" bindtap='addNewRow'>
+                添加一行
+              </button>
+              <button class="delRow" bindtap='delRow'>
+                删除一行
+              </button> -->
+              <view>晚上课程（日程）安排</view>
+              <view>长按课（日）程进行设置</view>
+
+            </view>
+            <view class='nightClass'>
+              <view class="tab-divide">
+                <view wx:for="{{nightList}}" class='tab-divide-item'>
+                  {{index+1}}
+                </view>
+              </view>
+
+              <view class='nightClassBody'>
+
+                <view wx:for="{{nightList}}" class='rowClass' wx:key="{{item}}">
+                  <view wx:for="{{item}}" class='cloumnClass' style="width:{{weekWidth+1}}rpx" wx:for-item="classItem" wx:for-index="classindex">
+                    <block wx:if="{{!!classItem.CourseName}}">
+                      <view class="courseBody {{!model || !model.IsOpen?(!!classItem.CourseType?'specialColor'+classItem.CourseType:'commonColor'):('specialColor' + (!!classItem.CourseType?classItem.CourseType:model.CourseType))}}" bindtap='classClick' bindlongpress="classLongPress" data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='night'>
+                        {{classItem.CourseName}}
+                      </view>
+                    </block>
+                    <block wx:else>
+                      <view class="courseBody plus" bindtap='classClick' data-index='{{index}}' data-classindex='{{classindex}}' data-isfrom='night'>
+                        +
+                      </view>
+                    </block>
+                  </view>
+                </view>
+
+              </view>
+            </view>
+          </view>
+
+        </view>
+
+
+      </view>
+    </scroll-view>
+
+    <view class='editBtn'>
+      <button class="defaultSetting" bindtap='defaultSetting'>
+        <text>课程默认设置</text>
+      </button>
+      <button class="save" bindtap='save'>
+        <text>保存</text>
+      </button>
+    </view>
+
+  </view>
+</view>

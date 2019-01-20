@@ -1,0 +1,30 @@
+<!--pages/importClassList/importClassList.wxml-->
+<view class="container">
+  <view class="classList">
+    <view class='head'>{{name}}</view>
+
+    <view class="haveClassBody">
+      <view class="haveClassTable">
+        <view class='classSchedule'>
+          <view wx:for="{{familyCurriculum}}" wx:key="{{index}}" class="item isChanged '{{'item'+index}}'">
+
+            <view bindtap='toCommonClass' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
+              <text class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.Name}}</text>
+
+              <image data-index="{{index}}" data-item="{{item}}" class="item-next" mode="widthFix" src="../../imgs/setting/next.png"></image>
+            </view>
+            <!-- <view class='item-edit' bindtap='editInfo' data-index="{{index}}" data-item="{{item}}">
+              <image bindtap='editInfo' data-index="{{index}}" data-item="{{item}}" class="item-edit-png" mode="widthFix" src="../../imgs/setting/edit.png"></image>
+            </view> -->
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- <button class="addBtn" bindtap='addNewClass'>
+      <image class="addBtn-img" src="../../imgs/setting/plus.png" mode="scaleToFill"></image>
+      <text>新增课程表</text>
+    </button> -->
+
+  </view>
+</view>

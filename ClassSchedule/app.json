@@ -20,7 +20,28 @@
     "pages/commonNewAddAgenda/commonNewAddAgenda",
     "pages/importLogin/importLogin",
     "pages/importClass/importClass",
-    "pages/consult/consult"
+    "pages/consult/consult",
+    "pages/addClass/addClass",
+    "pages/defaultSetting/defaultSetting",
+    "pages/updateClass/updateClass",
+    "pages/commonClassAddClass/commonClassAddClass",
+    "pages/commonClassDefaultSetting/commonClassDefaultSetting",
+    "pages/commonClassUpdateClass/commonClassUpdateClass",
+    "pages/addDetailedDetails/addDetailedDetails",
+    "pages/growthDiary/growthDiary",
+    "pages/growthDiaryTemp/growthDiaryTemp",
+    "pages/punchTheClock/punchTheClock",
+    "pages/clockProject/clockProject",
+    "pages/setClock/setClock",
+    "pages/pomodoro/pomodoro",
+    "pages/countDown/countDown",
+    "pages/limitProject/limitProject",
+    "pages/bonusPointsList/bonusPointsList",
+    "pages/bonusPointsExchange/bonusPointsExchange",
+    "pages/treasureChest/treasureChest",
+    "pages/sharedSpace/sharedSpace",
+    "pages/commonSignUpClass/commonSignUpClass",
+    "pages/importClassList/importClassList"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -30,18 +51,25 @@
   },
   "tabBar": {
     "selectedColor": "#54cbf0",
+    "color": "#999999",
     "list": [
-      {
-        "pagePath": "pages/curWeekClass/curWeekClass",
-        "iconPath": "/imgs/tabBar/curWeekGray.png",
-        "selectedIconPath": "/imgs/tabBar/curWeekBlue.png",
-        "text": "本周"
-      },
       {
         "pagePath": "pages/curDayClass/curDayClass",
         "iconPath": "/imgs/tabBar/classGray.png",
         "selectedIconPath": "/imgs/tabBar/classBlue.png",
-        "text": "当日"
+        "text": "课程表"
+      },
+      {
+        "pagePath": "pages/punchTheClock/punchTheClock",
+        "iconPath": "/imgs/tabBar/memoGray.png",
+        "selectedIconPath": "/imgs/tabBar/memoBlue.png",
+        "text": "习惯养成"
+      },
+      {
+        "pagePath": "pages/treasureChest/treasureChest",
+        "iconPath": "/imgs/tabBar/memoGray.png",
+        "selectedIconPath": "/imgs/tabBar/memoBlue.png",
+        "text": "家长百宝箱"
       },
       {
         "pagePath": "pages/settings/settings",
@@ -56,5 +84,8 @@
       "version": "0.0.6",
       "provider": "wx069ba97219f66d99"
     }
+  },
+  "networkTimeout": {
+    "request": 20000
   }
 }

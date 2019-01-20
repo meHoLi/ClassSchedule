@@ -1,0 +1,58 @@
+<!--pages/bonusPointsList/bonusPointsList.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        积分
+      </view>
+
+      <view class="infoMain">
+        <!-- <view class='clockName'>
+          <input class="clockNameInput" value='{{clockName}}' type='text' bindinput="setClockNameInput" placeholder="请输入新任务名称" />
+        </view> -->
+
+        <view class='clockDetails'>
+          <view class="curBonusPoints detailItem">
+            <view class="curBonusPointsTitle detailTitle">当前总积分：</view>
+
+            <view class='detailEdit'>
+              {{totalNumber}}
+            </view>
+          </view>
+
+          <view class="isExchange detailItem">
+            <view class="isExchangeTitle detailTitle">是否兑换积分：</view>
+
+            <view class='detailEdit'>
+              <switch class="switchBtn" color='#54cbf0' bindchange="switchChange" checked='{{isExchange}}' />
+            </view>
+          </view>
+
+        </view>
+
+        <view class='exchangeList'>
+          <view class="head">
+            积分变动日志
+          </view>
+
+          <view class='listBody'>
+            <view wx:for="{{list}}" wx:key="{{index}}" class="item '{{'item'+index}}'">
+              <view data-index="{{index}}" data-item="{{item}}" class="inner">
+                {{item.ShowName}}
+              </view>
+            </view>
+
+          </view>
+        </view>
+
+      </view>
+    </view>
+
+    <!-- <view class="btn">
+      <button bindtap="cancel" class="cancelBtn"> 取消 </button>
+      <button bindtap="save" class="saveBtn"> 保存 </button>
+    </view> -->
+
+  </view>
+</view>

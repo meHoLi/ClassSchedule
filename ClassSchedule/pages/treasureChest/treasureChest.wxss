@@ -1,0 +1,26 @@
+/* pages/treasureChest/treasureChest.wxss */
+.list{
+  width: 100%;
+}
+
+.listBody{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.item{
+  display:flex;
+  flex-direction:column;
+  text-align: center;
+  font-size: 36rpx;
+  margin: 8rpx;
+}
+.img{
+  /* width: 100%;
+  height: 100%; */
+  border-radius: 16rpx;
+}
+.name{
+  padding: 10rpx 0;
+}

@@ -1,0 +1,86 @@
+/* pages/commonClassUpdateClass/commonClassUpdateClass.wxss */
+.info-cont {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between;
+}
+
+.head{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-bottom: 20rpx;
+}
+
+.info-items{
+  height:80rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding:0 40rpx; */
+  border-top:2rpx solid #f0f0f0;
+}
+.info-items:nth-last-child(1){
+  border-bottom:2rpx solid #f0f0f0;
+}
+.title{
+  display: flex;
+  width: 262rpx;
+  height: 100%;
+  flex-direction: row;
+  align-items: center; 
+}
+.asterisk{
+  color: red;
+  font-size: 30rpx;
+  padding-top: 8rpx;
+  padding-right: 6rpx;
+}
+
+.infotext{
+  display: flex;
+  flex: 1;
+  height: 100%;
+  text-align: right;
+  line-height: 90rpx;
+}
+.info-motto{
+  width: 100%;
+  height: 100%;
+}
+
+.timePicker picker{
+  width: 100rpx;
+  display: inline-block;
+}
+.timePicker picker:first-child{
+  text-align: left;
+}
+.remarkInput{
+  height:152rpx; 
+  font-size: 30rpx;
+  padding: 28rpx;
+  margin: 0 auto;
+  margin-top: 20rpx;
+  border:2rpx solid #e4e4e4;
+  border-radius: 10rpx;
+  overflow: hidden;   
+}
+.btn{
+  display: flex;
+  flex-direction: row;
+  margin: 20rpx 0;
+}
+ .btn>button,.btn .saveBtn{
+  flex-grow: 1;
+} 
+.btn .cancelBtn,.btn .delBtn{
+  margin-right: 16rpx;
+}
+.btn .saveBtn{
+  color: #fff;
+  background: #54cbf0;
+}

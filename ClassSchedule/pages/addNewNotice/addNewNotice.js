@@ -92,7 +92,8 @@ Page({
         startTime: data.dates+' 00:00:00',
         endTime: data.dates + ' 23:59:59',
         MemorandumContent: data.remark,
-        RemindTime: 0
+        RemindTime: 0,
+        Type: 1
       }
 
     if (!query.MemorandumContent) {

@@ -1,6 +1,10 @@
 <!--pages/curWeekClass/curWeekClass.wxml-->
 <view class="container">
-  <view class="calendar">
+  
+  <movable-area class="calendar">
+    <movable-view class='moveView' x='600' y='0' direction="all">
+      <image class="moveImg" src="../../imgs/accredit/unfold1.png" mode="scaleToFill" catchtap='toDayClass'></image>
+    </movable-view>
 
     <view class="classBody">
       <view class='weui-navbar-body'>
@@ -84,5 +88,5 @@
 
       </swiper>
     </view>
-  </view>
+  </movable-area>
 </view>

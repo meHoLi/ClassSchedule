@@ -90,7 +90,7 @@ Page({
       url: app.globalData.url + '/Memorandum/Index', //仅为示例，并非真实的接口地址
       data: {
         openID: app.globalData.openID,
-        startTime: date + ' 00:00:00',
+        startTime: date + ' 00:00',
         endTime: '2030-12-31 00:00:00'
       },
       header: {
@@ -190,7 +190,7 @@ Page({
     this.setClassData(query)
   },
   //编辑课程信息
-  changeDay: function(e) {debugger
+  changeDay: function(e) {
     let date = e.currentTarget.dataset.time,
       query = this.data.query,
       dateList = this.data.dateList,
@@ -294,7 +294,7 @@ Page({
   //查询课程，设置课程
   setClassBodyData: function (query, date) {
     let that = this,
-      startDate = (date ? date : that.data.date) + ' 00:00:00',
+      startDate = (date ? date : that.data.date) + ' 00:00',
       endDate = (date ? date : that.data.date) + ' 23:59:59'
 
     wx.request({
@@ -336,7 +336,7 @@ Page({
   },
 
   //设置时间戳
-  setDateList: function(dateList) {debugger
+  setDateList: function(dateList) {
     let date = this.data.date,
       currentDate = this.data.currentDate
 
@@ -358,6 +358,13 @@ Page({
     })
 
     return dateList
+  },
+
+  //切换日课程表
+  toWeekClass: function () {
+    wx.navigateTo({ //跳转到tabBar页面，并关闭其他所有tabBar页面
+      url: "/pages/curWeekClass/curWeekClass"
+    })
   },
 
   //上一周
@@ -386,10 +393,10 @@ Page({
 
     if (!e.currentTarget.dataset.item) {
       wx.navigateTo({
-        url: '../setAgenda/setAgenda?childrenID=' + childrenID + '&date=' + date,
+        url: '../addClass/addClass?childrenID=' + childrenID,
       })
       // wx.navigateTo({
-      //   url: '../commonClassLogin/commonClassLogin'
+      //   url: '../setAgenda/setAgenda?childrenID=' + childrenID + '&date=' + date,
       // })
     } else {
       wx.navigateTo({
