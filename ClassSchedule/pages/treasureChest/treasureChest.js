@@ -30,7 +30,7 @@ Page({
 
     wx.getSystemInfo({
       success: function (res) {
-        let itemW = (res.windowWidth - 20 - 20 - 20) / 3;
+        let itemW = (res.windowWidth - 80) / 4;
 
         that.setData({
           itemW: itemW

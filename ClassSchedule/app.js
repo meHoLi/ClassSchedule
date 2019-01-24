@@ -32,6 +32,6 @@ App({
 
   globalData: {
     userInfo: null,
-    url: 'http://192.168.0.8:61242'//'https://www.xiaoshangbang.com'//'https://pay.houjiale.com'//
+    url: 'https://www.xiaoshangbang.com'//'http://192.168.0.8:61242'//'https://pay.houjiale.com'//
   }
 })

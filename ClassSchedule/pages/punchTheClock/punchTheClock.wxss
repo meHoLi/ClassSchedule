@@ -177,7 +177,9 @@
   padding: 10rpx 0;
 }
 .bottom .limitPunchCard{
-  color: #54cbf0;
+  font-family: "Microsoft YaHei";
+  color: red;
+  font-weight: bold;
   text-shadow: 0.1em 0.1em #333;
 }
 .picBody{
