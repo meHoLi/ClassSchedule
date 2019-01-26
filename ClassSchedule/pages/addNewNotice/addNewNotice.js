@@ -138,9 +138,9 @@ Page({
               if (that.data.RemindTime != '-9999') {
                 that.setInfoTemplate(e.detail.formId, data.access_token)
                 
-                wx.navigateBack({
-                  delta: 1
-                })
+                // wx.navigateBack({
+                //   delta: 1
+                // })
               } else {
                 wx.navigateBack({
                   delta: 1
@@ -182,9 +182,9 @@ Page({
               if (that.data.RemindTime != '-9999') {
                 that.setInfoTemplate(e.detail.formId, data.access_token)
 
-                wx.navigateBack({
-                  delta: 1
-                })
+                // wx.navigateBack({
+                //   delta: 1
+                // })
               } else {
                 wx.navigateBack({
                   delta: 1

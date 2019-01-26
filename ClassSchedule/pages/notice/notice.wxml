@@ -59,14 +59,19 @@
     <view class="haveClassBody" style="display:{{haveClassDis2}}">
       <view class="haveClassTable">
         <view wx:for="{{detailedList}}" wx:key="{{index}}" class="item '{{'item'+index}}'">
-
-          <view bindtap='addDetailedDetails' data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
-
-            <text class='item-num' data-index="{{index}}" data-item="{{item}}">{{index+1}}、</text>
-            <view class="item-text" data-index="{{index}}" data-item="{{item}}">{{item.Name}}</view>
+          <view class='listItem' style="{{item.shows}}" data-index="{{index}}" data-item="{{item}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE">
+            <view data-index="{{index}}" data-item="{{item}}" style="{{item.txtStyle}}" class="inner txt">
+              <text class='item-num' data-index="{{index}}" data-item="{{item}}">{{index+1}}、</text>
+              <view class="item-text" data-index="{{index}}" data-item="{{item}}">
+                <input type="text" data-index="{{index}}" placeholder="请输入清单名称" bindinput="detailedName" value='{{item.Name}}'/>
+              </view>
+            </view>
+            <image catchtap='editDetails' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png" style="display:{{!!item.ID?'inline-block':'none'}}"></image>
+            <image catchtap='saveInfo' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/accredit/save.png"></image>
           </view>
-          <image bindtap='editDetaileInfo' data-index="{{index}}" data-item="{{item}}" class="item-edit" mode="widthFix" src="../../imgs/setting/edit.png"></image>
-
+          <view class='deleteBtn'>
+            <view data-type='day' data-index="{{index}}" data-item="{{item}}" catchtap="delItem" class="itemDel">删除</view>
+          </view>
         </view>
       </view>
     </view>
@@ -87,11 +92,11 @@
     </view>
   </view>
 
-  <modal hidden="{{hiddenmodalput}}" title="保存清单名称" cancel-text="取消" confirm-text="保存" bindconfirm="handleConfirm" bindcancel="handleCancel">
+  <!-- <modal hidden="{{hiddenmodalput}}" title="保存清单名称" cancel-text="取消" confirm-text="保存" bindconfirm="handleConfirm" bindcancel="handleCancel">
     <view class="modal">
         <text>清单名称：</text>
           <input type="text" data-index="{{index}}" placeholder="请输入清单名称" bindinput="detailedName" value='{{detailedName}}'/>
       </view>
-  </modal>
+  </modal> -->
 
 </view>

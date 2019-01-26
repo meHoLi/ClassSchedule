@@ -76,7 +76,7 @@
   color: #a0a0a0;
 }
 .item:last-child {
-  border-bottom: none;
+  /* border-bottom: none; */
 }
 .pastDueItem .line{
   position:absolute;
@@ -102,22 +102,49 @@
 
 /* 清单列表 */
 .detailedList .item{
+  position: relative;
+}
+.detailedList .listItem{
   display: flex;
   align-items:center;
   border: none;
   border-bottom: 2rpx solid #eee;
+  position: relative;
+  z-index: 5;
+  background: #fff;
 }
 .detailedList .item .inner.txt{
   flex: 1;
-  border-right: 2rpx solid #eee;
+  /* border-right: 2rpx solid #eee; */
 }
 .detailedList .item .item-edit{
   padding:0 20rpx;
 }
 
+/* 左滑删除 */
+.deleteBtn{ 
+  position: absolute; 
+  top:0; 
+  right: 0; 
+  height: 100%;
+} 
+.itemDel{ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  height: 100%;
+  text-align: center; 
+  z-index: 4; 
+  color: #fff;
+  font-size: 36rpx;
+  background-color: #e64340; 
+} 
+
 /* 操作按钮 */
 .editBtn {
   display: flex;
+  margin: 20rpx 0;
 }
 
 .editBtn button {
@@ -133,21 +160,4 @@
   width: 40rpx;
   height: 40rpx;
   margin-right: 20rpx;
-}
-
-.modal{
-  height: 80rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: #000;
-  padding: 50rpx 0;
-  /* border-top: 2rpx solid #d1d1d1; */
-  /* border-bottom: 2rpx solid #d1d1d1; */
-}
-.modal input{
-  flex: 1;
-  padding: 0 10rpx;
-  border: 2rpx solid #d1d1d1;
-  margin: 0 10rpx;
 }
