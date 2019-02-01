@@ -55,6 +55,37 @@
   margin-right: 10rpx;
 }
 
+.exchangeListBody{
+  padding: 10rpx;
+}
+.exchangeList{
+  display:flex;
+  flex:1;
+  flex-wrap:wrap;
+}
+.exchange-item{
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  padding: 0 4rpx;
+  margin: 10rpx;
+  border: 2rpx solid #d1d1d1;
+  border-radius: 12rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tips{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+}
+
+.tips .class-item{
+  color:#fff;
+  background:#782878;
+}
+
 /* 编辑按钮 */
 .btn{
   display: flex;

@@ -11,7 +11,7 @@ Page({
   data: {
     noticeDis: true
   },
-  onLoad: function (options) {
+  onLoad: function (options) {debugger
     let noticeDis = this.data.noticeDis;
 
     // 页面初始化 options为页面跳转所带来的参数

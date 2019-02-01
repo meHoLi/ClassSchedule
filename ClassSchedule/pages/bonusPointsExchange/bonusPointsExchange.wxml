@@ -8,10 +8,6 @@
       </view>
 
       <view class="infoMain">
-        <!-- <view class='clockName'>
-          <input class="clockNameInput" value='{{clockName}}' type='text' bindinput="setClockNameInput" placeholder="请输入新任务名称" />
-        </view> -->
-
         <view class='clockDetails'>
           <view class="exchangeName detailItem">
             <view class="exchangeNameTitle detailTitle">兑换项目：</view>
@@ -27,6 +23,20 @@
             <view class='detailEdit'>
               <input class="bonusPointsInput" value='{{bonusPointsValue}}' type='number' bindinput="setBonusPointsInput" placeholder="例如：900（相当于90元）"/>
             </view>
+          </view>
+
+        </view>
+
+        <view class='exchangeListBody'>
+          <view class='exchangeList'>
+            <view wx:for="{{exchangeList}}" class="exchange-item" style="width:{{itemWidth}}rpx" bindtap='pressTap' bindlongpress="handleLongPress" data-item="{{item}}" data-index="{{index}}">
+              {{item.Name}}
+            </view>
+          </view>
+
+          <view class='tips'>
+            <view class="exchange-item" style="width:{{itemWidth}}rpx" bindtap='addExchange'>添加积分兑换项</view>
+            <view>长按兑换项可修改兑换信息</view>
           </view>
 
         </view>

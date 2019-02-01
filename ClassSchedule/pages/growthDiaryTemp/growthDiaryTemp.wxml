@@ -23,6 +23,11 @@
         {{query.Content}}
       </view>
 
+      <view class='createAndUpdateInfo' wx:if="{{showData}}">
+        <view class='createInfo'>{{showData.CreateName}} {{showData.CreateTime}} 创建</view>
+        <view class='updateInfo'>{{showData.UpdateName}} {{showData.UpdateTime}} 最后修改</view>
+      </view>
+
     </view>
 
     <view class="btn">

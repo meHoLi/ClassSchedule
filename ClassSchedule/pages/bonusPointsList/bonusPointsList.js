@@ -19,7 +19,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    debugger
     let that = this;
     // 获取完整的年月日 时分秒，以及默认显示的数组
 
@@ -41,7 +40,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {debugger
+      success: function (res) {
         let value = res.data.Data
 
         that.setData({

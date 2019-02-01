@@ -1,8 +1,17 @@
 <view class="container">
   <view class="login">
     <view class="login-accredit">
-      <image class="login-accredit-img" src="../../imgs/accredit/haveNoRight.png" mode="scaleToFill"></image>
-      <text class="login-accredit-text">正在进行安全监测~</text>
+      <view class='logo'>
+        <image class="login-accredit-img" src="../../imgs/accredit/haveNoRight.png" mode="scaleToFill"></image>
+      </view>
+      <!-- <text class="login-accredit-text">正在进行安全监测~</text> -->
+      <view wx:if="{{isShowLoading}}" class='accredit'>
+          <image class="loading" src="../../imgs/accredit/loading2.gif"></image>
+      </view>
+      <view wx:else class='accredit'>
+        <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='login-accredit-btn'>授 权 登 录</button>
+        <view wx:else>请升级微信版本</view>
+      </view>
     </view>
   </view>
 </view>

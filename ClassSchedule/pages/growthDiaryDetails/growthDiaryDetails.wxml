@@ -1,0 +1,37 @@
+<!--pages/growthDiaryDetails/growthDiaryDetails.wxml-->
+<view class="container">
+  <view class="info-cont">
+
+    <view class='info'>
+      <view class="head">
+        <view class="headLeft" bindtap="setPhotoInfo">
+          <image class="userinfo-avatar" src="{{headURL}}"></image>
+        </view>
+        <view class="date">
+          <text class='createName'>{{query.CreateName}}\n</text>
+          <text class='createTime'>{{query.CreateTime || currentDate}} 创建</text>
+        </view>
+        
+      </view>
+
+      <view class="details">
+        <view class="mood item">
+          <view class='itemTitle'>本日心情：</view>
+          <image class="img" src="{{query.Mood}}" mode="widthFix"></image>
+        </view>
+        <view class="wether item">
+          <view class='itemTitle'>本日天气：</view>
+          <image class="img" src="{{query.Weather}}" mode="widthFix"></image>
+        </view>
+      </view>
+
+      <view class="diaryContent">
+        {{query.Content}}
+      </view>
+
+      <view class="img" bindlongpress="handleLongPress">
+        <image class="pic" src="{{!!query.Img[0]?query.Img[0].url:'/imgs/accredit/pic4.jpg'}}" mode="scaleToFill"></image>
+      </view>
+    </view>
+  </view>
+</view>

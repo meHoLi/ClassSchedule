@@ -1,0 +1,81 @@
+/* pages/growthDiaryDetails/growthDiaryDetails.wxss */
+.info-cont{
+  width: 100%;
+}
+.info .img .pic{
+  width: 100%;
+  height: 500rpx;
+}
+
+.head{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 148rpx;
+  padding-top: 20rpx;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+}
+
+.date{
+  height: 100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+}
+
+.date .createName{
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  font-size: 30rpx;
+  padding: 20rpx 0;
+  border-bottom:2rpx solid #000;
+}
+
+.details .img{
+  width: 60rpx;
+}
+
+.details .item{
+  display: flex;
+  align-items: center;
+  padding: 10rpx 0;
+}
+
+.details .item .itemTitle{
+  width: 210rpx;
+}
+
+.diaryContent{
+  font-size: 30rpx;
+  line-height: 60rpx;
+  overflow-wrap:break-word;
+  padding: 20rpx 0; 
+  font-weight: bold;
+}
+
+.btn{
+  display: flex;
+  flex-direction: row;
+  margin: 20rpx 0;
+}
+ .btn>button {
+  flex-grow: 1;
+} 
+.btn .updateBtn {
+  margin-right: 16rpx;
+}
+.btn .saveBtn {
+  color: #fff;
+  background: #54cbf0;
+}

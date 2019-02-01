@@ -2,12 +2,14 @@ const app = getApp()
 
 Page({
   data: {
-
+    isShowLoading: true,
+    canIUse: wx.canIUse('button.open-type.getUserInfo')//判断小程序的API，回调，参数，组件等是否在当前版本可用。
   },
   onLoad: function() {
     let that = this;
 
     wx.hideShareMenu()
+
     wx.login({
       success: function(res) {
         wx.request({
@@ -32,7 +34,7 @@ Page({
                 app.globalData.screenHeight = res.screenHeight * (750/res.screenWidth)
 
                 if (!!data.openid) {
-                  that.accredit()
+                  that.isAccredit()
                 }
 
               }
@@ -43,6 +45,46 @@ Page({
       }
     })
   },
+
+  //判断用户是否授权
+  isAccredit: function(){
+    let that = this;
+
+    wx.getSetting({
+      success: function (res) {
+        let arr = Object.keys(res.authSetting);
+
+        if (arr.length == 0 || !res.authSetting['scope.userInfo']){//未授权过
+          that.setData({
+            isShowLoading: false
+          })
+
+          return
+        }
+
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: function (res) {//用户已经授权过
+              app.globalData.userInfo = res.userInfo
+              that.accredit()
+            }
+          })
+        }
+      }
+    })
+  },
+
+  //点击授权登陆
+  bindGetUserInfo: function (e) {
+    console.log(e.detail.userInfo)
+    if (e.detail.userInfo) {//用户按了允许授权按钮
+      app.globalData.userInfo = e.detail.userInfo
+      that.accredit()
+    } else {//用户按了拒绝按钮
+      
+    }
+  },
+
   accredit: function() {
     wx.request({
       url: app.globalData.url + '/Children/Index', //仅为示例，并非真实的接口地址

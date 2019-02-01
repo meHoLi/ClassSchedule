@@ -41,7 +41,9 @@
     "pages/treasureChest/treasureChest",
     "pages/sharedSpace/sharedSpace",
     "pages/commonSignUpClass/commonSignUpClass",
-    "pages/importClassList/importClassList"
+    "pages/importClassList/importClassList",
+    "pages/growthDiaryDetails/growthDiaryDetails",
+    "pages/updateExchangeItem/updateExchangeItem"
   ],
   "window": {
     "backgroundTextStyle": "light",

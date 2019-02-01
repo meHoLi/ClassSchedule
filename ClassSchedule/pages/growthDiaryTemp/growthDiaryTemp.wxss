@@ -25,6 +25,10 @@
   overflow-wrap:break-word;
   padding: 20rpx 0; 
 }
+.createAndUpdateInfo{
+  color: #999999;
+  text-align:right;
+}
 
 .btn{
   display: flex;

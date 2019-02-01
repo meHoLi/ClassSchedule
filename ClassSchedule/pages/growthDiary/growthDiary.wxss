@@ -5,6 +5,11 @@
 }
 
 /************* 成长日记 **************/
+.cropper {
+  width: 100%;
+  height: 100%;
+}
+
 .growthDiaryBody .infoMain{
   padding: 0 20rpx;
 }
@@ -91,6 +96,7 @@
 
 .diaryInput{
   /* height:152rpx;  */
+  width: 80%;
   font-size: 30rpx;
   padding: 28rpx;
   margin: 0 auto;
@@ -178,7 +184,10 @@
 .haveClassTable {
   width: 100%;
 }
-.item {
+.item{
+  position: relative;
+}
+.listItem {
   display: flex;
   align-items:center;
   height: 236rpx;
@@ -186,6 +195,9 @@
   overflow: hidden;
   border-top: 20rpx solid #eee;
   padding: 10rpx 0;
+  background: #fff;
+  position: relative;
+  z-index: 5;
 }
 .item:last-child {
   border-bottom: 20rpx solid #eee;
@@ -214,6 +226,28 @@
 }
 .itemRight .itemRightBottom{
   width: 100%;
+}
+
+/* 左滑编辑 */
+.listEditBtn{ 
+  position: absolute; 
+  top:0; 
+  right: 0; 
+  height: 100%;
+} 
+.itemEditBtn{ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  height: 100%;
+  text-align: center; 
+  z-index: 4; 
+  font-size: 36rpx;
+  background-color: #eee; 
+} 
+.itemEditBtn .item-edit{
+  width: 40rpx;
 }
 
 /* tabBar */

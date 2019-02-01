@@ -30,7 +30,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        debugger
         if (!!res.data.Data){
           that.setData({
             hiddenmodalput: false,
@@ -48,7 +47,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
   onShow: function (options) {
-    debugger
     let that = this;
 
     wx.hideShareMenu()
@@ -100,7 +98,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        debugger
         that.setData({
           hiddenmodalput: true,
         })

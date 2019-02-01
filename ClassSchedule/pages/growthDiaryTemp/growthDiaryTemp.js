@@ -16,16 +16,19 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (options) {debugger
     wx.hideShareMenu()
+    let obj = {}
+
+    if (!!options.showData && options.showData !== 'null' && options.showData !== 'undefined'){
+      obj.showData = JSON.parse(options.showData)
+    }
 
     if (!!options.query){
-      let query = JSON.parse(options.query)
-
-      this.setData({
-        query: query
-      })
+       obj.query = JSON.parse(options.query)
     }
+
+    this.setData(obj)
   },
 
   //修改

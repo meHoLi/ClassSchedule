@@ -185,7 +185,7 @@ Page({
   },
 
   //点击小旗子的打卡按钮
-  punchCard: function(e){debugger
+  punchCard: function(e){
     let that = this,
       item = e.currentTarget.dataset.item,
       query = {
@@ -235,7 +235,6 @@ Page({
 
   //取消打卡
   cancelCard: function (e) {
-    debugger
     let that = this,
       item = e.currentTarget.dataset.item,
       query = {
@@ -285,7 +284,6 @@ Page({
 
   //删除打卡习惯
   delItem: function (e) {
-    debugger
     let that = this,
       item = e.currentTarget.dataset.item,
       query = {
@@ -408,7 +406,7 @@ Page({
     }
   },
   // 滑动中事件
-  touchE: function (e) {debugger
+  touchE: function (e) {
     if (e.changedTouches.length == 1) {
       //手指移动结束后水平位置 
       var endX = e.changedTouches[0].clientX;
